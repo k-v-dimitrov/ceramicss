@@ -76,8 +76,6 @@ export async function getStaticProps(
         //@ts-ignore
         const rawProductsFromCollection = collectionWithProducts.products;
 
-        console.log({ rawProductsFromCollection });
-
         const productsFromCollection: Product[] = rawProductsFromCollection.map(
             (rawProduct: any): Product => ({
                 title: rawProduct.title,

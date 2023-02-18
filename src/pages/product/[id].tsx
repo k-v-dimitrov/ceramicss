@@ -76,8 +76,6 @@ export async function getStaticProps(
         const rawProduct: any = await client.product.fetch(
             rebuildShopifyProductId(id)
         );
-        //@ts-ignore
-        console.log({ rawProduct });
 
         const product: Product = {
             title: rawProduct.title,
