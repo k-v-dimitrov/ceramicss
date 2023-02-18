@@ -12,11 +12,6 @@ class ShopifyClient {
     private shopifyClient: ClientType;
 
     private constructor() {
-        console.log({
-            domain: process.env.SHOPIFY_DOMAIN_NAME,
-            storefrontAccessToken: process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
-        });
-
         this.shopifyClient = Client.buildClient({
             domain: process.env.SHOPIFY_DOMAIN_NAME,
             storefrontAccessToken: process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
