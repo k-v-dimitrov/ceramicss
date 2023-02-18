@@ -1,5 +1,6 @@
 import { GetStaticPropsContext, type NextPage } from "next";
 import Head from "next/head";
+import Link from "next/link";
 
 import Client from "shopify-buy";
 
@@ -13,12 +14,12 @@ const Home: NextPage = () => {
 
             <section className="py-24 flex items-center min-h-screen justify-center flex-col bg-white">
                 <h1>Cerramicss frontpage</h1>
-                <a
+                <Link
                     className="p-2 hover:underline hover:cursor-pointer"
                     href="/collections"
                 >
                     Go to collection
-                </a>
+                </Link>
             </section>
         </>
     );
