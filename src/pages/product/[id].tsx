@@ -34,20 +34,14 @@ const ProductsOverview: NextPage<Props> = ({ product }) => {
 
 export async function getStaticPaths() {
     try {
-        const client = ShopifyClient.getInstance();
+        const allProductIds =
+            await ShopifyClient.getInstance().getAllProductIds({
+                shouldSanitizeIds: true,
+            });
 
-        const collections = await client.collection.fetchAllWithProducts();
-
-        const allProductPaths = collections
-            .map((collection) => {
-                return collection.products.map((rawProduct: any) => ({
-                    id: sanitizeShopifyId(rawProduct.id),
-                }));
-            })
-            .flat()
-            .map((idObject) => ({
-                params: idObject,
-            }));
+        const allProductPaths = allProductIds.map((productId) => ({
+            params: productId,
+        }));
 
         return {
             paths: allProductPaths,
@@ -67,36 +61,12 @@ export async function getStaticProps(
     }
     try {
         const { id } = params;
-        const client = ShopifyClient.getInstance();
-
-        const rawProduct: any = await client.product.fetch(
-            rebuildShopifyProductId(id)
-        );
-
-        const product: Product = {
-            title: rawProduct.title,
-            createdAt: rawProduct.createdAt,
-            description: rawProduct.description,
-            // descriptionHtml: rawProduct.descriptionHtml,
-            id: rawProduct.id,
-            images: rawProduct.images.map((image: any): ShopifyImage => {
-                return {
-                    id: image.id,
-                    src: image.src,
-                    height: image.height,
-                    width: image.width,
-                    altText: image.altText,
-                };
-            }),
-            updatedAt: rawProduct.updatedAt,
-        };
+        const product = ShopifyClient.getInstance().getProductById(id);
 
         return { props: { product } };
     } catch (err) {
         console.error(err);
     }
-
-    return { props: { id: "test" } };
 }
 
 export default ProductsOverview;

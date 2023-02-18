@@ -40,16 +40,10 @@ const Collections: NextPage<Props> = ({ collectionList }) => {
 
 export async function getStaticProps(context: GetStaticPropsContext) {
     try {
-        const client = ShopifyClient.getInstance();
-        const collections = await client.collection.fetchAll();
-
-        const collectionList: Collection[] = collections.map(
-            (collection) =>
-                ({
-                    title: collection.title,
-                    id: collection.id,
-                } as Collection)
-        );
+        const collectionList =
+            await ShopifyClient.getInstance().getAllCollections({
+                shouldReturnOnlyIds: false,
+            });
 
         return {
             props: {
