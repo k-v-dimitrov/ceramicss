@@ -1,6 +1,7 @@
 import { GetStaticPropsContext, type NextPage } from "next";
 import Head from "next/head";
 import Client from "shopify-buy";
+import { ShopifyClient } from "src/services/shopify-client";
 
 import type { Product, ShopifyImage } from "src/types/shared";
 import {
@@ -33,10 +34,7 @@ const ProductsOverview: NextPage<Props> = ({ product }) => {
 
 export async function getStaticPaths() {
     try {
-        const client = Client.buildClient({
-            domain: process.env.SHOPIFY_DOMAIN_NAME,
-            storefrontAccessToken: process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
-        });
+        const client = ShopifyClient.getInstance();
 
         const collections = await client.collection.fetchAllWithProducts();
 
@@ -69,10 +67,8 @@ export async function getStaticProps(
     }
     try {
         const { id } = params;
-        const client = Client.buildClient({
-            domain: process.env.SHOPIFY_DOMAIN_NAME,
-            storefrontAccessToken: process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
-        });
+        const client = ShopifyClient.getInstance();
+
         const rawProduct: any = await client.product.fetch(
             rebuildShopifyProductId(id)
         );
