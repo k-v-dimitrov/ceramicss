@@ -58,23 +58,7 @@ class ShopifyClient {
         const rawProductsFromCollection = collectionWithProducts.products;
 
         const productsFromCollection: Product[] = rawProductsFromCollection.map(
-            (rawProduct: any): Product => ({
-                title: rawProduct.title,
-                createdAt: rawProduct.createdAt,
-                description: rawProduct.description,
-                // descriptionHtml: rawProduct.descriptionHtml,
-                id: rawProduct.id,
-                images: rawProduct.images.map((image: any): ShopifyImage => {
-                    return {
-                        id: image.id,
-                        src: image.src,
-                        height: image.height,
-                        width: image.width,
-                        altText: image.altText,
-                    };
-                }),
-                updatedAt: rawProduct.updatedAt,
-            })
+            (rawProduct: any): Product => mapToKnownShopifyProduct(rawProduct)
         );
 
         return productsFromCollection;
@@ -102,26 +86,26 @@ class ShopifyClient {
             rebuildShopifyProductId(productId)
         );
 
-        const product: Product = {
-            title: rawProduct.title,
-            createdAt: rawProduct.createdAt,
-            description: rawProduct.description,
-            // descriptionHtml: rawProduct.descriptionHtml,
-            id: rawProduct.id,
-            images: rawProduct.images.map((image: any): ShopifyImage => {
-                return {
-                    id: image.id,
-                    src: image.src,
-                    height: image.height,
-                    width: image.width,
-                    altText: image.altText,
-                };
-            }),
-            updatedAt: rawProduct.updatedAt,
-        };
-
-        return product;
+        return mapToKnownShopifyProduct(rawProduct);
     }
 }
+
+const mapToKnownShopifyProduct = (rawProduct: any): Product => ({
+    title: rawProduct.title,
+    createdAt: rawProduct.createdAt,
+    description: rawProduct.description,
+    // descriptionHtml: rawProduct.descriptionHtml,
+    id: rawProduct.id,
+    images: rawProduct.images.map((image: any): ShopifyImage => {
+        return {
+            id: image.id,
+            src: image.src,
+            height: image.height,
+            width: image.width,
+            altText: image.altText,
+        };
+    }),
+    updatedAt: rawProduct.updatedAt,
+});
 
 export { ShopifyClient };
