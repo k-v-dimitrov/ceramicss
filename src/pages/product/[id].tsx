@@ -18,7 +18,7 @@ const ProductsOverview: NextPage<Props> = ({ product }) => {
     return (
         <>
             <Head>
-                <title> Home </title>
+                <title> Ceramicss - Single Product Page </title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <section className="py-24 flex items-center justify-center flex-col bg-white">
