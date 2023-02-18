@@ -61,7 +61,7 @@ export async function getStaticProps(
     }
     try {
         const { id } = params;
-        const product = ShopifyClient.getInstance().getProductById(id);
+        const product = await ShopifyClient.getInstance().getProductById(id);
 
         return { props: { product } };
     } catch (err) {
