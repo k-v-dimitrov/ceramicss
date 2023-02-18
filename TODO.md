@@ -4,7 +4,7 @@
 - [ ] Create sample front page with a link to collections page
 - [ ] Create a statically generated collections page with links to products.
 - [ ] Create a statically generated product page
-
+- [ ] Fix pages names HEAD tags and so on...
 
 ## What we need from Desi:
 
