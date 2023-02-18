@@ -1,5 +1,7 @@
-import { type NextPage } from "next";
+import { GetStaticPropsContext, type NextPage } from "next";
 import Head from "next/head";
+
+import Client from "shopify-buy";
 
 const Home: NextPage = () => {
   return (
@@ -45,5 +47,23 @@ const Home: NextPage = () => {
     </>
   );
 };
+
+export async function getStaticProps(context: GetStaticPropsContext) {
+  try {
+    const client = Client.buildClient({
+      domain: process.env.SHOPIFY_DOMAIN_NAME,
+      storefrontAccessToken: process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
+    });
+
+    const collections = await client.collection.fetchAllWithProducts();
+    console.log(collections[1].title);
+  } catch (err) {
+    console.error(err);
+  }
+
+  return {
+    props: {}, // will be passed to the page component as props
+  };
+}
 
 export default Home;
