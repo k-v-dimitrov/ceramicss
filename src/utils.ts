@@ -18,6 +18,10 @@ export const sanitizeShopifyId = (id: string) => {
  *  Used to rebuild shopifyId from sanitizedShopifyId because of getStaticPaths limitation.
  *  See: https://stackoverflow.com/questions/73025224/pass-params-from-getstaticpaths-to-getstaticprops-which-is-not-binded-to-route
  */
-export const rebuildShopifyId = (id: string) => {
+export const rebuildShopifyCollectionId = (id: string) => {
     return `gid://shopify/Collection/${id}`;
+};
+
+export const rebuildShopifyProductId = (id: string) => {
+    return `gid://shopify/Product/${id}`;
 };
