@@ -1,6 +1,6 @@
 import { GetStaticPropsContext, type NextPage } from "next";
 import Head from "next/head";
-import Client from "shopify-buy";
+import Link from "next/link";
 import { ShopifyClient } from "src/services/shopify-client";
 
 import { type Collection } from "src/types/shared";
@@ -24,13 +24,13 @@ const Collections: NextPage<Props> = ({ collectionList }) => {
             <ul className="flex items-center justify-center flex-col">
                 {collectionList.map(({ title, id }) => {
                     return (
-                        <a
+                        <Link
                             className="p-2 hover:underline hover:cursor-pointer"
                             key={id}
                             href={`/products/${sanitizeShopifyId(id)}`}
                         >
                             {title}
-                        </a>
+                        </Link>
                     );
                 })}
             </ul>
