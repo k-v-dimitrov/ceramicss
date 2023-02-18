@@ -1,6 +1,7 @@
 import { GetStaticPropsContext, type NextPage } from "next";
 import Head from "next/head";
 import Client from "shopify-buy";
+import { ShopifyClient } from "src/services/shopify-client";
 
 import { type Collection } from "src/types/shared";
 import { sanitizeShopifyId } from "src/utils";
@@ -39,11 +40,7 @@ const Collections: NextPage<Props> = ({ collectionList }) => {
 
 export async function getStaticProps(context: GetStaticPropsContext) {
     try {
-        const client = Client.buildClient({
-            domain: process.env.SHOPIFY_DOMAIN_NAME,
-            storefrontAccessToken: process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
-        });
-
+        const client = ShopifyClient.getInstance();
         const collections = await client.collection.fetchAll();
 
         const collectionList: Collection[] = collections.map(
