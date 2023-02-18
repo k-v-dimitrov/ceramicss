@@ -7,10 +7,10 @@ import { Product, ShopifyImage, type Collection } from "src/types/shared";
 import { rebuildShopifyCollectionId, sanitizeShopifyId } from "src/utils";
 
 interface Props {
-    productsFromCollection: Product[];
+    collectionProducts: Product[];
 }
 
-const ProductsOverview: NextPage<Props> = ({ productsFromCollection }) => {
+const ProductsOverview: NextPage<Props> = ({ collectionProducts }) => {
     return (
         <>
             <Head>
@@ -20,7 +20,7 @@ const ProductsOverview: NextPage<Props> = ({ productsFromCollection }) => {
             <section className="py-24 flex items-center justify-center flex-col bg-white">
                 <h1> Product overview page </h1>
 
-                <p>{JSON.stringify(productsFromCollection, null, 4)}</p>
+                <p>{JSON.stringify(collectionProducts, null, 4)}</p>
             </section>
 
             <ul className="flex items-center justify-center flex-col"></ul>
@@ -31,16 +31,17 @@ const ProductsOverview: NextPage<Props> = ({ productsFromCollection }) => {
 export async function getStaticPaths() {
     try {
         const client = ShopifyClient.getInstance();
-        const collections = await client.collection.fetchAllWithProducts();
 
-        const productOverViewPaths = collections.map((collection) => ({
-            params: {
-                collectionId: sanitizeShopifyId(collection.id),
-            },
+        const collections = await client.getAllCollections({
+            shouldReturnOnlyIds: true,
+        });
+
+        const paths = collections.map((collection) => ({
+            params: { collectionId: collection.id },
         }));
 
         return {
-            paths: productOverViewPaths,
+            paths,
             fallback: false, // can also be true or 'blocking'
         };
     } catch (err) {
@@ -59,37 +60,12 @@ export async function getStaticProps(
 
     try {
         const { collectionId } = params;
-        const client = ShopifyClient.getInstance();
-
-        const collectionWithProducts =
-            await client.collection.fetchWithProducts(
-                rebuildShopifyCollectionId(collectionId)
+        const collectionProducts =
+            await ShopifyClient.getInstance().fetchCollectionProducts(
+                collectionId
             );
 
-        //@ts-ignore
-        const rawProductsFromCollection = collectionWithProducts.products;
-
-        const productsFromCollection: Product[] = rawProductsFromCollection.map(
-            (rawProduct: any): Product => ({
-                title: rawProduct.title,
-                createdAt: rawProduct.createdAt,
-                description: rawProduct.description,
-                // descriptionHtml: rawProduct.descriptionHtml,
-                id: rawProduct.id,
-                images: rawProduct.images.map((image: any): ShopifyImage => {
-                    return {
-                        id: image.id,
-                        src: image.src,
-                        height: image.height,
-                        width: image.width,
-                        altText: image.altText,
-                    };
-                }),
-                updatedAt: rawProduct.updatedAt,
-            })
-        );
-
-        return { props: { productsFromCollection } };
+        return { props: { collectionProducts } };
     } catch (err) {
         console.error(err);
     }
