@@ -1,5 +1,6 @@
 import { GetStaticPropsContext, type NextPage } from "next";
 import Head from "next/head";
+import Link from "next/link";
 import Client from "shopify-buy";
 import { ShopifyClient } from "src/services/shopify-client";
 
@@ -19,8 +20,22 @@ const ProductsOverview: NextPage<Props> = ({ collectionProducts }) => {
             </Head>
             <section className="py-24 flex items-center justify-center flex-col bg-white">
                 <h1> Product overview page </h1>
-
-                <p>{JSON.stringify(collectionProducts, null, 4)}</p>
+                <br />
+                <ul>
+                    {collectionProducts.map((product) => {
+                        return (
+                            <Link
+                                key={product.id}
+                                href={`/product/${sanitizeShopifyId(
+                                    product.id
+                                )}`}
+                                className="p-2 hover:underline hover:cursor-pointer"
+                            >
+                                {product.title}
+                            </Link>
+                        );
+                    })}
+                </ul>
             </section>
 
             <ul className="flex items-center justify-center flex-col"></ul>
