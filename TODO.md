@@ -6,8 +6,8 @@
 - [x] Create a statically generated product page
 - [x] Make shopify service (instance of shopify-buy client) singleton
 - [x] Fix pages names HEAD tags and so on...
-- [ ] Create pre-push hook to run `yarn build`
-- [ ] From product overview page link to single product page view
+- [x] Create pre-push hook to run `yarn build`
+- [x] From product overview page link to single product page view
 
 ## What we need from Desi:
 
