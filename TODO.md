@@ -1,10 +1,11 @@
 # TODO
 
 - [x] Enter sample categories and products
-- [ ] Create sample front page with a link to collections page
-- [ ] Create a statically generated collections page with links to products.
-- [ ] Create a statically generated product page
-- [ ] Fix pages names HEAD tags and so on...
+- [x] Create sample front page with a link to collections page
+- [x] Create a statically generated collections page with links to products.
+- [x] Create a statically generated product page
+- [x] Make shopify service (instance of shopify-buy client) singleton
+- [x] Fix pages names HEAD tags and so on...
 
 ## What we need from Desi:
 
