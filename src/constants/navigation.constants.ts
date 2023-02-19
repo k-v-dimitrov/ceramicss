@@ -18,7 +18,7 @@ export const SITE_NAV: SiteNav[] = [
         label: "Начало",
     },
     {
-        href: "/",
+        href: "/about",
         label: "За нас",
         subLinks: [
             { href: "/info", label: "Информация" },
