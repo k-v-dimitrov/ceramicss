@@ -6,6 +6,7 @@ import Image from "next/image";
 import LandingCoverPhoto from "@/public/imgs/landing-cover.png";
 import TeamPhoto1 from "@/public/imgs/front-team-1.png";
 import TeamPhoto2 from "@/public/imgs/front-team-2.png";
+import { Footer } from "src/components/footer";
 
 const Home: NextPage = () => {
     return (
@@ -27,7 +28,7 @@ const Home: NextPage = () => {
                 </Link>
             </section>
 
-            <section className="p-5 mt-10 lg:w-10/12 lg:mx-auto">
+            <section className="p-5 lg:p-10 m-10 lg:w-10/12 lg:mx-auto">
                 <div className="flex flex-col justify-center items-center">
                     <div className="flex flex-col">
                         <h1 className="text-primary-500 text-4xl mb-5 self-start">
@@ -53,7 +54,43 @@ const Home: NextPage = () => {
                 </div>
             </section>
 
-            <section className="p-40"></section>
+            <section className="lg:p-20 lg:mx-auto bg-[#EAEAEA]">
+                <div className="flex flex-col justify-center items-center">
+                    <div className="flex flex-col">
+                        <h1 className="text-primary-500 text-4xl mb-5 self-start">
+                            Препоръчани
+                        </h1>
+                        <h1> Create product cards and add them here </h1>
+                        <div className="flex flex-col gap-10 lg:flex-row">
+                            {/* TODO: Create product cards and add them here */}
+                            <Image
+                                src={TeamPhoto1}
+                                alt="Team photo first"
+                                width={638}
+                                height={391}
+                                className=""
+                            />
+                            <Image
+                                src={TeamPhoto2}
+                                alt="Team photo second"
+                                width={638}
+                                height={391}
+                                className=""
+                            />
+
+                            <Image
+                                src={TeamPhoto2}
+                                alt="Team photo second"
+                                width={638}
+                                height={391}
+                                className=""
+                            />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <Footer />
         </>
     );
 };
