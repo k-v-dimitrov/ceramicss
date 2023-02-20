@@ -73,6 +73,11 @@ module.exports = {
       black: "#000000",
       unset: "unset",
     },
+    extend: {
+      fontFamily: {
+        comfortaa: ["Comfortaa", "sans-serif"],
+      },
+    },
   },
   plugins: [],
 };
