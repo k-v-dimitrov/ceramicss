@@ -4,7 +4,7 @@ import Footer from "./footer";
 import FooterProps from "./footer.props";
 
 export default {
-    title: "components/Button",
+    title: "components/Footer",
     component: Footer,
 };
 
