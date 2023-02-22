@@ -1,27 +1,6 @@
 import { type FC } from "react";
 
-import { CartButton } from "@/components";
-
 import type HeaderProps from "./header.props";
-
-const MenuIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={32} height={32} viewBox="0 0 448 512"><path fill="#006AAC" d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>
-)
-
-const SearchIcon = () => (
-  <svg
-    width="23"
-    height="20"
-    viewBox="0 0 30 27"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M29.0236 21.6045L18.7262 13.0957C19.1533 12.0151 19.3974 10.8438 19.3974 9.61209C19.3974 4.3073 15.042 0 9.69489 0C4.34783 0 0 4.3073 0 9.60453C0 14.9018 4.34783 19.2091 9.69489 19.2091C13.2418 19.2091 16.3387 17.3048 18.032 14.4861L28.0473 22.7683C28.5965 23.2141 28.6041 24.1209 28.0778 24.7935C27.7727 25.1788 27.3379 25.4282 26.8955 25.4811C26.6514 25.5038 26.3082 25.4811 26.003 25.2393L18.6423 19.2393C18.3143 18.9748 17.8337 19.0202 17.5667 19.3451C17.2998 19.67 17.3455 20.1461 17.6735 20.4106L25.0343 26.4106C25.5149 26.8035 26.1098 27.0076 26.7429 27.0076C26.8497 27.0076 26.9565 27.0076 27.0633 26.9924C27.9176 26.9018 28.7262 26.4408 29.283 25.7305C30.3356 24.3929 30.2212 22.5793 29.0236 21.6045ZM9.70252 17.7053C5.19451 17.7053 1.53318 14.0705 1.53318 9.61209C1.53318 5.15365 5.19451 1.51134 9.69489 1.51134C14.1953 1.51134 17.8642 5.1461 17.8642 9.60453C17.8642 14.063 14.1953 17.6977 9.69489 17.6977L9.70252 17.7053Z"
-      fill="#006AAC"
-    />
-  </svg>
-);
 
 const LogoIcon = () => (
   <svg
@@ -51,6 +30,8 @@ const LogoIcon = () => (
 );
 
 const Header: FC<HeaderProps> = () => {
+  const isCartEmpty = false;
+
   return (
     <div className="bg-white  w-full">
       <div className="lg:container flex justify-between items-center px-4 py-6 mx-auto">
@@ -68,20 +49,26 @@ const Header: FC<HeaderProps> = () => {
         <div className="hidden lg:flex">
           <div className="flex items-center bg-gray-300 rounded-full px-2 py-2 mr-3 self-center">
             <div className="mr-3">
-              <SearchIcon />
+              <div className="icon-search cursor-pointer text-primary-500 text-lg"></div>
             </div>
 
             <input type="text" className="bg-unset mr-2" />
           </div>
 
           <div className="mr-3">
-            <CartButton />
+            <div className="inline-block relative">
+              {!isCartEmpty && (
+                <div className="absolute h-3 w-3 bg-warning-500 right-0 rounded-full" />
+              )}
+
+              <div className="hover:cursor-pointer flex justify-center items-center h-10 w-10 bg-primary-500 rounded-full">
+                <div className="icon-cart text-white text-xl"></div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="block lg:hidden">
-          <MenuIcon />
-        </div>
+        <div className="block lg:hidden">hamburger</div>
       </div>
     </div>
   );
