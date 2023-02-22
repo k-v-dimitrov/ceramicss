@@ -1,3 +1,4 @@
+import { Footer, Header } from "@/components";
 import { GetStaticPropsContext, type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
@@ -17,6 +18,9 @@ const Collections: NextPage<Props> = ({ collectionList }) => {
                 <title>Ceramicss - Collections</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+
+            <Header />
+
             <section className="py-24 flex items-center justify-center bg-white">
                 <h1> Collections page </h1>
             </section>
@@ -34,6 +38,8 @@ const Collections: NextPage<Props> = ({ collectionList }) => {
                     );
                 })}
             </ul>
+
+            <Footer />
         </>
     );
 };
