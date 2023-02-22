@@ -26,7 +26,7 @@ export const SITE_NAV: SiteNav[] = [
         ],
     },
     {
-        href: "/",
+        href: "/collections",
         label: "Магазин",
         subLinks: [
             { href: "/", label: "Чаши" },
