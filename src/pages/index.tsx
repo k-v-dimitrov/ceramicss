@@ -10,6 +10,7 @@ import { Footer } from "src/components/footer";
 import { getRecommendedProductIds } from "src/constants/recommended-products.constants";
 import { ShopifyClient } from "src/services/shopify-client";
 import { Product } from "src/types/shared";
+import { Header } from "@/components";
 
 interface HomeProps {
     recommendedProducts: Product[];
@@ -22,6 +23,8 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
                 <title>Ceramicss - Home</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+
+            <Header />
 
             <section
                 className="flex flex-col relative bg-center"
