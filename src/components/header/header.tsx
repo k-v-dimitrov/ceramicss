@@ -33,7 +33,7 @@ const Header: FC<HeaderProps> = () => {
                         <input type="text" className="bg-unset mr-2" />
                     </div>
 
-                    <div className="mr-3">
+                    <div>
                         <div className="inline-block relative">
                             {!isCartEmpty && (
                                 <div className="absolute h-3 w-3 bg-warning-500 right-0 rounded-full" />
