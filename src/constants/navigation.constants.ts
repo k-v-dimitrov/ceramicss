@@ -35,7 +35,7 @@ export const SITE_NAV: SiteNav[] = [
         ],
     },
     {
-        href: "/",
+        href: "/contacts",
         label: "Контакти",
         subLinks: [
             { href: "tel:+359885011100", label: "+359 88 501 1100" },
