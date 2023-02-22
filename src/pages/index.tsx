@@ -1,4 +1,4 @@
-import { type NextPage } from "next";
+import { GetStaticPropsContext, type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
@@ -7,8 +7,15 @@ import LandingCoverPhoto from "@/public/imgs/landing-cover.png";
 import TeamPhoto1 from "@/public/imgs/front-team-1.png";
 import TeamPhoto2 from "@/public/imgs/front-team-2.png";
 import { Footer } from "src/components/footer";
+import { getRecommendedProductIds } from "src/constants/recommended-products.constants";
+import { ShopifyClient } from "src/services/shopify-client";
+import { Product } from "src/types/shared";
 
-const Home: NextPage = () => {
+interface HomeProps {
+    recommendedProducts: Product[];
+}
+
+const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
     return (
         <>
             <Head>
@@ -17,8 +24,11 @@ const Home: NextPage = () => {
             </Head>
 
             <section
-                className="border flex min-h-screen flex-col relative"
-                style={{ backgroundImage: `url(${LandingCoverPhoto.src})` }}
+                className="flex flex-col relative bg-center"
+                style={{
+                    backgroundImage: `url(${LandingCoverPhoto.src})`,
+                    height: "70vh",
+                }}
             >
                 <Link
                     className="py-4 px-6 bg-[#FFF] text-primary-500 font-semibold rounded-3xl hover:cursor-pointer absolute top-3/4 left-1/2 -translate-x-2/4"
@@ -28,63 +38,47 @@ const Home: NextPage = () => {
                 </Link>
             </section>
 
-            <section className="p-5 lg:p-10 m-10 lg:w-10/12 lg:mx-auto">
-                <div className="flex flex-col justify-center items-center">
-                    <div className="flex flex-col">
-                        <h1 className="text-primary-500 text-4xl mb-5 self-start">
+            <section>
+                <div className="p-12 flex flex-col items-center">
+                    <div className="flex flex-col gap-5">
+                        <h1 className="text-primary-500 text-3xl self-start">
                             Екип
                         </h1>
+
                         <div className="flex flex-col gap-10 lg:flex-row">
                             <Image
                                 src={TeamPhoto1}
                                 alt="Team photo first"
-                                width={638}
-                                height={391}
-                                className=""
+                                className="flex-grow-1"
                             />
+
                             <Image
                                 src={TeamPhoto2}
-                                alt="Team photo second"
-                                width={638}
-                                height={391}
-                                className=""
+                                alt="Team photo first"
+                                className="flex-grow-1"
                             />
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section className="lg:p-20 lg:mx-auto bg-[#EAEAEA]">
-                <div className="flex flex-col justify-center items-center">
-                    <div className="flex flex-col">
-                        <h1 className="text-primary-500 text-4xl mb-5 self-start">
+            <section className="bg-[#EAEAEA]">
+                <div className="p-12 flex flex-col items-center">
+                    <div className="flex flex-col gap-5">
+                        <h1 className="text-primary-500 text-3xl self-start">
                             Препоръчани
                         </h1>
-                        <h1> Create product cards and add them here </h1>
-                        <div className="flex flex-col gap-10 lg:flex-row">
-                            {/* TODO: Create product cards and add them here */}
-                            <Image
-                                src={TeamPhoto1}
-                                alt="Team photo first"
-                                width={638}
-                                height={391}
-                                className=""
-                            />
-                            <Image
-                                src={TeamPhoto2}
-                                alt="Team photo second"
-                                width={638}
-                                height={391}
-                                className=""
-                            />
 
-                            <Image
-                                src={TeamPhoto2}
-                                alt="Team photo second"
-                                width={638}
-                                height={391}
-                                className=""
-                            />
+                        <div className="flex flex-col gap-10 md:flex-row">
+                            {recommendedProducts.map((product) => {
+                                return (
+                                    <Image
+                                        key={product.id}
+                                        src={product.images[0]}
+                                        alt={product.description}
+                                    />
+                                );
+                            })}
                         </div>
                     </div>
                 </div>
@@ -96,3 +90,23 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export async function getStaticProps(context: GetStaticPropsContext) {
+    try {
+        const recommendedProductIds = getRecommendedProductIds();
+
+        const recommendedProducts = await Promise.all(
+            recommendedProductIds.map((id) =>
+                ShopifyClient.getInstance().getProductById(id)
+            )
+        );
+
+        return {
+            props: {
+                recommendedProducts,
+            },
+        };
+    } catch (err) {
+        console.error(err);
+    }
+}
