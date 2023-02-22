@@ -1,5 +1,7 @@
 # TODO
 
+- [ ] Replace all svg icons with font icons
+
 
 ## What we need from Desi:
 
