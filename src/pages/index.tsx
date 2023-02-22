@@ -7,7 +7,7 @@ import LandingCoverPhoto from "@/public/imgs/landing-cover.png";
 import TeamPhoto1 from "@/public/imgs/front-team-1.png";
 import TeamPhoto2 from "@/public/imgs/front-team-2.png";
 import { Footer } from "src/components/footer";
-import { getRecommendedProductIds } from "src/constants/recommended-products.constants";
+import { getRecommendedProductIds } from "@/constants/recommended-products.constants";
 import { ShopifyClient } from "src/services/shopify-client";
 import { Product } from "src/types/shared";
 import { Header } from "@/components";

@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import FooterProps from "./footer.props";
 
-import { SITE_NAV, SOCIAL_LINKS } from "src/constants/navigation.constants";
+import { SITE_NAV, SOCIAL_LINKS } from "@/constants/navigation.constants";
 
 import FooterLogo from "@/public/imgs/footer-logo.png";
 
