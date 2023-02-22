@@ -1,6 +1,7 @@
 # TODO
 
 - [ ] Replace all svg icons with font icons
+- [ ] Fix font in dev
 
 
 ## What we need from Desi:
