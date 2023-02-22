@@ -52,13 +52,13 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
                             <Image
                                 src={TeamPhoto1}
                                 alt="Team photo first"
-                                className="flex-grow-1"
+                                className="object-fit"
                             />
 
                             <Image
                                 src={TeamPhoto2}
                                 alt="Team photo first"
-                                className="flex-grow-1"
+                                className="object-fit"
                             />
                         </div>
                     </div>
@@ -72,13 +72,14 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
                             Препоръчани
                         </h1>
 
-                        <div className="flex flex-col gap-10 md:flex-row">
+                        <div className="flex flex-col gap-10 lg:flex-row">
                             {recommendedProducts.map((product) => {
                                 return (
                                     <Image
                                         key={product.id}
                                         src={product.images[0]}
                                         alt={product.description}
+                                        className="object-fit"
                                     />
                                 );
                             })}
