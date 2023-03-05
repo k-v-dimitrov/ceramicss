@@ -1,15 +1,15 @@
 import Head from "next/head";
 import { type NextPage } from "next";
 
-const Home: NextPage = () => {
+const Shop: NextPage = () => {
     return (
         <>
             <Head>
-                <title>Home - Ceramicss</title>
+                <title>Shop - Ceramicss</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <h1>Home</h1>
+            <h1>Shop</h1>
         </>
     );
 };
@@ -20,4 +20,4 @@ export const getStaticProps = async () => {
     };
 };
 
-export default Home;
+export default Shop;

@@ -12,6 +12,8 @@ Missing cover photos for collections:
 3. Захарници
 4. Играчки, магнити
 
+We need favicon
+
 
 ## Tags
 

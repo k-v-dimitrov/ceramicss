@@ -1,21 +1,23 @@
-import { type NextPage } from "next";
 import Head from "next/head";
+import { type NextPage } from "next";
 
-import { Contacts, Header, Footer } from "@/components";
-
-const ContactsPage: NextPage = () => {
+const Contacts: NextPage = () => {
     return (
         <>
             <Head>
-                <title>Ceramicss - Home</title>
+                <title>Contacts - Ceramicss</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <Header />
-            <Contacts />
-            <Footer />
+            <h1>Contacts</h1>
         </>
     );
 };
 
-export default ContactsPage;
+export const getStaticProps = async () => {
+    return {
+        props: {},
+    };
+};
+
+export default Contacts;

@@ -20,21 +20,9 @@
         "incremental": true,
         "baseUrl": ".",
         "paths": {
-            "@/styles/*": [
-                "src/styles/*"
+            "@/*": [
+                "src/*"
             ],
-            "@/components": [
-                "src/components"
-            ],
-            "@/components/*": [
-                "src/components/*"
-            ],
-            "@/constants/*": [
-                "src/constants/*"
-            ],
-            "@/public/*": [
-                "public/*"
-            ]
         }
     },
     "include": [
