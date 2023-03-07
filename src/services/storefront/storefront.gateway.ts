@@ -3,6 +3,7 @@ import {
     InMemoryCache,
     type QueryOptions,
     type MutationOptions,
+    OperationVariables,
 } from "@apollo/client";
 
 const endpoint = process.env.SHOPIFY_STOREFRONT_ENDPOINT;
@@ -17,13 +18,19 @@ const client = new ApolloClient({
 });
 
 const StoreFrontGateway = {
-    query: async (
-        query: QueryOptions["query"],
-        variables: QueryOptions["variables"] = {}
+    query: async <
+        T = any,
+        TVariables extends OperationVariables = OperationVariables
+    >(
+        query: QueryOptions<TVariables, T>["query"],
+        variables?: QueryOptions<TVariables, T>["variables"]
     ) => client.query({ query, variables }),
-    mutate: async (
-        mutation: MutationOptions["mutation"],
-        variables: MutationOptions["variables"] = {}
+    mutate: async <
+        T = any,
+        TVariables extends OperationVariables = OperationVariables
+    >(
+        mutation: MutationOptions<T, TVariables>["mutation"],
+        variables?: MutationOptions<T, TVariables>["variables"]
     ) => client.mutate({ mutation, variables }),
 };
 

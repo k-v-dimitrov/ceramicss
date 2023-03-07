@@ -1,56 +1,61 @@
 import StoreFrontGateway from "./storefront.gateway";
 import {
-    GET_CART,
-    CREATE_CART,
-    GET_PRODUCT,
-    GET_COLLECTION,
-    GET_COLLECTIONS,
-    SEARCH_PRODUCTS,
-} from "./gql";
+    GetCartDocument,
+    CreateCartDocument,
+    GetProductDocument,
+    GetCollectionDocument,
+    GetCollectionsDocument,
+    SearchProductsDocument,
+    GetCheckoutUrlDocument,
+} from "@/types/graphql";
 
 const getProduct = async (id: string) => {
-    const { query, transform } = GET_PRODUCT;
-    const { data } = await StoreFrontGateway.query(query, { id });
+    const { data } = await StoreFrontGateway.query(GetProductDocument, { id });
 
-    return transform(data);
+    return data;
 };
 
 const getCollection = async (handle: string) => {
-    const { query, transform } = GET_COLLECTION;
-    const { data } = await StoreFrontGateway.query(query, { handle });
+    const { data } = await StoreFrontGateway.query(GetCollectionDocument, {
+        handle,
+    });
 
-    return transform(data);
+    return data;
 };
 
 const getCollections = async () => {
-    const { query, transform } = GET_COLLECTIONS;
-    const { data } = await StoreFrontGateway.query(query);
+    const { data } = await StoreFrontGateway.query(GetCollectionsDocument);
 
-    return transform(data);
+    return data;
 };
 
-const searchProducts = async (searchQuery: string) => {
-    const { query, transform } = SEARCH_PRODUCTS;
-    const { data } = await StoreFrontGateway.query(query, { searchQuery });
+const searchProducts = async (query: string) => {
+    const { data } = await StoreFrontGateway.query(SearchProductsDocument, {
+        query,
+    });
 
-    return transform(data);
+    return data;
 };
 
 const createCart = async () => {
-    const { query, transform } = CREATE_CART;
-    const { data } = await StoreFrontGateway.query(query);
+    const { data } = await StoreFrontGateway.mutate(CreateCartDocument);
 
-    return transform(data);
+    return data;
 };
 
 const getCart = async (id: string) => {
-    const { query, transform } = GET_CART;
-    const { data } = await StoreFrontGateway.query(query, { id });
+    const { data } = await StoreFrontGateway.query(GetCartDocument, { id });
 
-    return transform(data);
+    return data;
 };
 
-const getCheckoutUrl = async () => null;
+const getCheckoutUrl = async (id: string) => {
+    const { data } = await StoreFrontGateway.query(GetCheckoutUrlDocument, {
+        id,
+    });
+
+    return data;
+};
 
 const addCartLineItem = async () => null;
 

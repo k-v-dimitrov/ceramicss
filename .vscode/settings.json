@@ -3,6 +3,9 @@
         "*.css": "tailwindcss"
     },
     "cSpell.words": [
-        "ceramicss"
+        "ceramicss",
+        "codegen",
+        "docgen",
+        "tailwindcss"
     ]
 }
