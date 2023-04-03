@@ -1,0 +1,10 @@
+query GetCollections {
+    collections(first: 10) {
+        nodes {
+            title
+            image {
+                url
+            }
+        }
+    }
+}

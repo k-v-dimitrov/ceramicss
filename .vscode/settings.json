@@ -3,6 +3,10 @@
         "*.css": "tailwindcss"
     },
     "cSpell.words": [
+        "ceramicss",
+        "codegen",
+        "docgen",
+        "tailwindcss",
         "ceramicss"
     ]
 }
