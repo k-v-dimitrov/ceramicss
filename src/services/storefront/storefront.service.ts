@@ -5,6 +5,7 @@ import {
     GetProductDocument,
     GetCollectionDocument,
     GetCollectionsDocument,
+    GetCollectionsIdsDocument,
     SearchProductsDocument,
     GetCheckoutUrlDocument,
 } from "@/types/graphql";
@@ -25,6 +26,12 @@ const getCollection = async (handle: string) => {
 
 const getCollections = async () => {
     const { data } = await StoreFrontGateway.query(GetCollectionsDocument);
+
+    return data;
+};
+
+const getCollectionIds = async () => {
+    const { data } = await StoreFrontGateway.query(GetCollectionsIdsDocument);
 
     return data;
 };
@@ -63,7 +70,11 @@ const removeCartLineItem = async () => null;
 
 const Storefront = {
     products: { get: getProduct, search: searchProducts },
-    collections: { get: getCollection, list: getCollections },
+    collections: {
+        get: getCollection,
+        list: getCollections,
+        listIds: getCollectionIds,
+    },
     checkout: {
         url: getCheckoutUrl,
     },

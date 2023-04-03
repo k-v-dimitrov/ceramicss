@@ -1,0 +1,7 @@
+query GetCollectionsIds {
+    collections(first: 20) {
+        nodes {
+            id
+        }
+    }
+}
