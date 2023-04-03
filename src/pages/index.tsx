@@ -3,17 +3,20 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 
+import { Storefront } from "@/services";
+import { GetProductQuery } from "@/types/graphql";
+
+import { Header, Footer } from "@/components";
+import { rebuildShopifyProductId } from "@/utils";
+
+import { getRecommendedProductIds } from "@/constants/recommended-products.constants";
+
 import LandingCoverPhoto from "@/public/imgs/landing-cover.png";
 import TeamPhoto1 from "@/public/imgs/front-team-1.png";
 import TeamPhoto2 from "@/public/imgs/front-team-2.png";
-import { Footer } from "src/components/footer";
-import { getRecommendedProductIds } from "@/constants/recommended-products.constants";
-import { ShopifyClient } from "src/services/shopify-client";
-import { Product } from "src/types/shared";
-import { Header } from "@/components";
 
 interface HomeProps {
-    recommendedProducts: Product[];
+    recommendedProducts: GetProductQuery[];
 }
 
 const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
@@ -73,12 +76,19 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
                         </h1>
 
                         <div className="flex flex-col gap-10 lg:flex-row">
-                            {recommendedProducts.map((product) => {
+                            {recommendedProducts.map(({ product }) => {
                                 return (
                                     <Image
-                                        key={product.id}
-                                        src={product.images[0]}
-                                        alt={product.description}
+                                        key={product?.title}
+                                        src={product?.images.edges[0].node.url}
+                                        width={
+                                            product?.images.edges[0].node.width!
+                                        }
+                                        height={
+                                            product?.images.edges[0].node
+                                                .height!
+                                        }
+                                        alt={product?.description || ""}
                                         className="object-fit"
                                     />
                                 );
@@ -100,9 +110,9 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         const recommendedProductIds = getRecommendedProductIds();
 
         const recommendedProducts = await Promise.all(
-            recommendedProductIds.map((id) =>
-                ShopifyClient.getInstance().getProductById(id)
-            )
+            recommendedProductIds.map((id) => {
+                return Storefront.products.get(rebuildShopifyProductId(id));
+            })
         );
 
         return {
