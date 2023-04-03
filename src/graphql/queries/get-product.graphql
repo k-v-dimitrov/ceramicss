@@ -1,17 +1,7 @@
+#import "../fragments/productFragment.graphql"
+
 query GetProduct($id: ID!) {
     product(id: $id) {
-        title
-        description
-        images(first: 5) {
-            edges {
-                node {
-                    altText
-                    height
-                    width
-                    id
-                    url
-                }
-            }
-        }
+        ...coreProduct
     }
 }

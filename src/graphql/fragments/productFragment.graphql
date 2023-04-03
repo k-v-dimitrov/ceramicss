@@ -1,0 +1,15 @@
+fragment coreProduct on Product {
+    title
+    description
+    images(first: 5) {
+        edges {
+            node {
+                altText
+                height
+                width
+                id
+                url
+            }
+        }
+    }
+}
