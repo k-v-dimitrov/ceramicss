@@ -1,9 +1,9 @@
 import { type NextPage } from "next";
 import Head from "next/head";
+import { Contacts } from "src/components/contacts";
+import { Footer } from "src/components/footer";
 
-import { Contacts, Header, Footer } from "@/components";
-
-const ContactsPage: NextPage = () => {
+const Dev: NextPage = () => {
     return (
         <>
             <Head>
@@ -11,11 +11,10 @@ const ContactsPage: NextPage = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <Header />
             <Contacts />
             <Footer />
         </>
     );
 };
 
-export default ContactsPage;
+export default Dev;

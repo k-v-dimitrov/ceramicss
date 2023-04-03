@@ -3533,6 +3533,11 @@
   resolved "https://registry.yarnpkg.com/@types/semver/-/semver-7.3.13.tgz#da4bfd73f49bd541d28920ab0e2bf0ee80f71c91"
   integrity sha512-21cFJr9z3g5dW8B0CVI9g2O9beqaThGQ6ZFBqHfwhzLDKUxaqTIy3vnfah/UPkfOiF2pLq+tGz+W8RyCskuslw==
 
+"@types/shopify-buy@^2.10.10":
+  version "2.10.10"
+  resolved "https://registry.yarnpkg.com/@types/shopify-buy/-/shopify-buy-2.10.10.tgz#69d6d4a64bdeef469d81ba7a761ebf67ec7510a5"
+  integrity sha512-KNX9ToXmH67+w2K+snlPbanM/dnmVxBKll7H1+UgPMJTDWxFzWttoNaiueSsiUEmNwu3NoFuGXdwew1bTLY4TQ==
+
 "@types/source-list-map@*":
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@types/source-list-map/-/source-list-map-0.1.2.tgz#0078836063ffaf17412349bba364087e0ac02ec9"
@@ -11453,6 +11458,11 @@ shell-quote@^1.7.3:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.8.0.tgz#20d078d0eaf71d54f43bd2ba14a1b5b9bfa5c8ba"
   integrity sha512-QHsz8GgQIGKlRi24yFc6a6lN69Idnx634w49ay6+jA5yFh7a1UY+4Rp6HPx/L/1zcEDPEij8cIsiqR6bQsE5VQ==
+
+shopify-buy@^2.18.0:
+  version "2.18.0"
+  resolved "https://registry.yarnpkg.com/shopify-buy/-/shopify-buy-2.18.0.tgz#8f0fde1ea29662a7dff4bcd69d0ee9e07a26ba77"
+  integrity sha512-UaK/oegLRoeAHCfuYj+fVPfsdB8g6LoFdBg9YkSULDlzgWCHVBYWp+g4/1hYS1EZe0SRXFRkksf/3ESwFS8Nig==
 
 side-channel@^1.0.4:
   version "1.0.4"

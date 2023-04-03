@@ -14,7 +14,6 @@ Missing cover photos for collections:
 
 We need favicon
 
-
 ## Tags
 
 свещник

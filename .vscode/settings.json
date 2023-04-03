@@ -6,6 +6,7 @@
         "ceramicss",
         "codegen",
         "docgen",
-        "tailwindcss"
+        "tailwindcss",
+        "ceramicss"
     ]
 }
