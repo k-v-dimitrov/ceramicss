@@ -80,12 +80,15 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
                                 return (
                                     <Image
                                         key={product?.title}
-                                        src={product?.images.edges[0].node.url}
+                                        src={
+                                            product?.images?.edges[0]?.node.url
+                                        }
                                         width={
-                                            product?.images.edges[0].node.width!
+                                            product?.images?.edges[0]?.node
+                                                .width!
                                         }
                                         height={
-                                            product?.images.edges[0].node
+                                            product?.images?.edges[0]?.node
                                                 .height!
                                         }
                                         alt={product?.description || ""}
