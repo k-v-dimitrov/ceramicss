@@ -45,14 +45,10 @@ const ProductsOverview: NextPage<Props> = ({ collectionProducts }) => {
 
 export async function getStaticPaths() {
     try {
-        const client = ShopifyClient.getInstance();
+        const { collections } = await Storefront.collections.listIds();
 
-        const collections = await client.getAllCollections({
-            shouldReturnOnlyIds: true,
-        });
-
-        const paths = collections.map((collection) => ({
-            params: { collectionId: collection.id },
+        const paths = collections.nodes.map(({ id }) => ({
+            params: { collectionId: sanitizeShopifyId(id) },
         }));
 
         return {
