@@ -9,3 +9,5 @@ generates:
             - "typed-document-node"
             - "typescript-operations"
             - "fragment-matcher"
+        config:
+            skipTypename: true
