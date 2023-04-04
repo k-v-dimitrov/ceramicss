@@ -1,4 +1,5 @@
 fragment coreProduct on Product {
+    id
     title
     description
     images(first: 5) {
