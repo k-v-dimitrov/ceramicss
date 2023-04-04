@@ -1,5 +1,3 @@
-#import "../fragments/productFragment.graphql"
-
 query GetProduct($id: ID!) {
     product(id: $id) {
         ...coreProduct
