@@ -14,9 +14,10 @@ import { getRecommendedProductIds } from "@/constants/recommended-products.const
 import LandingCoverPhoto from "@/public/imgs/landing-cover.png";
 import TeamPhoto1 from "@/public/imgs/front-team-1.png";
 import TeamPhoto2 from "@/public/imgs/front-team-2.png";
+import { type TransformedProduct } from "@/services/storefront/storefront.service";
 
 interface HomeProps {
-    recommendedProducts: GetProductQuery[];
+    recommendedProducts: TransformedProduct[];
 }
 
 const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
@@ -76,21 +77,13 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
                         </h1>
 
                         <div className="flex flex-col gap-10 lg:flex-row">
-                            {recommendedProducts.map(({ product }) => {
+                            {recommendedProducts.map((product) => {
                                 return (
                                     <Image
                                         key={product?.title}
-                                        src={
-                                            product?.images?.edges[0]?.node.url
-                                        }
-                                        width={
-                                            product?.images?.edges[0]?.node
-                                                .width!
-                                        }
-                                        height={
-                                            product?.images?.edges[0]?.node
-                                                .height!
-                                        }
+                                        src={product?.images[0].url}
+                                        width={product?.images[0].width!}
+                                        height={product?.images[0]?.height!}
                                         alt={product?.description || ""}
                                         className="object-fit"
                                     />
