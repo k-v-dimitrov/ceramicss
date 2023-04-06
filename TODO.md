@@ -1,8 +1,6 @@
 # TODO
 
-- [ ] Filter out edge.node
-- [ ] Add Awaited<ReturnType> of all service query functions
-- [ ] Should be able to fetch unlimited number of products
+
 
 ## What we need from Desi:
 
