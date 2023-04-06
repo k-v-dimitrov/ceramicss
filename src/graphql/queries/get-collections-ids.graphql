@@ -1,7 +1,6 @@
-query GetCollections {
+query GetCollectionsIds {
     collections(first: 50) {
         nodes {
-            title
             id
         }
     }

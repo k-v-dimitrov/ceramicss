@@ -1,14 +1,13 @@
 import { GetStaticPropsContext, type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import Client from "shopify-buy";
-import { ShopifyClient } from "src/services/shopify-client";
 
-import { Product, ShopifyImage, type Collection } from "src/types/shared";
+import { Storefront, TransformedCollectionProducts } from "@/services";
+
 import { rebuildShopifyCollectionId, sanitizeShopifyId } from "src/utils";
 
 interface Props {
-    collectionProducts: Product[];
+    collectionProducts: TransformedCollectionProducts;
 }
 
 const ProductsOverview: NextPage<Props> = ({ collectionProducts }) => {
@@ -22,7 +21,7 @@ const ProductsOverview: NextPage<Props> = ({ collectionProducts }) => {
                 <h1> Product overview page </h1>
                 <br />
                 <ul>
-                    {collectionProducts.map((product) => {
+                    {collectionProducts?.map(({ product }) => {
                         return (
                             <Link
                                 key={product.id}
@@ -45,14 +44,10 @@ const ProductsOverview: NextPage<Props> = ({ collectionProducts }) => {
 
 export async function getStaticPaths() {
     try {
-        const client = ShopifyClient.getInstance();
+        const ids = await Storefront.collections.listIds();
 
-        const collections = await client.getAllCollections({
-            shouldReturnOnlyIds: true,
-        });
-
-        const paths = collections.map((collection) => ({
-            params: { collectionId: collection.id },
+        const paths = ids.map(({ id }) => ({
+            params: { collectionId: sanitizeShopifyId(id) },
         }));
 
         return {
@@ -75,12 +70,11 @@ export async function getStaticProps(
 
     try {
         const { collectionId } = params;
-        const collectionProducts =
-            await ShopifyClient.getInstance().fetchCollectionProducts(
-                collectionId
-            );
+        const products = await Storefront.collections.products(
+            rebuildShopifyCollectionId(collectionId)
+        );
 
-        return { props: { collectionProducts } };
+        return { props: { products } };
     } catch (err) {
         console.error(err);
     }

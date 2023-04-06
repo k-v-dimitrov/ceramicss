@@ -1,17 +1,17 @@
-import { Footer, Header } from "@/components";
 import { GetStaticPropsContext, type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { ShopifyClient } from "src/services/shopify-client";
 
-import { type Collection } from "src/types/shared";
-import { sanitizeShopifyId } from "src/utils";
+import { Storefront, type TransformedCollections } from "@/services";
+
+import { Footer, Header } from "@/components";
+import { sanitizeShopifyId } from "@/utils";
 
 interface Props {
-    collectionList: Collection[];
+    collections: TransformedCollections;
 }
 
-const Collections: NextPage<Props> = ({ collectionList }) => {
+const Collections: NextPage<Props> = ({ collections }) => {
     return (
         <>
             <Head>
@@ -26,7 +26,7 @@ const Collections: NextPage<Props> = ({ collectionList }) => {
             </section>
 
             <ul className="flex items-center justify-center flex-col">
-                {collectionList.map(({ title, id }) => {
+                {collections.map(({ title, id }) => {
                     return (
                         <Link
                             className="p-2 hover:underline hover:cursor-pointer"
@@ -46,14 +46,11 @@ const Collections: NextPage<Props> = ({ collectionList }) => {
 
 export async function getStaticProps(context: GetStaticPropsContext) {
     try {
-        const collectionList =
-            await ShopifyClient.getInstance().getAllCollections({
-                shouldReturnOnlyIds: false,
-            });
+        const collections = await Storefront.collections.list();
 
         return {
             props: {
-                collectionList,
+                collections,
             },
         };
     } catch (err) {

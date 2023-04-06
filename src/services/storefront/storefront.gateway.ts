@@ -14,7 +14,7 @@ const client = new ApolloClient({
     headers: {
         "X-Shopify-Storefront-Access-Token": accessToken,
     },
-    cache: new InMemoryCache({ addTypename: false }),
+    cache: new InMemoryCache(),
 });
 
 const StoreFrontGateway = {

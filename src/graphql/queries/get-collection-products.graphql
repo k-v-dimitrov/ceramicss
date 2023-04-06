@@ -1,0 +1,11 @@
+query GetCollectionProducts($id: ID!) {
+    collection(id: $id) {
+        products(first: 250) {
+            edges {
+                node {
+                    ...coreProduct
+                }
+            }
+        }
+    }
+}

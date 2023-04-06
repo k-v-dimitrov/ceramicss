@@ -1,10 +1,9 @@
 query GetCollection($handle: String!) {
     collection(handle: $handle) {
         title
-        products(first: 10) {
+        products(first: 250) {
             nodes {
-                id
-                title
+                ...coreProduct
             }
         }
     }
