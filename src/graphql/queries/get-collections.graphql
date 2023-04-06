@@ -1,5 +1,5 @@
 query GetCollections {
-    collections(first: 20) {
+    collections(first: 50) {
         nodes {
             title
             id
