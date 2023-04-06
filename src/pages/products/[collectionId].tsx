@@ -2,8 +2,7 @@ import { GetStaticPropsContext, type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 
-import { Storefront } from "@/services";
-import { TransformedCollectionProducts } from "@/services/storefront/storefront.service";
+import { Storefront, TransformedCollectionProducts } from "@/services";
 
 import { rebuildShopifyCollectionId, sanitizeShopifyId } from "src/utils";
 

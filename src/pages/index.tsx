@@ -3,8 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 
-import { Storefront } from "@/services";
-import { GetProductQuery } from "@/types/graphql";
+import { Storefront, type TransformedProduct } from "@/services";
 
 import { Header, Footer } from "@/components";
 import { rebuildShopifyProductId } from "@/utils";
@@ -14,7 +13,6 @@ import { getRecommendedProductIds } from "@/constants/recommended-products.const
 import LandingCoverPhoto from "@/public/imgs/landing-cover.png";
 import TeamPhoto1 from "@/public/imgs/front-team-1.png";
 import TeamPhoto2 from "@/public/imgs/front-team-2.png";
-import { type TransformedProduct } from "@/services/storefront/storefront.service";
 
 interface HomeProps {
     recommendedProducts: TransformedProduct[];

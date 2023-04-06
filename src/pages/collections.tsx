@@ -2,12 +2,10 @@ import { GetStaticPropsContext, type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 
-import { Storefront } from "@/services";
-import { GetCollectionsQuery } from "@/types/graphql";
+import { Storefront, type TransformedCollections } from "@/services";
 
 import { Footer, Header } from "@/components";
 import { sanitizeShopifyId } from "@/utils";
-import { TransformedCollections } from "@/services/storefront/storefront.service";
 
 interface Props {
     collections: TransformedCollections;

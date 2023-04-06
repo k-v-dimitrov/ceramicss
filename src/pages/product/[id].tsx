@@ -1,8 +1,8 @@
-import { Storefront } from "@/services";
-import { TransformedProduct } from "@/services/storefront/storefront.service";
-import { rebuildShopifyProductId } from "@/utils";
 import { GetStaticPropsContext, type NextPage } from "next";
 import Head from "next/head";
+
+import { Storefront, TransformedProduct } from "@/services";
+import { rebuildShopifyProductId } from "@/utils";
 
 interface Props {
     product: TransformedProduct;
