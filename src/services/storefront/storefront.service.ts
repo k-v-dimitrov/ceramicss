@@ -9,12 +9,40 @@ import {
     GetCollectionProductsDocument,
     SearchProductsDocument,
     GetCheckoutUrlDocument,
+    GetProductsDocument,
+    GetProductsIdsDocument,
 } from "@/types/graphql";
+import { sanitizeShopifyId } from "@/utils";
+
+export type TransformedProduct = Awaited<ReturnType<typeof getProduct>>;
 
 const getProduct = async (id: string) => {
-    const { data } = await StoreFrontGateway.query(GetProductDocument, { id });
+    const {
+        data: { product },
+    } = await StoreFrontGateway.query(GetProductDocument, { id });
+
+    if (product?.images) {
+        const { images, ...restProduct } = product;
+
+        const transformedImages = images.edges.map(({ node }) => node);
+        return { ...restProduct, images: transformedImages };
+    }
+};
+
+const getProducts = async () => {
+    const { data } = await StoreFrontGateway.query(GetProductsDocument);
 
     return data;
+};
+
+const getProductIds = async () => {
+    const { data } = await StoreFrontGateway.query(GetProductsIdsDocument);
+
+    const ids = data.products.edges.map(({ node }) =>
+        sanitizeShopifyId(node.id)
+    );
+
+    return ids;
 };
 
 const getCollection = async (handle: string) => {
@@ -81,7 +109,12 @@ const addCartLineItem = async () => null;
 const removeCartLineItem = async () => null;
 
 const Storefront = {
-    products: { get: getProduct, search: searchProducts },
+    products: {
+        get: getProduct,
+        search: searchProducts,
+        all: getProducts,
+        ids: getProductIds,
+    },
     collections: {
         get: getCollection,
         list: getCollections,
