@@ -3,8 +3,7 @@ query GetCollection($handle: String!) {
         title
         products(first: 10) {
             nodes {
-                id
-                title
+                ...coreProduct
             }
         }
     }
