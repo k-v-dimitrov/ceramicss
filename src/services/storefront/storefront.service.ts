@@ -36,6 +36,12 @@ const getProducts = async () => {
         data: { products },
     } = await StoreFrontGateway.query(GetProductsDocument);
 
+    if (products.pageInfo.hasNextPage) {
+        console.warn(
+            "Exceeded maximum of 250 product items. Consider Refactor!"
+        );
+    }
+
     const transformedProducts = products.edges.map(({ node }) => {
         const { images, ...restProduct } = node;
         const transformedImages = images.edges.map(({ node }) => node);

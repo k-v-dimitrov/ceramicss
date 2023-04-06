@@ -1,5 +1,8 @@
 query GetProducts {
     products(first: 250) {
+        pageInfo {
+            hasNextPage
+        }
         edges {
             node {
                 ...coreProduct
