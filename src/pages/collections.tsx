@@ -7,9 +7,10 @@ import { GetCollectionsQuery } from "@/types/graphql";
 
 import { Footer, Header } from "@/components";
 import { sanitizeShopifyId } from "@/utils";
+import { TransformedCollections } from "@/services/storefront/storefront.service";
 
 interface Props {
-    collections: GetCollectionsQuery["collections"];
+    collections: TransformedCollections;
 }
 
 const Collections: NextPage<Props> = ({ collections }) => {
@@ -27,7 +28,7 @@ const Collections: NextPage<Props> = ({ collections }) => {
             </section>
 
             <ul className="flex items-center justify-center flex-col">
-                {collections.nodes.map(({ title, id }) => {
+                {collections.map(({ title, id }) => {
                     return (
                         <Link
                             className="p-2 hover:underline hover:cursor-pointer"
@@ -47,7 +48,7 @@ const Collections: NextPage<Props> = ({ collections }) => {
 
 export async function getStaticProps(context: GetStaticPropsContext) {
     try {
-        const { collections } = await Storefront.collections.list();
+        const collections = await Storefront.collections.list();
 
         return {
             props: {

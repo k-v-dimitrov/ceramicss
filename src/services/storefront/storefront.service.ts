@@ -86,7 +86,7 @@ const getCollection = async (handle: string) => {
     }
 };
 
-export type TransformedCollections = Awaited<ReturnType<typeof getCollection>>;
+export type TransformedCollections = Awaited<ReturnType<typeof getCollections>>;
 const getCollections = async () => {
     const { data } = await StoreFrontGateway.query(GetCollectionsDocument);
 
