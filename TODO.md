@@ -1,9 +1,9 @@
 # TODO
 
-- [ ] Replace all svg icons with font icons
-- [ ] Fix font in dev
-- [ ] (KD) Make better use of product tags, (e.g. be able to tag recommended products for index page)
- 
+- [ ] Filter out edge.node
+- [ ] Add Awaited<ReturnType> of all service query functions
+- [ ] Should be able to fetch unlimited number of products
+
 ## What we need from Desi:
 
 Missing cover photos for collections:
