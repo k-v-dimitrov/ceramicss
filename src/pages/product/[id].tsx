@@ -30,8 +30,8 @@ export async function getStaticPaths() {
     try {
         const allProductIds = await Storefront.products.ids();
 
-        const allProductPaths = allProductIds.map((productId) => ({
-            params: { id: productId },
+        const allProductPaths = allProductIds.map((id) => ({
+            params: { id },
         }));
 
         return {
