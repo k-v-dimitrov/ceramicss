@@ -21,8 +21,7 @@
         "graphql": "^16.6.0",
         "next": "latest",
         "react": "18.2.0",
-        "react-dom": "18.2.0",
-        "shopify-buy": "^2.18.0"
+        "react-dom": "18.2.0"
     },
     "devDependencies": {
         "@babel/core": "^7.20.12",
