@@ -1,17 +1,11 @@
+import { Storefront } from "@/services";
+import { TransformedProduct } from "@/services/storefront/storefront.service";
+import { rebuildShopifyProductId } from "@/utils";
 import { GetStaticPropsContext, type NextPage } from "next";
 import Head from "next/head";
-import Client from "shopify-buy";
-import { ShopifyClient } from "src/services/shopify-client";
-
-import type { Product, ShopifyImage } from "src/types/shared";
-import {
-    rebuildShopifyCollectionId,
-    rebuildShopifyProductId,
-    sanitizeShopifyId,
-} from "src/utils";
 
 interface Props {
-    product: Product;
+    product: TransformedProduct;
 }
 
 const ProductsOverview: NextPage<Props> = ({ product }) => {
@@ -34,13 +28,10 @@ const ProductsOverview: NextPage<Props> = ({ product }) => {
 
 export async function getStaticPaths() {
     try {
-        const allProductIds =
-            await ShopifyClient.getInstance().getAllProductIds({
-                shouldSanitizeIds: true,
-            });
+        const allProductIds = await Storefront.products.ids();
 
         const allProductPaths = allProductIds.map((productId) => ({
-            params: productId,
+            params: { id: productId },
         }));
 
         return {
@@ -56,12 +47,16 @@ export async function getStaticProps(
     context: GetStaticPropsContext<{ id: string }>
 ) {
     const { params } = context;
+
     if (!params) {
         return {};
     }
+
     try {
         const { id } = params;
-        const product = await ShopifyClient.getInstance().getProductById(id);
+        const product = await Storefront.products.get(
+            rebuildShopifyProductId(id)
+        );
 
         return { props: { product } };
     } catch (err) {
