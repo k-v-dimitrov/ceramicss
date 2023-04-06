@@ -1,0 +1,9 @@
+query GetProductsIds {
+    products(first: 250) {
+        edges {
+            node {
+                id
+            }
+        }
+    }
+}
