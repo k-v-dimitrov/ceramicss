@@ -3,15 +3,15 @@ import Head from "next/head";
 import Link from "next/link";
 
 import { Storefront } from "@/services";
-import { GetCollectionProductsQuery } from "@/types/graphql";
+import { TransformedCollectionProducts } from "@/services/storefront/storefront.service";
 
 import { rebuildShopifyCollectionId, sanitizeShopifyId } from "src/utils";
 
 interface Props {
-    collection: GetCollectionProductsQuery["collection"];
+    collectionProducts: TransformedCollectionProducts;
 }
 
-const ProductsOverview: NextPage<Props> = ({ collection }) => {
+const ProductsOverview: NextPage<Props> = ({ collectionProducts }) => {
     return (
         <>
             <Head>
@@ -22,7 +22,7 @@ const ProductsOverview: NextPage<Props> = ({ collection }) => {
                 <h1> Product overview page </h1>
                 <br />
                 <ul>
-                    {collection?.products.edges.map(({ node: product }) => {
+                    {collectionProducts?.map(({ product }) => {
                         return (
                             <Link
                                 key={product.id}
@@ -45,9 +45,9 @@ const ProductsOverview: NextPage<Props> = ({ collection }) => {
 
 export async function getStaticPaths() {
     try {
-        const { collections } = await Storefront.collections.listIds();
+        const ids = await Storefront.collections.listIds();
 
-        const paths = collections.nodes.map(({ id }) => ({
+        const paths = ids.map(({ id }) => ({
             params: { collectionId: sanitizeShopifyId(id) },
         }));
 
@@ -71,11 +71,11 @@ export async function getStaticProps(
 
     try {
         const { collectionId } = params;
-        const { collection } = await Storefront.collections.products(
+        const products = await Storefront.collections.products(
             rebuildShopifyCollectionId(collectionId)
         );
 
-        return { props: { collection } };
+        return { props: { products } };
     } catch (err) {
         console.error(err);
     }
