@@ -4,15 +4,18 @@ import Image from "next/image";
 
 import { Storefront, TransformedProduct } from "@/services";
 
-import { Footer, Header, Button } from "@/components";
+import { Footer, Header, Button, QuantityPicker } from "@/components";
 
 import { rebuildShopifyProductId } from "@/utils";
+import { useState } from "react";
 
 interface Props {
     product: TransformedProduct;
 }
 
 const ProductsOverview: NextPage<Props> = ({ product }) => {
+    const [selectedQty, setSelectedQty] = useState(1);
+
     return (
         <div className="container m-auto">
             <Head>
@@ -47,7 +50,12 @@ const ProductsOverview: NextPage<Props> = ({ product }) => {
                     <p className="w-3/4">{product?.description}</p>
 
                     {/* Quantity, Add to cart button */}
-                    <div className="flex mt-10">
+                    <div className="flex mt-10 gap-4">
+                        <QuantityPicker
+                            currQuantity={selectedQty}
+                            setQuantity={setSelectedQty}
+                        />
+
                         <Button
                             onClick={() => {
                                 console.log("IMPLEMENT ME");
