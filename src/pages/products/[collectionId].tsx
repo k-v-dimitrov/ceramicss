@@ -2,24 +2,37 @@ import { GetStaticPropsContext, type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 
-import { Storefront, TransformedCollectionProducts } from "@/services";
+import {
+    Storefront,
+    TransformedCollectionProducts,
+    TransformedCollections,
+} from "@/services";
+
+import { Header, Footer, CollectionsMenu } from "@/components";
 
 import { rebuildShopifyCollectionId, sanitizeShopifyId } from "src/utils";
 
 interface Props {
     collectionProducts: TransformedCollectionProducts;
+    allCollections: TransformedCollections;
 }
 
-const ProductsOverview: NextPage<Props> = ({ collectionProducts }) => {
+const ProductsOverview: NextPage<Props> = ({
+    collectionProducts,
+    allCollections,
+}) => {
     return (
         <>
             <Head>
                 <title> Ceramicss - Products Overview </title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <section className="py-24 flex items-center justify-center flex-col bg-white">
-                <h1> Product overview page </h1>
-                <br />
+
+            <Header />
+
+            <CollectionsMenu collectionIdentifiers={allCollections} />
+
+            {/* <section className="py-24 flex items-center justify-center flex-col bg-white">
                 <ul>
                     {collectionProducts?.map(({ product }) => {
                         return (
@@ -35,9 +48,9 @@ const ProductsOverview: NextPage<Props> = ({ collectionProducts }) => {
                         );
                     })}
                 </ul>
-            </section>
+            </section> */}
 
-            <ul className="flex items-center justify-center flex-col"></ul>
+            <Footer />
         </>
     );
 };
@@ -74,7 +87,17 @@ export async function getStaticProps(
             rebuildShopifyCollectionId(collectionId)
         );
 
-        return { props: { collectionProducts } };
+        const allCollections = await Storefront.collections.listIds();
+
+        return {
+            props: {
+                collectionProducts,
+                allCollections: allCollections.map(({ id, title }) => ({
+                    title,
+                    id: sanitizeShopifyId(id),
+                })),
+            },
+        };
     } catch (err) {
         console.error(err);
     }
