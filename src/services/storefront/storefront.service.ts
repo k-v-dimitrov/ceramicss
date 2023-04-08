@@ -76,10 +76,16 @@ const getCollection = async (handle: string) => {
         const { products, title } = collection;
 
         const transformedProducts = products.nodes.map((productNode) => {
-            const { images, ...restProduct } = productNode;
+            const { images, variants, ...restProduct } = productNode;
             const transformedImages = images.edges.map(({ node }) => node);
 
-            return { ...restProduct, images: transformedImages };
+            const transformedVariants = variants.nodes[0].priceV2;
+
+            return {
+                ...restProduct,
+                images: transformedImages,
+                variants: transformedVariants,
+            };
         });
 
         return { title, products: transformedProducts };
@@ -120,10 +126,16 @@ const getCollectionProducts = async (id: string) => {
         const { products } = collection;
 
         const transformedProducts = products.edges.map(({ node }) => {
-            const { images, ...restProduct } = node;
+            const { images, variants, ...restProduct } = node;
             const transformedImages = images.edges.map(({ node }) => node);
 
-            return { product: restProduct, images: transformedImages };
+            const transformedVariants = variants.nodes[0].priceV2;
+
+            return {
+                product: restProduct,
+                images: transformedImages,
+                variants: transformedVariants,
+            };
         });
 
         return transformedProducts;
