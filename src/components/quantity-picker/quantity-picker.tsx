@@ -2,8 +2,8 @@ import { type FC } from "react";
 
 import QuantityPickerProps from "./quantity-picker.props";
 
-const Button: FC<QuantityPickerProps> = () => {
+const QuantityPicker: FC<QuantityPickerProps> = () => {
     return <h1>quantity picker</h1>;
 };
 
-export default Button;
+export default QuantityPicker;
