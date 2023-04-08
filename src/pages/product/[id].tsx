@@ -4,7 +4,13 @@ import Image from "next/image";
 
 import { Storefront, TransformedProduct } from "@/services";
 
-import { Footer, Header, Button, QuantityPicker } from "@/components";
+import {
+    Footer,
+    Header,
+    Button,
+    QuantityPicker,
+    ImageRotator,
+} from "@/components";
 
 import { rebuildShopifyProductId } from "@/utils";
 import { useState } from "react";
@@ -15,6 +21,9 @@ interface Props {
 
 const ProductsOverview: NextPage<Props> = ({ product }) => {
     const [selectedQty, setSelectedQty] = useState(1);
+    const [spotlightedImage, setSpotlightedImage] = useState(
+        product?.images[0]
+    );
 
     return (
         <div className="container m-auto">
@@ -27,15 +36,11 @@ const ProductsOverview: NextPage<Props> = ({ product }) => {
 
             <section className="grid grid-cols-2">
                 <div>
-                    {product?.images && product.images[0] && (
-                        <Image
-                            src={product.images[0].url}
-                            width={640}
-                            height={640}
-                            alt={product.images[0].altText || ""}
-                            className="object-fill"
-                        />
-                    )}
+                    <ImageRotator
+                        spotlightImage={spotlightedImage}
+                        images={product?.images}
+                        setSpotlightImage={setSpotlightedImage}
+                    />
                 </div>
 
                 <div className="pt-16">

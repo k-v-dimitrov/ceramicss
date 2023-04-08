@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 
-type ShopifyImage = {
+export type ShopifyImage = {
     altText?: string | null | undefined;
     height?: number | null | undefined;
     width?: number | null | undefined;
@@ -9,9 +9,9 @@ type ShopifyImage = {
 };
 
 interface ImageRotatorProps {
-    spotlightImage: ShopifyImage;
-    setSpotlightImage: Dispatch<SetStateAction<ShopifyImage>>;
-    images: ShopifyImage[];
+    spotlightImage?: ShopifyImage;
+    setSpotlightImage?: Dispatch<SetStateAction<ShopifyImage | undefined>>;
+    images?: ShopifyImage[];
 }
 
 export default ImageRotatorProps;
