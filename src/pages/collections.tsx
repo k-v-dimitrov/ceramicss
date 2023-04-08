@@ -1,6 +1,7 @@
 import { GetStaticPropsContext, type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image";
 
 import { Storefront, type TransformedCollections } from "@/services";
 
@@ -21,23 +22,31 @@ const Collections: NextPage<Props> = ({ collections }) => {
 
             <Header />
 
-            <section className="py-24 flex items-center justify-center bg-white">
-                <h1> Collections page </h1>
-            </section>
+            <section className="md:px-40 px-10 mt-10">
+                <h1 className="text-4xl text-primary-500 font-bold">Магазин</h1>
 
-            <ul className="flex items-center justify-center flex-col">
-                {collections.map(({ title, id }) => {
-                    return (
-                        <Link
-                            className="p-2 hover:underline hover:cursor-pointer"
-                            key={id}
-                            href={`/products/${sanitizeShopifyId(id)}`}
-                        >
-                            {title}
-                        </Link>
-                    );
-                })}
-            </ul>
+                <ul className="flex items-center justify-center flex-col md:grid md:grid-cols-3">
+                    {collections.map(({ title, id, image }) => {
+                        return (
+                            <Link
+                                className="p-4 hover:underline hover:cursor-pointer m-auto"
+                                key={id}
+                                href={`/products/${sanitizeShopifyId(id)}`}
+                            >
+                                {image && image.width && image.height && (
+                                    <Image
+                                        src={image.url}
+                                        alt={image.altText || ""}
+                                        width={image.width}
+                                        height={image.height}
+                                    />
+                                )}
+                                <p className="ml-5 text-xl">{title}</p>
+                            </Link>
+                        );
+                    })}
+                </ul>
+            </section>
 
             <Footer />
         </>
