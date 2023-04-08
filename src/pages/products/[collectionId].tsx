@@ -24,7 +24,7 @@ const ProductsOverview: NextPage<Props> = ({
     allCollections,
 }) => {
     return (
-        <>
+        <div className="container m-auto">
             <Head>
                 <title> Ceramicss - Products Overview </title>
                 <link rel="icon" href="/favicon.ico" />
@@ -72,7 +72,7 @@ const ProductsOverview: NextPage<Props> = ({
             </section>
 
             <Footer />
-        </>
+        </div>
     );
 };
 
