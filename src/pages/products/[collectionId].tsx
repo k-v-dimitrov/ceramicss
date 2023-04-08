@@ -71,24 +71,6 @@ const ProductsOverview: NextPage<Props> = ({
                 </div>
             </section>
 
-            {/* <section className="py-24 flex items-center justify-center flex-col bg-white">
-                <ul>
-                    {collectionProducts?.map(({ product }) => {
-                        return (
-                            <Link
-                                key={product.id}
-                                href={`/product/${sanitizeShopifyId(
-                                    product.id
-                                )}`}
-                                className="p-2 hover:underline hover:cursor-pointer"
-                            >
-                                {product.title}
-                            </Link>
-                        );
-                    })}
-                </ul>
-            </section> */}
-
             <Footer />
         </>
     );
