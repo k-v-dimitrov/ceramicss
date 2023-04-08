@@ -9,12 +9,11 @@
 /* custom icon font */
 @font-face {
     font-family: "custom";
-    src: url("/fonts/custom/custom.eot?otreh3");
-    src: url("/fonts/custom/custom.eot?otreh3#iefix")
-            format("embedded-opentype"),
-        url("/fonts/custom/custom.ttf?otreh3") format("truetype"),
-        url("/fonts/custom/custom.woff?otreh3") format("woff"),
-        url("/fonts/custom/custom.svg?otreh3#custom") format("svg");
+    src: url("fonts/custom.eot?jejqoo");
+    src: url("fonts/custom.eot?jejqoo#iefix") format("embedded-opentype"),
+        url("fonts/custom.ttf?jejqoo") format("truetype"),
+        url("fonts/custom.woff?jejqoo") format("woff"),
+        url("fonts/custom.svg?jejqoo#custom") format("svg");
     font-weight: normal;
     font-style: normal;
     font-display: block;
@@ -36,20 +35,62 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-cart:before {
+.icon-bowl:before {
     content: "\e900";
 }
-.icon-facebook:before {
+.icon-candles:before {
     content: "\e901";
+    color: #fff;
+}
+.icon-cart:before {
+    content: "\e902";
+    color: #fff;
+}
+.icon-cups:before {
+    content: "\e903";
+    color: #fff;
+}
+.icon-earings:before {
+    content: "\e904";
+    color: #fff;
+}
+.icon-facebook:before {
+    content: "\e905";
+    color: #fff;
+}
+.icon-gifts:before {
+    content: "\e906";
+    color: #fff;
 }
 .icon-instagram:before {
-    content: "\e902";
+    content: "\e907";
+    color: #fff;
+}
+.icon-kettle:before {
+    content: "\e908";
+    color: #fff;
+}
+.icon-mail:before {
+    content: "\e909";
+    color: #fff;
+}
+.icon-necklace:before {
+    content: "\e90a";
+    color: #fff;
 }
 .icon-phone:before {
-    content: "\e903";
+    content: "\e90b";
+    color: #fff;
 }
 .icon-search:before {
-    content: "\e904";
+    content: "\e90c";
+    color: #fff;
 }
-
-/* /custom icon font */
+.icon-sets:before {
+    content: "\e90d";
+    color: #fff;
+}
+.icon-sugarbowl:before {
+    content: "\e90e";
+    color: #fff;
+}
