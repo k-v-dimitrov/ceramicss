@@ -8,7 +8,7 @@ import {
     TransformedCollections,
 } from "@/services";
 
-import { Header, Footer, CollectionsMenu } from "@/components";
+import { Header, Footer, CollectionsMenu, Product } from "@/components";
 
 import { rebuildShopifyCollectionId, sanitizeShopifyId } from "src/utils";
 
@@ -32,7 +32,44 @@ const ProductsOverview: NextPage<Props> = ({
 
             <Header />
 
-            <CollectionsMenu collectionIdentifiers={allCollections} />
+            <section className="flex">
+                <CollectionsMenu
+                    collectionIdentifiers={allCollections}
+                    currentCollection={currentCollection}
+                />
+
+                <div className="grid grid-cols-1 lg:grid-cols-3 m-auto">
+                    <Product.GridItem
+                        collectionIdentifier={currentCollection}
+                        product={collectionProducts?.[0]}
+                    />
+
+                    <Product.GridItem
+                        collectionIdentifier={currentCollection}
+                        product={collectionProducts?.[0]}
+                    />
+
+                    <Product.GridItem
+                        collectionIdentifier={currentCollection}
+                        product={collectionProducts?.[0]}
+                    />
+
+                    <Product.GridItem
+                        collectionIdentifier={currentCollection}
+                        product={collectionProducts?.[0]}
+                    />
+
+                    <Product.GridItem
+                        collectionIdentifier={currentCollection}
+                        product={collectionProducts?.[0]}
+                    />
+
+                    <Product.GridItem
+                        collectionIdentifier={currentCollection}
+                        product={collectionProducts?.[0]}
+                    />
+                </div>
+            </section>
 
             {/* <section className="py-24 flex items-center justify-center flex-col bg-white">
                 <ul>
