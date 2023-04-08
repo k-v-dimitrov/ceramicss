@@ -13,12 +13,14 @@ import { Header, Footer, CollectionsMenu } from "@/components";
 import { rebuildShopifyCollectionId, sanitizeShopifyId } from "src/utils";
 
 interface Props {
+    currentCollection: TransformedCollections[number];
     collectionProducts: TransformedCollectionProducts;
     allCollections: TransformedCollections;
 }
 
 const ProductsOverview: NextPage<Props> = ({
     collectionProducts,
+    currentCollection,
     allCollections,
 }) => {
     return (
@@ -89,6 +91,10 @@ export async function getStaticProps(
 
         const allCollections = await Storefront.collections.listIds();
 
+        const currentCollection = allCollections.find(
+            ({ id }) => id === rebuildShopifyCollectionId(collectionId)
+        );
+
         return {
             props: {
                 collectionProducts,
@@ -96,6 +102,8 @@ export async function getStaticProps(
                     title,
                     id: sanitizeShopifyId(id),
                 })),
+
+                currentCollection,
             },
         };
     } catch (err) {
