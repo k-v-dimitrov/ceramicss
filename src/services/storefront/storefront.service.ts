@@ -23,10 +23,20 @@ const getProduct = async (id: string) => {
     } = await StoreFrontGateway.query(GetProductDocument, { id });
 
     if (product?.images) {
-        const { images, ...restProduct } = product;
+        const { images, variants, tags, ...restProduct } = product;
 
         const transformedImages = images.edges.map(({ node }) => node);
-        return { ...restProduct, images: transformedImages };
+
+        const transformedVariants = variants.nodes[0].priceV2;
+
+        const tag = tags[0].toUpperCase();
+
+        return {
+            ...restProduct,
+            images: transformedImages,
+            variants: transformedVariants,
+            tag,
+        };
     }
 };
 
@@ -43,8 +53,10 @@ const getProducts = async () => {
     }
 
     const transformedProducts = products.edges.map(({ node }) => {
-        const { images, ...restProduct } = node;
+        const { images, tags, ...restProduct } = node;
         const transformedImages = images.edges.map(({ node }) => node);
+
+        const tag = tags[0].toUpperCase();
 
         return { product: restProduct, images: transformedImages };
     });
@@ -76,19 +88,55 @@ const getCollection = async (handle: string) => {
         const { products, title } = collection;
 
         const transformedProducts = products.nodes.map((productNode) => {
-            const { images, variants, ...restProduct } = productNode;
+            const { images, variants, tags, ...restProduct } = productNode;
             const transformedImages = images.edges.map(({ node }) => node);
 
             const transformedVariants = variants.nodes[0].priceV2;
+
+            const tag = tags[0].toUpperCase();
 
             return {
                 ...restProduct,
                 images: transformedImages,
                 variants: transformedVariants,
+                tag,
             };
         });
 
         return { title, products: transformedProducts };
+    }
+};
+
+export type TransformedCollectionProducts = Awaited<
+    ReturnType<typeof getCollectionProducts>
+>;
+const getCollectionProducts = async (id: string) => {
+    const {
+        data: { collection },
+    } = await StoreFrontGateway.query(GetCollectionProductsDocument, {
+        id,
+    });
+
+    if (collection?.products) {
+        const { products } = collection;
+
+        const transformedProducts = products.edges.map(({ node }) => {
+            const { images, variants, tags, ...restProduct } = node;
+            const transformedImages = images.edges.map(({ node }) => node);
+
+            const transformedVariants = variants.nodes[0].priceV2;
+
+            const tag = tags[0].toUpperCase();
+
+            return {
+                ...restProduct,
+                images: transformedImages,
+                variants: transformedVariants,
+                tag,
+            };
+        });
+
+        return transformedProducts;
     }
 };
 
@@ -110,36 +158,6 @@ const getCollectionIds = async () => {
     const transformedCollectionIds = data.collections.nodes.map((node) => node);
 
     return transformedCollectionIds;
-};
-
-export type TransformedCollectionProducts = Awaited<
-    ReturnType<typeof getCollectionProducts>
->;
-const getCollectionProducts = async (id: string) => {
-    const {
-        data: { collection },
-    } = await StoreFrontGateway.query(GetCollectionProductsDocument, {
-        id,
-    });
-
-    if (collection?.products) {
-        const { products } = collection;
-
-        const transformedProducts = products.edges.map(({ node }) => {
-            const { images, variants, ...restProduct } = node;
-            const transformedImages = images.edges.map(({ node }) => node);
-
-            const transformedVariants = variants.nodes[0].priceV2;
-
-            return {
-                product: restProduct,
-                images: transformedImages,
-                variants: transformedVariants,
-            };
-        });
-
-        return transformedProducts;
-    }
 };
 
 export type TransformedSearchedProducts = Awaited<
