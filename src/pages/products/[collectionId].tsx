@@ -70,11 +70,11 @@ export async function getStaticProps(
 
     try {
         const { collectionId } = params;
-        const products = await Storefront.collections.products(
+        const collectionProducts = await Storefront.collections.products(
             rebuildShopifyCollectionId(collectionId)
         );
 
-        return { props: { products } };
+        return { props: { collectionProducts } };
     } catch (err) {
         console.error(err);
     }
