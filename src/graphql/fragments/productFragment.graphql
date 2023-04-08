@@ -2,6 +2,14 @@ fragment coreProduct on Product {
     id
     title
     description
+    variants(first: 1) {
+        nodes {
+            priceV2 {
+                amount
+                currencyCode
+            }
+        }
+    }
     images(first: 5) {
         edges {
             node {
