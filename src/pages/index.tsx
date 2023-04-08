@@ -20,7 +20,7 @@ interface HomeProps {
 
 const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
     return (
-        <>
+        <div className="container m-auto">
             <Head>
                 <title>Ceramicss - Home</title>
                 <link rel="icon" href="/favicon.ico" />
@@ -93,7 +93,7 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
             </section>
 
             <Footer />
-        </>
+        </div>
     );
 };
 

@@ -14,7 +14,7 @@ interface Props {
 
 const Collections: NextPage<Props> = ({ collections }) => {
     return (
-        <>
+        <div className="container m-auto">
             <Head>
                 <title>Ceramicss - Collections</title>
                 <link rel="icon" href="/favicon.ico" />
@@ -22,7 +22,7 @@ const Collections: NextPage<Props> = ({ collections }) => {
 
             <Header />
 
-            <section className="md:px-40 px-10 mt-10">
+            <section className=" mt-10">
                 <h1 className="text-4xl text-primary-500 font-bold">Магазин</h1>
 
                 <ul className="flex items-center justify-center flex-col md:grid md:grid-cols-3">
@@ -49,7 +49,7 @@ const Collections: NextPage<Props> = ({ collections }) => {
             </section>
 
             <Footer />
-        </>
+        </div>
     );
 };
 
