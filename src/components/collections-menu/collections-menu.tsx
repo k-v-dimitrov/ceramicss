@@ -6,22 +6,21 @@ import classNames from "classnames";
 import type CollectionsMenuProps from "./collections-menu.props";
 
 import COLLECTION_PICTOGRAM from "./collections-menu.constants";
+import { sanitizeShopifyId } from "@/utils";
 
 const CollectionsMenu: FC<CollectionsMenuProps> = ({
     collectionIdentifiers,
+    currentCollection,
 }) => {
-    const router = useRouter();
-
-    const pageCollectionId = router.query.collectionId as string;
-
     return (
-        <ul className="bg-gray-200 border-gray-200 rounded-xl p-4 border-8 max-w-fit">
+        <ul className="bg-gray-200 border-gray-200 rounded-xl p-4 border-8 max-w-fit h-fit">
             <h1 className="text-lg text-primary-500 font-bold mb-2">
                 Продукти
             </h1>
 
             {collectionIdentifiers.map(({ id, title }) => {
-                const isSelected = pageCollectionId === id;
+                const isSelected =
+                    sanitizeShopifyId(currentCollection.id) === id;
 
                 return (
                     <li
