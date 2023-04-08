@@ -8,4 +8,4 @@ const Product = {
     GridItem: GridProduct,
 };
 
-export default Product;
+export { Product };
