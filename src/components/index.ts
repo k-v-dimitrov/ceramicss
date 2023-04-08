@@ -4,3 +4,4 @@ export * from "./footer";
 export * from "./contacts";
 export * from "./collections-menu";
 export * from "./product";
+export * from "./button";
