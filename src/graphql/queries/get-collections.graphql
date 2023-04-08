@@ -3,6 +3,12 @@ query GetCollections {
         nodes {
             title
             id
+            image {
+                url
+                height
+                width
+                altText
+            }
         }
     }
 }

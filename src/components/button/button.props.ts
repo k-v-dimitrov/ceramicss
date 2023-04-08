@@ -1,8 +1,8 @@
 import { type ReactNode } from "react";
 
 interface ButtonProps {
-    size: string;
-    children: ReactNode;
+    onClick: () => void;
+    children: ReactNode | string;
 }
 
 export default ButtonProps;

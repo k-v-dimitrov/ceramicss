@@ -2,43 +2,54 @@ import { GetStaticPropsContext, type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 
-import { Storefront, TransformedCollectionProducts } from "@/services";
+import {
+    Storefront,
+    TransformedCollectionProducts,
+    TransformedCollections,
+} from "@/services";
+
+import { Header, Footer, CollectionsMenu, Product } from "@/components";
 
 import { rebuildShopifyCollectionId, sanitizeShopifyId } from "src/utils";
 
 interface Props {
+    currentCollection: TransformedCollections[number];
     collectionProducts: TransformedCollectionProducts;
+    allCollections: TransformedCollections;
 }
 
-const ProductsOverview: NextPage<Props> = ({ collectionProducts }) => {
+const ProductsOverview: NextPage<Props> = ({
+    collectionProducts,
+    currentCollection,
+    allCollections,
+}) => {
     return (
-        <>
+        <div className="container m-auto">
             <Head>
                 <title> Ceramicss - Products Overview </title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <section className="py-24 flex items-center justify-center flex-col bg-white">
-                <h1> Product overview page </h1>
-                <br />
-                <ul>
-                    {collectionProducts?.map(({ product }) => {
-                        return (
-                            <Link
-                                key={product.id}
-                                href={`/product/${sanitizeShopifyId(
-                                    product.id
-                                )}`}
-                                className="p-2 hover:underline hover:cursor-pointer"
-                            >
-                                {product.title}
-                            </Link>
-                        );
-                    })}
-                </ul>
+
+            <Header />
+
+            <section className="flex">
+                <CollectionsMenu
+                    collectionIdentifiers={allCollections}
+                    currentCollection={currentCollection}
+                />
+
+                <div className="grid grid-cols-1 lg:grid-cols-3 m-auto">
+                    <Product.GridItem product={collectionProducts?.[0]} />
+                    <Product.GridItem product={collectionProducts?.[1]} />
+                    <Product.GridItem product={collectionProducts?.[2]} />
+                    <Product.GridItem product={collectionProducts?.[0]} />
+                    <Product.GridItem product={collectionProducts?.[0]} />
+                    <Product.GridItem product={collectionProducts?.[0]} />
+                </div>
             </section>
 
-            <ul className="flex items-center justify-center flex-col"></ul>
-        </>
+            <Footer />
+        </div>
     );
 };
 
@@ -70,11 +81,27 @@ export async function getStaticProps(
 
     try {
         const { collectionId } = params;
-        const products = await Storefront.collections.products(
+        const collectionProducts = await Storefront.collections.products(
             rebuildShopifyCollectionId(collectionId)
         );
 
-        return { props: { products } };
+        const allCollections = await Storefront.collections.listIds();
+
+        const currentCollection = allCollections.find(
+            ({ id }) => id === rebuildShopifyCollectionId(collectionId)
+        );
+
+        return {
+            props: {
+                collectionProducts,
+                allCollections: allCollections.map(({ id, title }) => ({
+                    title,
+                    id: sanitizeShopifyId(id),
+                })),
+
+                currentCollection,
+            },
+        };
     } catch (err) {
         console.error(err);
     }
