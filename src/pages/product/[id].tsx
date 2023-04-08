@@ -47,7 +47,7 @@ const ProductsOverview: NextPage<Props> = ({ product }) => {
                     <p className="w-3/4">{product?.description}</p>
 
                     {/* Quantity, Add to cart button */}
-                    <div className="flex">
+                    <div className="flex mt-10">
                         <Button
                             onClick={() => {
                                 console.log("IMPLEMENT ME");
