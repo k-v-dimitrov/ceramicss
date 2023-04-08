@@ -10,8 +10,8 @@ const Header: FC<HeaderProps> = () => {
     const isCartEmpty = false;
 
     return (
-        <div className="bg-white  w-full">
-            <div className="lg:container flex justify-between items-center px-4 py-6 mx-auto">
+        <div className="bg-white w-full">
+            <div className="lg:container flex justify-between items-center py-6 mx-auto">
                 <Link href="/" className="w-24">
                     <Logo />
                 </Link>

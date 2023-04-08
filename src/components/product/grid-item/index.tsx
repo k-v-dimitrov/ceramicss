@@ -2,12 +2,7 @@ import Image from "next/image";
 
 import type { ProductProps } from "../product.props";
 
-const GridProduct: React.FC<ProductProps> = ({
-    collectionIdentifier,
-    product,
-}) => {
-    console.log({ collectionIdentifier, product });
-
+const GridProduct: React.FC<ProductProps> = ({ product }) => {
     const coverImage = product?.images[0];
 
     return (
@@ -21,7 +16,7 @@ const GridProduct: React.FC<ProductProps> = ({
 
             <p className="text-gray-600 text-sm">{product?.tag}</p>
 
-            <div className="flex justify-between">
+            <div className="flex justify-between mt-2">
                 <p className="text-lg font-bold">{product?.title}</p>
                 <p className="font-light">
                     {product?.variants.amount}

@@ -39,35 +39,12 @@ const ProductsOverview: NextPage<Props> = ({
                 />
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 m-auto">
-                    <Product.GridItem
-                        collectionIdentifier={currentCollection}
-                        product={collectionProducts?.[0]}
-                    />
-
-                    <Product.GridItem
-                        collectionIdentifier={currentCollection}
-                        product={collectionProducts?.[0]}
-                    />
-
-                    <Product.GridItem
-                        collectionIdentifier={currentCollection}
-                        product={collectionProducts?.[0]}
-                    />
-
-                    <Product.GridItem
-                        collectionIdentifier={currentCollection}
-                        product={collectionProducts?.[0]}
-                    />
-
-                    <Product.GridItem
-                        collectionIdentifier={currentCollection}
-                        product={collectionProducts?.[0]}
-                    />
-
-                    <Product.GridItem
-                        collectionIdentifier={currentCollection}
-                        product={collectionProducts?.[0]}
-                    />
+                    <Product.GridItem product={collectionProducts?.[0]} />
+                    <Product.GridItem product={collectionProducts?.[0]} />
+                    <Product.GridItem product={collectionProducts?.[0]} />
+                    <Product.GridItem product={collectionProducts?.[0]} />
+                    <Product.GridItem product={collectionProducts?.[0]} />
+                    <Product.GridItem product={collectionProducts?.[0]} />
                 </div>
             </section>
 
