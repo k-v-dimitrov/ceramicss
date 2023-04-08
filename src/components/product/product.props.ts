@@ -1,6 +1,6 @@
 import type { TransformedCollectionIds, TransformedProduct } from "@/services";
 
 export interface ProductProps {
-    collectionIdentifier: TransformedCollectionIds;
+    collectionIdentifier: TransformedCollectionIds[number];
     product: TransformedProduct;
 }
