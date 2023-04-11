@@ -11,6 +11,7 @@ const ListProduct: React.FC<ProductProps & ListItemProps> = ({
     selectedQuantity,
     onQuantityUpdate,
     calculatedPrice,
+    onProductRemove,
 }) => {
     const [quantity, setQuantity] = useState(selectedQuantity);
 
@@ -20,6 +21,10 @@ const ListProduct: React.FC<ProductProps & ListItemProps> = ({
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [quantity]);
+
+    const onRemoveHandler = () => {
+        onProductRemove && product?.id && onProductRemove(product?.id);
+    };
 
     const coverImage = product?.images[0];
     return (
@@ -39,7 +44,10 @@ const ListProduct: React.FC<ProductProps & ListItemProps> = ({
                 <p className="flex justify-between align-center text-lg text-primary-500 font-bold">
                     {product?.title}
 
-                    <button className="hover:cursor-pointer">
+                    <button
+                        className="hover:cursor-pointer"
+                        onClick={onRemoveHandler}
+                    >
                         <span
                             className="icon-remove"
                             style={{

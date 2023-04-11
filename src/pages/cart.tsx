@@ -9,6 +9,7 @@ import { getMockedCartProducts } from "@/constants/mocked-cart-products";
 
 enum CartActionKind {
     quantityUpdate = "q_update",
+    remove = "p_remove",
 }
 
 interface CartState {
@@ -44,7 +45,23 @@ const cartReducer = (cartState: CartState, action: CartAction) => {
                 return product;
             });
 
-            const newTotal = calculateTotalCartPrice(cartState.products);
+            const newTotal = calculateTotalCartPrice(updatedProducts);
+
+            return {
+                ...cartState,
+                products: updatedProducts,
+                totalPrice: newTotal,
+            };
+        }
+
+        case CartActionKind.remove: {
+            const { payload } = action;
+
+            const updatedProducts = products.filter(
+                (product) => product.id !== payload.productId
+            );
+
+            const newTotal = calculateTotalCartPrice(updatedProducts);
 
             return {
                 ...cartState,
@@ -101,6 +118,12 @@ const Cart: NextPage = () => {
                                 product.quantity *
                                 Number(product.variants?.amount)
                             }
+                            onProductRemove={(productId: string) => {
+                                dispatch({
+                                    type: CartActionKind.remove,
+                                    payload: { productId },
+                                });
+                            }}
                             onQuantityUpdate={(
                                 productId: string,
                                 quantity: number
