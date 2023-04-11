@@ -1,10 +1,27 @@
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+
+import { QuantityPicker } from "@/components";
+
 import { ProductProps } from "../product.props";
+import { ListItemProps } from "./list-item.props";
 
-const ListProduct: React.FC<ProductProps> = ({ product }) => {
+const ListProduct: React.FC<ProductProps & ListItemProps> = ({
+    product,
+    selectedQuantity,
+    onQuantityUpdate,
+    calculatedPrice,
+}) => {
+    const [quantity, setQuantity] = useState(selectedQuantity);
+
+    useEffect(() => {
+        if (product?.id && onQuantityUpdate) {
+            onQuantityUpdate(product.id, quantity);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [quantity]);
+
     const coverImage = product?.images[0];
-
     return (
         <div className="flex flex-row my-10">
             <span className="mr-4">
@@ -34,9 +51,13 @@ const ListProduct: React.FC<ProductProps> = ({ product }) => {
 
                 <p className="my-6 w-3/4">{product?.description}</p>
 
+                <QuantityPicker
+                    currQuantity={quantity}
+                    setQuantity={setQuantity}
+                />
+
                 <p className="text-gray-700 font-bold">
-                    {product?.variants.amount}
-                    {product?.variants.currencyCode}
+                    {calculatedPrice} {product?.variants.currencyCode}
                 </p>
             </div>
         </div>
