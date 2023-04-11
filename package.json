@@ -46,6 +46,7 @@
         "@types/shopify-buy": "^2.10.10",
         "autoprefixer": "^10.4.12",
         "babel-loader": "^8.3.0",
+        "concurrently": "^8.0.1",
         "eslint": "8.33.0",
         "eslint-config-next": "13.1.6",
         "eslint-config-prettier": "^8.6.0",
