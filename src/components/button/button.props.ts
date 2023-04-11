@@ -1,8 +1,15 @@
-import { type ReactNode } from "react";
+import {
+    HTMLAttributes,
+    ButtonHTMLAttributes,
+    type ReactNode,
+    HtmlHTMLAttributes,
+} from "react";
 
 interface ButtonProps {
     onClick: () => void;
     children: ReactNode | string;
+
+    className?: string;
 }
 
 export default ButtonProps;
