@@ -1,8 +1,10 @@
 import { useReducer } from "react";
 import { type NextPage } from "next";
 import Head from "next/head";
-import { Header, Footer, Product } from "@/components";
+import { Header, Footer, Product, Button } from "@/components";
+
 import { TransformedProduct } from "@/services";
+
 import { getMockedCartProducts } from "@/constants/mocked-cart-products";
 
 enum CartActionKind {
@@ -110,6 +112,23 @@ const Cart: NextPage = () => {
                             }}
                         />
                     ))}
+                </div>
+
+                <div className="bg-gray-200 rounded-lg h-fit p-5 w-2/3 mx-auto">
+                    <h2 className="text-2xl font-bold">
+                        Информация за поръчката
+                    </h2>
+                    <div className="flex justify-between my-8 text-gray-800 text-lg">
+                        <p>Междинна сума</p>
+                        <p>{cart.totalPrice} BGN</p>
+                    </div>
+
+                    <Button
+                        className="w-full"
+                        onClick={() => alert("continue")}
+                    >
+                        Продължи
+                    </Button>
                 </div>
             </section>
 
