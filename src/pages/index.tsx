@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import { Storefront, type TransformedProduct } from "@/services";
 
-import { Header, Footer } from "@/components";
+import { Header, Footer, Product } from "@/components";
 import { rebuildShopifyProductId } from "@/utils";
 
 import { getRecommendedProductIds } from "@/constants/recommended-products.constants";
@@ -69,24 +69,18 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
 
             <section className="bg-[#EAEAEA]">
                 <div className="p-12 flex flex-col items-center">
-                    <div className="flex flex-col gap-5">
+                    <div className="flex flex-col">
                         <h1 className="text-primary-500 text-3xl self-start">
                             Препоръчани
                         </h1>
 
-                        <div className="flex flex-col gap-10 lg:flex-row">
-                            {recommendedProducts.map((product) => {
-                                return (
-                                    <Image
-                                        key={product?.title}
-                                        src={product?.images[0].url}
-                                        width={product?.images[0].width!}
-                                        height={product?.images[0]?.height!}
-                                        alt={product?.description || ""}
-                                        className="object-fit"
-                                    />
-                                );
-                            })}
+                        <div className="flex flex-col gap-5 lg:flex-row">
+                            {recommendedProducts.map((product) => (
+                                <Product.GridItem
+                                    key={product?.id}
+                                    product={product}
+                                />
+                            ))}
                         </div>
                     </div>
                 </div>
