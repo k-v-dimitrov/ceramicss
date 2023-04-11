@@ -43,7 +43,7 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
                 </Link>
             </section>
 
-            <section>
+            <section className="flex justify-center">
                 <div className="p-12 flex flex-col items-center">
                     <div className="flex flex-col gap-5">
                         <h1 className="text-primary-500 text-3xl self-start">
@@ -54,13 +54,13 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
                             <Image
                                 src={TeamPhoto1}
                                 alt="Team photo first"
-                                className="object-fit"
+                                className="object-scale-down"
                             />
 
                             <Image
                                 src={TeamPhoto2}
                                 alt="Team photo first"
-                                className="object-fit"
+                                className="object-scale-down"
                             />
                         </div>
                     </div>
