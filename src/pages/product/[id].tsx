@@ -20,7 +20,7 @@ interface Props {
     product: TransformedProduct;
 }
 
-const ProductsOverview: NextPage<Props> = ({ product }) => {
+const ProductOverview: NextPage<Props> = ({ product }) => {
     return (
         <div className="container m-auto">
             <Head>
@@ -80,4 +80,4 @@ export async function getStaticProps(
     }
 }
 
-export default ProductsOverview;
+export default ProductOverview;
