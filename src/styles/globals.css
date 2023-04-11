@@ -38,6 +38,7 @@
 .icon-remove:before {
     content: "\e90f";
     color: #626262;
+    line-height: unset;
 }
 .icon-bowl:before {
     content: "\e900";
