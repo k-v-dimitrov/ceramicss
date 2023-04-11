@@ -1,9 +1,4 @@
-import {
-    HTMLAttributes,
-    ButtonHTMLAttributes,
-    type ReactNode,
-    HtmlHTMLAttributes,
-} from "react";
+import { type ReactNode } from "react";
 
 interface ButtonProps {
     onClick?: () => void;
