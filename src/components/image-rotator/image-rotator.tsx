@@ -29,8 +29,8 @@ const ImageRotator: FC<ImageRotatorProps> = ({
                         key={image.url}
                         alt={image?.altText || ""}
                         src={image?.url}
-                        width={200}
-                        height={200}
+                        width={640}
+                        height={640}
                         className="hover:cursor-pointer"
                         onClick={handleSpotlightImageSelection(image)}
                     />
