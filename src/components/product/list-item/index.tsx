@@ -51,14 +51,19 @@ const ListProduct: React.FC<ProductProps & ListItemProps> = ({
 
                 <p className="my-6 w-3/4">{product?.description}</p>
 
-                <QuantityPicker
-                    currQuantity={quantity}
-                    setQuantity={setQuantity}
-                />
+                <div className="flex items-center gap-4">
+                    <p className="text-gray-700 font-bold min-w-[96px]">
+                        {calculatedPrice} {product?.variants.currencyCode}
+                    </p>
 
-                <p className="text-gray-700 font-bold">
-                    {calculatedPrice} {product?.variants.currencyCode}
-                </p>
+                    <div className="min-w-[64px]">
+                        <QuantityPicker
+                            currQuantity={quantity}
+                            setQuantity={setQuantity}
+                            variant="outlined"
+                        />
+                    </div>
+                </div>
             </div>
         </div>
     );
