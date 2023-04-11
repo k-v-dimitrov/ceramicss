@@ -6,9 +6,8 @@ import {
 } from "react";
 
 interface ButtonProps {
-    onClick: () => void;
+    onClick?: () => void;
     children: ReactNode | string;
-
     className?: string;
 }
 
