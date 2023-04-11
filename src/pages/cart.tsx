@@ -1,6 +1,9 @@
 import { useReducer } from "react";
 import { type NextPage } from "next";
+import Link from "next/link";
 import Head from "next/head";
+import Modal from "react-modal";
+
 import { Header, Footer, Product, Button } from "@/components";
 
 import { TransformedProduct } from "@/services";
@@ -97,6 +100,8 @@ const Cart: NextPage = () => {
         totalPrice: calculateTotalCartPrice(productsInCart),
     });
 
+    const hasItemsInCart = cart.products.length > 0;
+
     return (
         <div className="container m-auto">
             <Head>
@@ -105,6 +110,22 @@ const Cart: NextPage = () => {
             </Head>
 
             <Header />
+
+            <Modal
+                isOpen={!hasItemsInCart}
+                className="bg-black bg-opacity-50 h-full outline-none flex justify-center items-center"
+                ariaHideApp={false}
+            >
+                <div className="bg-gray-200 rounded-lg h-fit p-5 w-1/3 mx-auto text-center">
+                    <h2 className="text-2xl font-bold mb-6">
+                        Количката е празна
+                    </h2>
+
+                    <Link href="/collections">
+                        <Button className="w-full">Към магазин</Button>
+                    </Link>
+                </div>
+            </Modal>
 
             <h1 className="text-4xl text-primary-500 font-bold">Количка</h1>
             <section className="grid grid-cols-2">
