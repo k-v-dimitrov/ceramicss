@@ -1,19 +1,11 @@
 import { GetStaticPropsContext, type NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
 
 import { Storefront, TransformedProduct } from "@/services";
 
-import {
-    Footer,
-    Header,
-    Button,
-    QuantityPicker,
-    ImageRotator,
-} from "@/components";
+import { Footer, Header } from "@/components";
 
 import { rebuildShopifyProductId } from "@/utils";
-import { useState } from "react";
 import DetailedProduct from "@/components/product/detailed";
 
 interface Props {
