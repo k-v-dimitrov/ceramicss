@@ -35,6 +35,10 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-remove:before {
+    content: "\e90f";
+    color: #626262;
+}
 .icon-bowl:before {
     content: "\e900";
 }
