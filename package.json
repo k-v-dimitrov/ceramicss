@@ -22,7 +22,8 @@
         "graphql": "^16.6.0",
         "next": "latest",
         "react": "18.2.0",
-        "react-dom": "18.2.0"
+        "react-dom": "18.2.0",
+        "react-modal": "^3.16.1"
     },
     "devDependencies": {
         "@babel/core": "^7.20.12",
@@ -44,6 +45,7 @@
         "@types/node": "18.11.3",
         "@types/react": "18.0.21",
         "@types/react-dom": "18.0.6",
+        "@types/react-modal": "^3.13.1",
         "@types/shopify-buy": "^2.10.10",
         "autoprefixer": "^10.4.12",
         "babel-loader": "^8.3.0",

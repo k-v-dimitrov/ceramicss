@@ -1,10 +1,12 @@
-import { useState, type FC } from "react";
+import classNames from "classnames";
+import { useEffect, useState, type FC } from "react";
 
 import QuantityPickerProps from "./quantity-picker.props";
 
 const QuantityPicker: FC<QuantityPickerProps> = ({
     currQuantity,
     setQuantity,
+    variant = "filled",
 }) => {
     // TODO: must check inventory if there will be enough available
     const handleIncrement = () => {
@@ -18,7 +20,20 @@ const QuantityPicker: FC<QuantityPickerProps> = ({
     };
 
     return (
-        <div className="flex justify-center align-middle bg-primary-500 text-white text-[24px] text-center rounded-lg">
+        <div
+            className={classNames({
+                flex: true,
+                "justify-center": true,
+                "items-center": true,
+                "bg-primary-500": variant === "filled",
+                "text-white": variant === "filled",
+                "text-[24px]": variant === "filled",
+                "text-[16px]": variant === "outlined",
+                "text-black": variant === "outlined",
+                "text-center": true,
+                "rounded-lg": true,
+            })}
+        >
             <button
                 onClick={handleDecrement}
                 disabled={currQuantity <= 1}
@@ -27,7 +42,20 @@ const QuantityPicker: FC<QuantityPickerProps> = ({
                 -
             </button>
 
-            <div className="w-[48px] py-2 px-4">{currQuantity}</div>
+            <div
+                className={classNames({
+                    "min-w-[36px]": true,
+                    "w-fit": true,
+                    "py-1": true,
+                    "px-2": true,
+                    "border-2 border-primary-500 rounded-md":
+                        variant === "outlined",
+                    "leading-tight": variant === "outlined",
+                    "h-fit": variant === "outlined",
+                })}
+            >
+                {currQuantity}
+            </div>
 
             <button
                 onClick={handleIncrement}

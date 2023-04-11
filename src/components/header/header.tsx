@@ -33,7 +33,7 @@ const Header: FC<HeaderProps> = () => {
                         <input type="text" className="bg-unset mr-2" />
                     </div>
 
-                    <div>
+                    <Link href="/cart">
                         <div className="inline-block relative">
                             {!isCartEmpty && (
                                 <div className="absolute h-3 w-3 bg-warning-500 right-0 rounded-full" />
@@ -43,7 +43,7 @@ const Header: FC<HeaderProps> = () => {
                                 <div className="icon-cart text-white text-xl"></div>
                             </div>
                         </div>
-                    </div>
+                    </Link>
                 </div>
 
                 <div className="block lg:hidden">hamburger</div>
