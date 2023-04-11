@@ -14,17 +14,13 @@ import {
 
 import { rebuildShopifyProductId } from "@/utils";
 import { useState } from "react";
+import DetailedProduct from "@/components/product/detailed";
 
 interface Props {
     product: TransformedProduct;
 }
 
 const ProductsOverview: NextPage<Props> = ({ product }) => {
-    const [selectedQty, setSelectedQty] = useState(1);
-    const [spotlightedImage, setSpotlightedImage] = useState(
-        product?.images[0]
-    );
-
     return (
         <div className="container m-auto">
             <Head>
@@ -34,43 +30,12 @@ const ProductsOverview: NextPage<Props> = ({ product }) => {
 
             <Header />
 
-            <section className="grid grid-cols-2">
-                <div>
-                    <ImageRotator
-                        spotlightImage={spotlightedImage}
-                        images={product?.images}
-                        setSpotlightImage={setSpotlightedImage}
-                    />
-                </div>
-
-                <div className="pt-16">
-                    <p className="text-lg mb-2 font-light">{product?.tag}</p>
-                    <p className="text-3xl mb-6 text-primary-500">
-                        {product?.title}
-                    </p>
-                    <p className="text-2xl mb-6 text-gray-700">
-                        {product?.variants.amount}{" "}
-                        {product?.variants.currencyCode}
-                    </p>
-                    <p className="w-3/4">{product?.description}</p>
-
-                    {/* Quantity, Add to cart button */}
-                    <div className="flex mt-10 gap-4">
-                        <QuantityPicker
-                            currQuantity={selectedQty}
-                            setQuantity={setSelectedQty}
-                        />
-
-                        <Button
-                            onClick={() => {
-                                console.log("IMPLEMENT ME");
-                            }}
-                        >
-                            Добави в количка
-                        </Button>
-                    </div>
-                </div>
-            </section>
+            <DetailedProduct
+                product={product}
+                onAddToCart={() => {
+                    alert("Implement me");
+                }}
+            />
 
             <Footer />
         </div>
