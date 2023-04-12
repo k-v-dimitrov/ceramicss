@@ -37,116 +37,114 @@ const Header: FC<HeaderProps> = () => {
         );
     }, [isCartEmpty]);
 
-    const Desktop = useCallback(() => {
-        return (
-            <>
-                <div className="gap-x-16 text-primary-500 font-comfortaa hidden lg:flex">
-                    {SITE_NAV.map(({ label, href }) => (
-                        <Link key={label} href={href}>
-                            {label}
-                        </Link>
-                    ))}
-                </div>
+    const Desktop = () => (
+        <>
+            <div className="hidden lg:flex">
+                <Link href="/" className="w-24">
+                    <Logo />
+                </Link>
+            </div>
 
-                <div className="flex">
-                    <div className="hidden lg:flex items-center bg-gray-300 rounded-full px-2 py-2 mr-3 self-center">
-                        <div className="mr-3">
-                            <div className="icon-search cursor-pointer text-primary-500 text-lg" />
-                        </div>
+            <div className="gap-x-16 text-primary-500 font-comfortaa hidden lg:flex">
+                {SITE_NAV.map(({ label, href }) => (
+                    <Link key={label} href={href}>
+                        {label}
+                    </Link>
+                ))}
+            </div>
 
-                        <input type="text" className="bg-unset mr-2" />
+            <div className="flex">
+                <div className="hidden lg:flex items-center bg-gray-300 rounded-full px-2 py-2 mr-3 self-center">
+                    <div className="mr-3">
+                        <div className="icon-search cursor-pointer text-primary-500 text-lg" />
                     </div>
 
-                    <Link href="/cart">
-                        <div className="inline-block relative">
-                            <DynamicCartIcon />
-
-                            <div className="hover:cursor-pointer flex justify-center items-center h-10 w-10 bg-primary-500 rounded-full">
-                                <div className="icon-cart text-white text-xl"></div>
-                            </div>
-                        </div>
-                    </Link>
+                    <input type="text" className="bg-unset mr-2" />
                 </div>
-            </>
-        );
-    }, [DynamicCartIcon]);
+
+                <Link href="/cart">
+                    <div className="inline-block relative">
+                        <DynamicCartIcon />
+
+                        <div className="hover:cursor-pointer flex justify-center items-center h-10 w-10 bg-primary-500 rounded-full">
+                            <div className="icon-cart text-white text-xl"></div>
+                        </div>
+                    </div>
+                </Link>
+            </div>
+        </>
+    );
+
+    const Mobile = () => (
+        <Modal
+            isOpen={activeMobileMenu}
+            className="bg-black bg-opacity-50 h-full outline-none flex"
+            overlayClassName="fixed top-[88px] h-[calc(100%-88px)] w-full border-t-2 border-t-gray-300"
+            ariaHideApp={false}
+        >
+            <div className="flex flex-col justify-between w-3/4 h-full bg-white">
+                <div className="flex flex-col text-xl text-primary-500">
+                    {SITE_NAV.map(({ label, href }) => {
+                        const isCurrentLink = router.asPath === href;
+
+                        return (
+                            <Link
+                                key={label}
+                                href={href}
+                                className={classNames({
+                                    "bg-gray-300": isCurrentLink,
+                                    "px-4": true,
+                                    "py-3": true,
+                                    "mt-4": true,
+                                    "mx-4": true,
+                                    "rounded-xl": true,
+                                })}
+                            >
+                                {label}
+                            </Link>
+                        );
+                    })}
+                </div>
+
+                <div className="pb-4 px-3">
+                    <div className="flex items-center bg-gray-300 rounded-full px-2 py-2 self-center">
+                        <input
+                            type="text"
+                            className="bg-unset ml-2 placeholder-gray-600 w-full"
+                            placeholder="Какво търсите?"
+                        />
+
+                        <div className="icon-search cursor-pointer text-primary-500 text-lg mr-2" />
+                    </div>
+                </div>
+            </div>
+        </Modal>
+    );
+
+    const MobileToggler = () => (
+        <div className="flex gap-8 lg:hidden">
+            {activeMobileMenu ? (
+                <button className="lg:hidden" onClick={toggleMobileMenu}>
+                    <i className="icon-remove text-[24px]"></i>
+                </button>
+            ) : (
+                <button className="lg:hidden" onClick={toggleMobileMenu}>
+                    <i className="icon-menu"></i>
+                </button>
+            )}
+
+            <Link href="/" className="w-24">
+                <Logo />
+            </Link>
+        </div>
+    );
 
     return (
         <div className="bg-white w-full">
             <div className="flex justify-between items-center p-6 lg:mx-auto lg:container">
-                <div className="flex gap-8 lg:hidden">
-                    {activeMobileMenu ? (
-                        <button
-                            className="lg:hidden"
-                            onClick={toggleMobileMenu}
-                        >
-                            <i className="icon-remove text-[24px]"></i>
-                        </button>
-                    ) : (
-                        <button
-                            className="lg:hidden"
-                            onClick={toggleMobileMenu}
-                        >
-                            <i className="icon-menu"></i>
-                        </button>
-                    )}
-
-                    <Link href="/" className="w-24">
-                        <Logo />
-                    </Link>
-                </div>
-
-                <div className="hidden lg:flex">
-                    <Link href="/" className="w-24">
-                        <Logo />
-                    </Link>
-                </div>
-
+                <MobileToggler />
                 <Desktop />
-
-                {/* Mobile */}
-                <Modal
-                    isOpen={activeMobileMenu}
-                    className="bg-black bg-opacity-50 h-full outline-none flex"
-                    overlayClassName="fixed top-[88px] h-[calc(100%-88px)] w-full border-t-2 border-t-gray-300"
-                    ariaHideApp={false}
-                >
-                    <div className="flex flex-col justify-between w-3/4 h-full bg-white">
-                        <div className="flex flex-col text-xl text-primary-500">
-                            {SITE_NAV.map(({ label, href }) => {
-                                const isCurrentLink = router.asPath === href;
-
-                                return (
-                                    <Link
-                                        key={label}
-                                        href={href}
-                                        className={classNames({
-                                            "bg-gray-300": isCurrentLink,
-                                            "px-4": true,
-                                            "py-3": true,
-                                            "mt-4": true,
-                                            "mx-4": true,
-                                            "rounded-xl": true,
-                                        })}
-                                    >
-                                        {label}
-                                    </Link>
-                                );
-                            })}
-                        </div>
-
-                        <div className="pb-4 px-3">
-                            <div className="flex items-center bg-gray-300 rounded-full px-2 py-2 self-center ">
-                                <input
-                                    type="text"
-                                    className="bg-unset ml-2 placeholder-gray-600"
-                                    placeholder="Какво търсите?"
-                                />
-                                <div className="icon-search cursor-pointer text-primary-500 text-lg " />
-                            </div>
-                        </div>
-                    </div>
-                </Modal>
+                <Mobile />
             </div>
         </div>
     );
