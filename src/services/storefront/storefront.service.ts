@@ -12,6 +12,10 @@ import {
     GetCheckoutUrlDocument,
     GetProductsDocument,
     GetProductsIdsDocument,
+    AddLineDocument,
+    CartLineInput,
+    RemoveLineDocument,
+    UpdateLineDocument,
 } from "@/types/graphql";
 
 import { sanitizeShopifyId } from "@/utils";
@@ -22,22 +26,19 @@ const getProduct = async (id: string) => {
         data: { product },
     } = await StoreFrontGateway.query(GetProductDocument, { id });
 
-    if (product?.images) {
-        const { images, variants, tags, ...restProduct } = product;
-
-        const transformedImages = images.edges.map(({ node }) => node);
-
-        const transformedVariants = variants.nodes[0].priceV2;
-
-        const tag = tags[0].toUpperCase();
-
-        return {
-            ...restProduct,
-            images: transformedImages,
-            variants: transformedVariants,
-            tag,
-        };
-    }
+    return {
+        id: product?.id,
+        title: product?.title,
+        tags: product?.tags,
+        variantId: product?.variants.nodes[0].id,
+        price: {
+            amount: product?.variants.nodes[0].priceV2.amount,
+            currencyCode: product?.variants.nodes[0].priceV2.currencyCode,
+        },
+        images: product?.images
+            ? product.images.edges.map(({ node }) => node)
+            : undefined,
+    };
 };
 
 export type TransformedProducts = Awaited<ReturnType<typeof getProducts>>;
@@ -192,7 +193,25 @@ const getCart = async (id: string) => {
 
     if (data?.cart) {
         const { cart } = data;
-        return cart;
+
+        return {
+            checkoutUrl: cart.checkoutUrl,
+            hasItems: Boolean(cart.lines.nodes.length),
+            lines: cart.lines.nodes.map((node) => ({
+                id: node.id,
+                quantity: node.quantity,
+                price: {
+                    amount: node.merchandise.priceV2.amount,
+                    currencyCode: node.merchandise.priceV2.currencyCode,
+                },
+                product: {
+                    tags: node.merchandise.product.tags,
+                    title: node.merchandise.product.title,
+                    image: node.merchandise.product.images.nodes[0].url,
+                    description: node.merchandise.product.description,
+                },
+            })),
+        };
     }
 };
 
@@ -212,9 +231,35 @@ const getCheckoutUrl = async (id: string) => {
     return data;
 };
 
-const addCartLineItem = async () => null;
+const addCartLineItem = async (cartId: string, lines: CartLineInput[]) => {
+    const { data } = await StoreFrontGateway.mutate(AddLineDocument, {
+        cartId,
+        lines,
+    });
 
-const removeCartLineItem = async () => null;
+    return data;
+};
+
+const removeCartLineItem = async (cartId: string, lineId: string) => {
+    const { data } = await StoreFrontGateway.mutate(RemoveLineDocument, {
+        cartId,
+        lineIds: [lineId],
+    });
+
+    return data;
+};
+
+const updateCartLineItem = async (
+    cartId: string,
+    payload: { id: string; quantity: number }
+) => {
+    const { data } = await StoreFrontGateway.mutate(UpdateLineDocument, {
+        cartId,
+        lines: [{ id: payload.id, quantity: payload.quantity }],
+    });
+
+    return data;
+};
 
 const Storefront = {
     products: {
@@ -238,6 +283,7 @@ const Storefront = {
         lineItems: {
             add: addCartLineItem,
             remove: removeCartLineItem,
+            update: updateCartLineItem,
         },
     },
 };
