@@ -2,5 +2,29 @@ query GetCart($id: ID!) {
     cart(id: $id) {
         id
         checkoutUrl
+        lines(first: 20) {
+            nodes {
+                id
+                quantity
+                merchandise {
+                    ... on ProductVariant {
+                        priceV2 {
+                            amount
+                            currencyCode
+                        }
+                        product {
+                            tags
+                            title
+                            description
+                            images(first: 1) {
+                                nodes {
+                                    url
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
