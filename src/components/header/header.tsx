@@ -49,7 +49,7 @@ const Header: FC<HeaderProps> = () => {
                 </div>
 
                 <div className="flex">
-                    <div className="hidden lg:flex items-center bg-gray-300 rounded-full px-2 py-2 mr-3 self-center ">
+                    <div className="hidden lg:flex items-center bg-gray-300 rounded-full px-2 py-2 mr-3 self-center">
                         <div className="mr-3">
                             <div className="icon-search cursor-pointer text-primary-500 text-lg" />
                         </div>
@@ -111,7 +111,7 @@ const Header: FC<HeaderProps> = () => {
                     overlayClassName="fixed top-[88px] h-[calc(100%-88px)] w-full border-t-2 border-t-gray-300"
                     ariaHideApp={false}
                 >
-                    <div className="w-3/4 h-full bg-white">
+                    <div className="flex flex-col justify-between w-3/4 h-full bg-white">
                         <div className="flex flex-col text-xl text-primary-500">
                             {SITE_NAV.map(({ label, href }) => {
                                 const isCurrentLink = router.asPath === href;
@@ -133,6 +133,17 @@ const Header: FC<HeaderProps> = () => {
                                     </Link>
                                 );
                             })}
+                        </div>
+
+                        <div className="pb-4 px-3">
+                            <div className="flex items-center bg-gray-300 rounded-full px-2 py-2 self-center ">
+                                <input
+                                    type="text"
+                                    className="bg-unset ml-2 placeholder-gray-600"
+                                    placeholder="Какво търсите?"
+                                />
+                                <div className="icon-search cursor-pointer text-primary-500 text-lg " />
+                            </div>
                         </div>
                     </div>
                 </Modal>
