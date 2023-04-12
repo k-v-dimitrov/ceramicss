@@ -1,23 +1,26 @@
 import { useState, useCallback, type FC, useEffect } from "react";
 import Link from "next/link";
 import Modal from "react-modal";
+import { useRouter } from "next/router";
 
 import Logo from "@/public/icons/logo.svg";
 import { SITE_NAV } from "@/constants/navigation.constants";
 
 import type HeaderProps from "./header.props";
+import classNames from "classnames";
 
 const Header: FC<HeaderProps> = () => {
+    const router = useRouter();
     const [activeMobileMenu, setActiveMobileMenu] = useState(false);
     const isCartEmpty = false;
 
     // Disable scroll on opened modal
     useEffect(() => {
-        document.body.style.overflow = "hidden";
-
-        return () => {
+        if (activeMobileMenu) {
+            document.body.style.overflow = "hidden";
+        } else {
             document.body.style.overflow = "unset";
-        };
+        }
     }, [activeMobileMenu]);
 
     const toggleMobileMenu = () => {
@@ -104,10 +107,35 @@ const Header: FC<HeaderProps> = () => {
                 {/* Mobile */}
                 <Modal
                     isOpen={activeMobileMenu}
-                    className="bg-black bg-opacity-50 h-full outline-none flex justify-center items-center"
-                    overlayClassName="fixed top-[88px] h-[calc(100%-89px)] w-full"
-                    ariaHideApp={true}
-                ></Modal>
+                    className="bg-black bg-opacity-50 h-full outline-none flex"
+                    overlayClassName="fixed top-[88px] h-[calc(100%-88px)] w-full border-t-2 border-t-gray-300"
+                    ariaHideApp={false}
+                >
+                    <div className="w-3/4 h-full bg-white">
+                        <div className="flex flex-col text-xl text-primary-500">
+                            {SITE_NAV.map(({ label, href }) => {
+                                const isCurrentLink = router.asPath === href;
+
+                                return (
+                                    <Link
+                                        key={label}
+                                        href={href}
+                                        className={classNames({
+                                            "bg-gray-300": isCurrentLink,
+                                            "px-4": true,
+                                            "py-3": true,
+                                            "mt-4": true,
+                                            "mx-4": true,
+                                            "rounded-xl": true,
+                                        })}
+                                    >
+                                        {label}
+                                    </Link>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </Modal>
             </div>
         </div>
     );
