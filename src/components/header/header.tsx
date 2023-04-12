@@ -16,7 +16,7 @@ const Header: FC<HeaderProps> = () => {
                     <Logo />
                 </Link>
 
-                <div className="gap-x-16 text-primary-500 font-comfortaa hidden lg:flex">
+                <div className="gap-x-16 text-primary-500 hidden lg:flex">
                     {SITE_NAV.map(({ label, href }) => (
                         <Link key={label} href={href}>
                             {label}
