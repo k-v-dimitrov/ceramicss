@@ -1,3 +1,5 @@
+import { CartLineInput, CartLineUpdateInput } from "./types/graphql";
+
 /**
  * Shopify's ids look very ugly, e.g. gid:/shopify/Collection/438093119769
  * This function will match only the numbers from the id and return it.
@@ -25,3 +27,35 @@ export const rebuildShopifyCollectionId = (id: string) => {
 export const rebuildShopifyProductId = (id: string) => {
     return `gid://shopify/Product/${id}`;
 };
+
+// ---------------- Storefront Client Actions ---------------- //
+
+export async function removeItem(lineId: string) {
+    return fetch("/api/cart/lines/remove", {
+        method: "POST",
+        body: JSON.stringify({ lineId }),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+}
+
+export async function addItem(line: CartLineInput) {
+    return fetch("/api/cart/lines/add", {
+        method: "POST",
+        body: JSON.stringify({ line }),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+}
+
+export async function updateItem(line: CartLineUpdateInput) {
+    return fetch("/api/cart/lines/update", {
+        method: "POST",
+        body: JSON.stringify({ line }),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+}
