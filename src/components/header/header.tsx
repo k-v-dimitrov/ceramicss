@@ -1,5 +1,6 @@
-import { type FC } from "react";
+import { useState, useCallback, type FC, useEffect } from "react";
 import Link from "next/link";
+import Modal from "react-modal";
 
 import Logo from "@/public/icons/logo.svg";
 import { SITE_NAV } from "@/constants/navigation.constants";
@@ -7,27 +8,35 @@ import { SITE_NAV } from "@/constants/navigation.constants";
 import type HeaderProps from "./header.props";
 
 const Header: FC<HeaderProps> = () => {
+    const [activeMobileMenu, setActiveMobileMenu] = useState(false);
     const isCartEmpty = false;
 
-    return (
-        <div className="bg-white w-full">
-            <div className="flex justify-between items-center p-6 lg:mx-auto lg:container">
-                <div className="flex gap-8 lg:hidden">
-                    <button className="lg:hidden">
-                        <i className="icon-menu"></i>
-                    </button>
+    // Disable scroll on opened modal
+    useEffect(() => {
+        document.body.style.overflow = "hidden";
 
-                    <Link href="/" className="w-24">
-                        <Logo />
-                    </Link>
-                </div>
+        return () => {
+            document.body.style.overflow = "unset";
+        };
+    }, [activeMobileMenu]);
 
-                <div className="hidden lg:flex">
-                    <Link href="/" className="w-24">
-                        <Logo />
-                    </Link>
-                </div>
+    const toggleMobileMenu = () => {
+        setActiveMobileMenu((prev) => !prev);
+    };
 
+    const DynamicCartIcon = useCallback(() => {
+        return (
+            <>
+                {!isCartEmpty && (
+                    <div className="absolute h-3 w-3 bg-warning-500 right-0 rounded-full" />
+                )}
+            </>
+        );
+    }, [isCartEmpty]);
+
+    const Desktop = useCallback(() => {
+        return (
+            <>
                 <div className="gap-x-16 text-primary-500 font-comfortaa hidden lg:flex">
                     {SITE_NAV.map(({ label, href }) => (
                         <Link key={label} href={href}>
@@ -47,9 +56,7 @@ const Header: FC<HeaderProps> = () => {
 
                     <Link href="/cart">
                         <div className="inline-block relative">
-                            {!isCartEmpty && (
-                                <div className="absolute h-3 w-3 bg-warning-500 right-0 rounded-full" />
-                            )}
+                            <DynamicCartIcon />
 
                             <div className="hover:cursor-pointer flex justify-center items-center h-10 w-10 bg-primary-500 rounded-full">
                                 <div className="icon-cart text-white text-xl"></div>
@@ -57,6 +64,50 @@ const Header: FC<HeaderProps> = () => {
                         </div>
                     </Link>
                 </div>
+            </>
+        );
+    }, [DynamicCartIcon]);
+
+    return (
+        <div className="bg-white w-full">
+            <div className="flex justify-between items-center p-6 lg:mx-auto lg:container">
+                <div className="flex gap-8 lg:hidden">
+                    {activeMobileMenu ? (
+                        <button
+                            className="lg:hidden"
+                            onClick={toggleMobileMenu}
+                        >
+                            <i className="icon-remove text-[24px]"></i>
+                        </button>
+                    ) : (
+                        <button
+                            className="lg:hidden"
+                            onClick={toggleMobileMenu}
+                        >
+                            <i className="icon-menu"></i>
+                        </button>
+                    )}
+
+                    <Link href="/" className="w-24">
+                        <Logo />
+                    </Link>
+                </div>
+
+                <div className="hidden lg:flex">
+                    <Link href="/" className="w-24">
+                        <Logo />
+                    </Link>
+                </div>
+
+                <Desktop />
+
+                {/* Mobile */}
+                <Modal
+                    isOpen={activeMobileMenu}
+                    className="bg-black bg-opacity-50 h-full outline-none flex justify-center items-center"
+                    overlayClassName="fixed top-[88px] h-[calc(100%-89px)] w-full"
+                    ariaHideApp={true}
+                ></Modal>
             </div>
         </div>
     );
