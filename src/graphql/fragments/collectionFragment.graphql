@@ -1,0 +1,10 @@
+fragment coreCollection on Collection {
+    title
+    id
+    image {
+        url
+        height
+        width
+        altText
+    }
+}

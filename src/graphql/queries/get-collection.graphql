@@ -1,6 +1,6 @@
 query GetCollection($handle: String!) {
     collection(handle: $handle) {
-        title
+        ...coreCollection
         products(first: 250) {
             nodes {
                 ...coreProduct

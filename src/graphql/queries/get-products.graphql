@@ -3,10 +3,9 @@ query GetProducts {
         pageInfo {
             hasNextPage
         }
-        edges {
-            node {
-                ...coreProduct
-            }
+
+        nodes {
+            ...coreProduct
         }
     }
 }

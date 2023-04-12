@@ -6,12 +6,9 @@ import {
     GetProductDocument,
     GetCollectionDocument,
     GetCollectionsDocument,
-    GetCollectionsIdsDocument,
-    GetCollectionProductsDocument,
     SearchProductsDocument,
     GetCheckoutUrlDocument,
     GetProductsDocument,
-    GetProductsIdsDocument,
     AddLineDocument,
     CartLineInput,
     RemoveLineDocument,
@@ -19,29 +16,25 @@ import {
 } from "@/types/graphql";
 
 import { sanitizeShopifyId } from "@/utils";
+import {
+    transformCart,
+    transformCheckoutUrl,
+    transformCollection,
+    transformProduct,
+} from "./storefront.transform";
 
-export type TransformedProduct = Awaited<ReturnType<typeof getProduct>>;
 const getProduct = async (id: string) => {
     const {
         data: { product },
     } = await StoreFrontGateway.query(GetProductDocument, { id });
 
-    return {
-        id: product?.id,
-        title: product?.title,
-        tags: product?.tags,
-        variantId: product?.variants.nodes[0].id,
-        price: {
-            amount: product?.variants.nodes[0].priceV2.amount,
-            currencyCode: product?.variants.nodes[0].priceV2.currencyCode,
-        },
-        images: product?.images
-            ? product.images.edges.map(({ node }) => node)
-            : undefined,
-    };
+    if (!product) {
+        throw new Error(`Product with id ${id} could not be fetched`);
+    }
+
+    return transformProduct(product);
 };
 
-export type TransformedProducts = Awaited<ReturnType<typeof getProducts>>;
 const getProducts = async () => {
     const {
         data: { products },
@@ -53,30 +46,24 @@ const getProducts = async () => {
         );
     }
 
-    const transformedProducts = products.edges.map(({ node }) => {
-        const { images, tags, ...restProduct } = node;
-        const transformedImages = images.edges.map(({ node }) => node);
+    return products.nodes.filter((x) => !x).map(transformProduct);
+};
 
-        const tag = tags[0].toUpperCase();
-
-        return { product: restProduct, images: transformedImages };
+const searchProducts = async (query: string) => {
+    const {
+        data: { products },
+    } = await StoreFrontGateway.query(SearchProductsDocument, {
+        query,
     });
 
-    return transformedProducts;
+    return products.nodes.filter((x) => !x).map(transformProduct);
 };
 
-export type TransformedProductIds = Awaited<ReturnType<typeof getProductIds>>;
 const getProductIds = async () => {
-    const { data } = await StoreFrontGateway.query(GetProductsIdsDocument);
+    const products = await getProducts();
 
-    const ids = data.products.edges.map(({ node }) =>
-        sanitizeShopifyId(node.id)
-    );
-
-    return ids;
+    return products.map((p) => sanitizeShopifyId(p.id));
 };
-
-export type TransformedCollection = Awaited<ReturnType<typeof getCollection>>;
 
 const getCollection = async (handle: string) => {
     const {
@@ -85,96 +72,31 @@ const getCollection = async (handle: string) => {
         handle,
     });
 
-    if (collection?.products && collection.title) {
-        const { products, title } = collection;
-
-        const transformedProducts = products.nodes.map((productNode) => {
-            const { images, variants, tags, ...restProduct } = productNode;
-            const transformedImages = images.edges.map(({ node }) => node);
-
-            const transformedVariants = variants.nodes[0].priceV2;
-
-            const tag = tags[0].toUpperCase();
-
-            return {
-                ...restProduct,
-                images: transformedImages,
-                variants: transformedVariants,
-                tag,
-            };
-        });
-
-        return { title, products: transformedProducts };
+    if (!collection) {
+        throw new Error(`Could not fetch collection with id ${handle}`);
     }
+
+    return transformCollection(collection);
 };
 
-export type TransformedCollectionProducts = Awaited<
-    ReturnType<typeof getCollectionProducts>
->;
-const getCollectionProducts = async (id: string) => {
-    const {
-        data: { collection },
-    } = await StoreFrontGateway.query(GetCollectionProductsDocument, {
-        id,
-    });
-
-    if (collection?.products) {
-        const { products } = collection;
-
-        const transformedProducts = products.edges.map(({ node }) => {
-            const { images, variants, tags, ...restProduct } = node;
-            const transformedImages = images.edges.map(({ node }) => node);
-
-            const transformedVariants = variants.nodes[0].priceV2;
-
-            const tag = tags[0].toUpperCase();
-
-            return {
-                ...restProduct,
-                images: transformedImages,
-                variants: transformedVariants,
-                tag,
-            };
-        });
-
-        return transformedProducts;
-    }
-};
-
-export type TransformedCollections = Awaited<ReturnType<typeof getCollections>>;
 const getCollections = async () => {
     const { data } = await StoreFrontGateway.query(GetCollectionsDocument);
 
-    const transformedCollection = data.collections.nodes.map((node) => node);
-
-    return transformedCollection;
+    return data.collections.nodes.filter((x) => !x).map(transformCollection);
 };
 
-export type TransformedCollectionIds = Awaited<
-    ReturnType<typeof getCollectionIds>
->;
+const getCollectionProducts = async (handle: string) => {
+    const { products } = await getCollection(handle);
+
+    return products;
+};
+
 const getCollectionIds = async () => {
-    const { data } = await StoreFrontGateway.query(GetCollectionsIdsDocument);
+    const collections = await getCollections();
 
-    const transformedCollectionIds = data.collections.nodes.map((node) => node);
-
-    return transformedCollectionIds;
+    return collections.map((c) => c.id);
 };
 
-export type TransformedSearchedProducts = Awaited<
-    ReturnType<typeof searchProducts>
->;
-const searchProducts = async (query: string) => {
-    const { data } = await StoreFrontGateway.query(SearchProductsDocument, {
-        query,
-    });
-
-    const transformedProducts = data.products.nodes.map((node) => node.title);
-
-    return transformedProducts;
-};
-
-export type TransformedCreateCart = Awaited<ReturnType<typeof createCart>>;
 const createCart = async () => {
     const { data } = await StoreFrontGateway.mutate(CreateCartDocument);
 
@@ -187,48 +109,18 @@ const createCart = async () => {
     }
 };
 
-export type TransformedGetCart = Awaited<ReturnType<typeof getCart>>;
 const getCart = async (id: string) => {
     const { data } = await StoreFrontGateway.query(GetCartDocument, { id });
 
-    if (data?.cart) {
-        const { cart } = data;
-
-        return {
-            checkoutUrl: cart.checkoutUrl,
-            hasItems: Boolean(cart.lines.nodes.length),
-            lines: cart.lines.nodes.map((node) => ({
-                id: node.id,
-                quantity: node.quantity,
-                price: {
-                    amount: node.merchandise.priceV2.amount,
-                    currencyCode: node.merchandise.priceV2.currencyCode,
-                },
-                product: {
-                    tags: node.merchandise.product.tags,
-                    title: node.merchandise.product.title,
-                    image: node.merchandise.product.images.nodes[0].url,
-                    description: node.merchandise.product.description,
-                },
-            })),
-        };
-    }
+    return transformCart(data);
 };
 
-export type TransformedCheckoutUrl = Awaited<ReturnType<typeof getCheckoutUrl>>;
 const getCheckoutUrl = async (id: string) => {
     const { data } = await StoreFrontGateway.query(GetCheckoutUrlDocument, {
         id,
     });
 
-    if (data?.cart && data.cart.checkoutUrl) {
-        const {
-            cart: { checkoutUrl },
-        } = data;
-        return checkoutUrl;
-    }
-
-    return data;
+    return transformCheckoutUrl(data);
 };
 
 const addCartLineItem = async (cartId: string, lines: CartLineInput[]) => {
