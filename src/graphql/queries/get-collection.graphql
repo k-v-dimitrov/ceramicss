@@ -1,5 +1,5 @@
-query GetCollection($handle: String!) {
-    collection(handle: $handle) {
+query GetCollection($id: ID!) {
+    collection(id: $id) {
         ...coreCollection
         products(first: 250) {
             nodes {

@@ -46,7 +46,7 @@ const getProducts = async () => {
         );
     }
 
-    return products.nodes.filter((x) => !x).map(transformProduct);
+    return products.nodes.map(transformProduct);
 };
 
 const searchProducts = async (query: string) => {
@@ -56,7 +56,7 @@ const searchProducts = async (query: string) => {
         query,
     });
 
-    return products.nodes.filter((x) => !x).map(transformProduct);
+    return products.nodes.map(transformProduct);
 };
 
 const getProductIds = async () => {
@@ -65,28 +65,26 @@ const getProductIds = async () => {
     return products.map((p) => sanitizeShopifyId(p.id));
 };
 
-const getCollection = async (handle: string) => {
-    const {
-        data: { collection },
-    } = await StoreFrontGateway.query(GetCollectionDocument, {
-        handle,
+const getCollection = async (id: string) => {
+    const { data } = await StoreFrontGateway.query(GetCollectionDocument, {
+        id,
     });
 
-    if (!collection) {
-        throw new Error(`Could not fetch collection with id ${handle}`);
+    if (!data.collection) {
+        throw new Error(`Could not fetch collection with id ${id}`);
     }
 
-    return transformCollection(collection);
+    return transformCollection(data.collection);
 };
 
 const getCollections = async () => {
     const { data } = await StoreFrontGateway.query(GetCollectionsDocument);
 
-    return data.collections.nodes.filter((x) => !x).map(transformCollection);
+    return data.collections.nodes.map(transformCollection);
 };
 
-const getCollectionProducts = async (handle: string) => {
-    const { products } = await getCollection(handle);
+const getCollectionProducts = async (id: string) => {
+    const { products } = await getCollection(id);
 
     return products;
 };

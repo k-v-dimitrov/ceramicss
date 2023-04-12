@@ -31,13 +31,15 @@ export const transformCollection = (
         products?: { nodes?: CoreProductFragment[] };
     }
 ) => {
+    const hasProducts = !!collection.products;
+
     return {
         id: sanitizeShopifyId(collection.id),
         title: collection?.title,
         image: collection.image,
-        products: collection.products?.nodes
-            ?.filter((x) => !x)
-            .map(transformProduct),
+        ...(hasProducts && {
+            products: collection.products?.nodes?.map(transformProduct),
+        }),
     };
 };
 

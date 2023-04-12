@@ -83,7 +83,7 @@ export async function getStaticProps(
         const allCollections = await Storefront.collections.listIds();
 
         const currentCollection = allCollections.find(
-            ({ id }) => id === rebuildShopifyCollectionId(collectionId)
+            ({ id }) => id === collectionId
         );
 
         return {
