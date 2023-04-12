@@ -11,10 +11,22 @@ const Header: FC<HeaderProps> = () => {
 
     return (
         <div className="bg-white w-full">
-            <div className="lg:container flex justify-between items-center py-6 mx-auto">
-                <Link href="/" className="w-24">
-                    <Logo />
-                </Link>
+            <div className="flex justify-between items-center p-6 lg:mx-auto lg:container">
+                <div className="flex gap-8 lg:hidden">
+                    <button className="lg:hidden">
+                        <i className="icon-menu"></i>
+                    </button>
+
+                    <Link href="/" className="w-24">
+                        <Logo />
+                    </Link>
+                </div>
+
+                <div className="hidden lg:flex">
+                    <Link href="/" className="w-24">
+                        <Logo />
+                    </Link>
+                </div>
 
                 <div className="gap-x-16 text-primary-500 font-comfortaa hidden lg:flex">
                     {SITE_NAV.map(({ label, href }) => (
@@ -24,10 +36,10 @@ const Header: FC<HeaderProps> = () => {
                     ))}
                 </div>
 
-                <div className="hidden lg:flex">
-                    <div className="flex items-center bg-gray-300 rounded-full px-2 py-2 mr-3 self-center sokere">
+                <div className="flex">
+                    <div className="hidden lg:flex items-center bg-gray-300 rounded-full px-2 py-2 mr-3 self-center ">
                         <div className="mr-3">
-                            <div className="icon-search cursor-pointer text-primary-500 text-lg"></div>
+                            <div className="icon-search cursor-pointer text-primary-500 text-lg" />
                         </div>
 
                         <input type="text" className="bg-unset mr-2" />
@@ -45,8 +57,6 @@ const Header: FC<HeaderProps> = () => {
                         </div>
                     </Link>
                 </div>
-
-                <div className="block lg:hidden">hamburger</div>
             </div>
         </div>
     );
