@@ -35,6 +35,11 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-menu:before {
+    content: "\e910";
+    color: #006aab;
+    font-size: 36px;
+}
 .icon-remove:before {
     content: "\e90f";
     color: #626262;
