@@ -5,6 +5,7 @@ fragment coreProduct on Product {
     tags
     variants(first: 1) {
         nodes {
+            id
             priceV2 {
                 amount
                 currencyCode
