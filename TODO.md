@@ -1,6 +1,6 @@
 # TODO
 
-
+- [ ] Remove getProductIds and getCollectionIds
 
 ## What we need from Desi:
 

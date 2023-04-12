@@ -59,12 +59,6 @@ const searchProducts = async (query: string) => {
     return products.nodes.map(transformProduct);
 };
 
-const getProductIds = async () => {
-    const products = await getProducts();
-
-    return products.map((p) => sanitizeShopifyId(p.id));
-};
-
 const getCollection = async (id: string) => {
     const { data } = await StoreFrontGateway.query(GetCollectionDocument, {
         id,
@@ -87,12 +81,6 @@ const getCollectionProducts = async (id: string) => {
     const { products } = await getCollection(id);
 
     return products;
-};
-
-const getCollectionIds = async () => {
-    const collections = await getCollections();
-
-    return collections.map((c) => ({ id: c.id, title: c.title }));
 };
 
 const createCart = async () => {
@@ -156,12 +144,10 @@ const Storefront = {
         get: getProduct,
         search: searchProducts,
         all: getProducts,
-        ids: getProductIds,
     },
     collections: {
         get: getCollection,
         list: getCollections,
-        listIds: getCollectionIds,
         products: getCollectionProducts,
     },
     checkout: {

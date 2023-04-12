@@ -50,9 +50,9 @@ const ProductsOverview: NextPage<Props> = ({
 
 export async function getStaticPaths() {
     try {
-        const ids = await Storefront.collections.listIds();
+        const ids = (await Storefront.collections.list()).map((c) => c.id);
 
-        const paths = ids.map(({ id }) => ({
+        const paths = ids.map((id) => ({
             params: { collectionId: id },
         }));
 
@@ -80,7 +80,7 @@ export async function getStaticProps(
             rebuildShopifyCollectionId(collectionId)
         );
 
-        const allCollections = await Storefront.collections.listIds();
+        const allCollections = await Storefront.collections.list();
 
         const currentCollection = allCollections.find(
             ({ id }) => id === collectionId

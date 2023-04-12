@@ -36,7 +36,9 @@ const ProductOverview: NextPage<Props> = ({ product }) => {
 
 export async function getStaticPaths() {
     try {
-        const allProductIds = await Storefront.products.ids();
+        const allProductIds = (await Storefront.products.all()).map(
+            (p) => p.id
+        );
 
         const allProductPaths = allProductIds.map((id) => ({
             params: { id },
