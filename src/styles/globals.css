@@ -35,6 +35,9 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-menu:before {
+    content: "\e910";
+}
 .icon-remove:before {
     content: "\e90f";
     color: #626262;
