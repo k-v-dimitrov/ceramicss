@@ -1,3 +1,3 @@
 export interface DetailedProductProps {
-    onAddToCart: () => void;
+    onAddToCart: (qty: number) => void;
 }

@@ -1,5 +1,5 @@
-import type { TransformedCollectionIds, TransformedProduct } from "@/services";
+import type { TransformedCollectionIds, TransformedGetCart, TransformedProduct } from "@/services";
 
 export interface ProductProps {
-    product: TransformedProduct;
+    line: any;
 }

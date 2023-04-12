@@ -5,7 +5,7 @@ import { Storefront, TransformedProduct } from "@/services";
 
 import { Footer, Header } from "@/components";
 
-import { rebuildShopifyProductId } from "@/utils";
+import { addItem, rebuildShopifyProductId } from "@/utils";
 import DetailedProduct from "@/components/product/detailed";
 
 interface Props {
@@ -24,8 +24,13 @@ const ProductOverview: NextPage<Props> = ({ product }) => {
 
             <DetailedProduct
                 product={product}
-                onAddToCart={() => {
-                    alert("Implement me");
+                onAddToCart={(qty) => {
+                    addItem({
+                        quantity: qty,
+                        merchandiseId: product.variantId!,
+                    })
+                        .then(() => alert("success"))
+                        .catch(() => alert("fail"));
                 }}
             />
 

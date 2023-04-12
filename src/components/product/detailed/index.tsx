@@ -14,6 +14,10 @@ const DetailedProduct: React.FC<ProductProps & DetailedProductProps> = ({
         product?.images[0]
     );
 
+    const handleAddToCart = () => {
+        onAddToCart(selectedQty);
+    };
+
     return (
         <section className="grid grid-cols-2">
             <div>
@@ -30,7 +34,7 @@ const DetailedProduct: React.FC<ProductProps & DetailedProductProps> = ({
                     {product?.title}
                 </p>
                 <p className="text-2xl mb-6 text-gray-700">
-                    {product?.variants.amount} {product?.variants.currencyCode}
+                    {product?.price.amount} {product?.price.currencyCode}
                 </p>
                 <p className="w-3/4">{product?.description}</p>
 
@@ -41,7 +45,7 @@ const DetailedProduct: React.FC<ProductProps & DetailedProductProps> = ({
                         setQuantity={setSelectedQty}
                     />
 
-                    <Button onClick={onAddToCart}>Добави в количка</Button>
+                    <Button onClick={handleAddToCart}>Добави в количка</Button>
                 </div>
             </div>
         </section>
