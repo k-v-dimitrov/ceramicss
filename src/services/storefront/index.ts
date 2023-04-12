@@ -1,8 +1,8 @@
 export { default as Storefront } from "./storefront.service";
 
 export type {
-    Cart,
-    CheckoutUrl,
-    Collection,
-    Product,
+    CartType,
+    CheckoutUrlType,
+    CollectionType,
+    ProductType,
 } from "./storefront.transform";

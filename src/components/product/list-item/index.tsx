@@ -26,7 +26,7 @@ const ListProduct: React.FC<ProductProps & ListItemProps> = ({
         onProductRemove && product?.id && onProductRemove(product?.id);
     };
 
-    const coverImage = product?.images[0];
+    const coverImage = product?.images?.[0];
     return (
         <div className="flex flex-row my-10">
             <span className="mr-4">
@@ -39,7 +39,7 @@ const ListProduct: React.FC<ProductProps & ListItemProps> = ({
             </span>
 
             <div className="flex-col justify-between w-full">
-                <p className="text-gray-600 text-sm mb-1">{product?.tag}</p>
+                <p className="text-gray-600 text-sm mb-1">{product?.tags[0]}</p>
 
                 <p className="flex justify-between align-center text-lg text-primary-500 font-bold">
                     {product?.title}
@@ -61,7 +61,7 @@ const ListProduct: React.FC<ProductProps & ListItemProps> = ({
 
                 <div className="flex items-center gap-4">
                     <p className="text-gray-700 font-bold min-w-[96px]">
-                        {calculatedPrice} {product?.variants.currencyCode}
+                        {calculatedPrice} {product?.price.currencyCode}
                     </p>
 
                     <div className="min-w-[64px]">

@@ -6,7 +6,7 @@ import Modal from "react-modal";
 
 import { Header, Footer, Product, Button } from "@/components";
 
-import { TransformedProduct } from "@/services";
+import { ProductType } from "@/services";
 
 import { getMockedCartProducts } from "@/constants/mocked-cart-products";
 
@@ -81,7 +81,7 @@ const cartReducer = (cartState: CartState, action: CartAction) => {
 
 const calculateTotalCartPrice = (products: CartState["products"]) =>
     products.reduce<number>((acc, curr) => {
-        return acc + Number(curr.variants?.amount) * curr.quantity;
+        return acc + Number(curr.price?.amount) * curr.quantity;
     }, 0);
 
 // TODO: return not mocked items
@@ -133,11 +133,10 @@ const Cart: NextPage = () => {
                     {cart.products.map((product) => (
                         <Product.ListItem
                             key={product.id}
-                            product={product as TransformedProduct}
+                            product={product as ProductType}
                             selectedQuantity={product.quantity}
                             calculatedPrice={
-                                product.quantity *
-                                Number(product.variants?.amount)
+                                product.quantity * Number(product.price?.amount)
                             }
                             onProductRemove={(productId: string) => {
                                 dispatch({

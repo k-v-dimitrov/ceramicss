@@ -3,13 +3,13 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 
-import { Storefront, type TransformedCollections } from "@/services";
+import { Storefront, type CollectionType } from "@/services";
 
 import { Footer, Header } from "@/components";
 import { sanitizeShopifyId } from "@/utils";
 
 interface Props {
-    collections: TransformedCollections;
+    collections: CollectionType[];
 }
 
 const Collections: NextPage<Props> = ({ collections }) => {

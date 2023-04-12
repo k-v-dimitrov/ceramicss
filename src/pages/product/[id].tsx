@@ -1,7 +1,7 @@
 import { GetStaticPropsContext, type NextPage } from "next";
 import Head from "next/head";
 
-import { Storefront, TransformedProduct } from "@/services";
+import { Storefront, ProductType } from "@/services";
 
 import { Footer, Header } from "@/components";
 
@@ -9,7 +9,7 @@ import { rebuildShopifyProductId } from "@/utils";
 import DetailedProduct from "@/components/product/detailed";
 
 interface Props {
-    product: TransformedProduct;
+    product: ProductType;
 }
 
 const ProductOverview: NextPage<Props> = ({ product }) => {

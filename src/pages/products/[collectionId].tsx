@@ -1,21 +1,16 @@
 import { GetStaticPropsContext, type NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
 
-import {
-    Storefront,
-    TransformedCollectionProducts,
-    TransformedCollections,
-} from "@/services";
+import { Storefront, CollectionType, ProductType } from "@/services";
 
 import { Header, Footer, CollectionsMenu, Product } from "@/components";
 
 import { rebuildShopifyCollectionId, sanitizeShopifyId } from "src/utils";
 
 interface Props {
-    currentCollection: TransformedCollections[number];
-    collectionProducts: TransformedCollectionProducts;
-    allCollections: TransformedCollections;
+    currentCollection: CollectionType;
+    collectionProducts: ProductType[];
+    allCollections: CollectionType[];
 }
 
 const ProductsOverview: NextPage<Props> = ({
@@ -34,7 +29,7 @@ const ProductsOverview: NextPage<Props> = ({
 
             <section className="flex">
                 <CollectionsMenu
-                    collectionIdentifiers={allCollections}
+                    allCollections={allCollections}
                     currentCollection={currentCollection}
                 />
 
@@ -58,7 +53,7 @@ export async function getStaticPaths() {
         const ids = await Storefront.collections.listIds();
 
         const paths = ids.map(({ id }) => ({
-            params: { collectionId: sanitizeShopifyId(id) },
+            params: { collectionId: id },
         }));
 
         return {

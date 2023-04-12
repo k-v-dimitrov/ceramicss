@@ -5,7 +5,7 @@ import type { ProductProps } from "../product.props";
 import { sanitizeShopifyId } from "@/utils";
 
 const GridProduct: React.FC<ProductProps> = ({ product }) => {
-    const coverImage = product?.images[0];
+    const coverImage = product?.images?.[0];
 
     if (!product?.id) {
         return null;
@@ -26,13 +26,13 @@ const GridProduct: React.FC<ProductProps> = ({ product }) => {
                     height={350}
                 />
 
-                <p className="text-gray-600 text-sm mt-1">{product?.tag}</p>
+                <p className="text-gray-600 text-sm mt-1">{product?.tags[0]}</p>
 
                 <div className="flex justify-between mt-2">
                     <p className="text-lg font-bold">{product?.title}</p>
                     <p className="font-light">
-                        {product?.variants.amount}
-                        {product?.variants.currencyCode}
+                        {product?.price.amount}
+                        {product?.price.currencyCode}
                     </p>
                 </div>
             </div>

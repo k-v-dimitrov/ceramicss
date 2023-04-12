@@ -94,7 +94,7 @@ const getCollectionProducts = async (handle: string) => {
 const getCollectionIds = async () => {
     const collections = await getCollections();
 
-    return collections.map((c) => c.id);
+    return collections.map((c) => ({ id: c.id, title: c.title }));
 };
 
 const createCart = async () => {

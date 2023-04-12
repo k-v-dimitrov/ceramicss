@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-import { type TransformedGetCart } from "@/services";
+import { type CartType } from "@/services";
 
 const initialState: {
-    data: TransformedGetCart | null;
+    data: CartType | null;
     error: unknown;
     isLoading: boolean;
 } = {

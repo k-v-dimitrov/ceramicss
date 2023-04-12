@@ -7,13 +7,14 @@ import {
 
 import { sanitizeShopifyId } from "@/utils";
 
-export type Product = Awaited<ReturnType<typeof transformProduct>>;
+export type ProductType = Awaited<ReturnType<typeof transformProduct>>;
 export const transformProduct = (product: CoreProductFragment) => {
     return {
         id: sanitizeShopifyId(product?.id),
         title: product?.title,
         tags: product?.tags,
         variantId: product?.variants.nodes[0].id,
+        description: product.description,
         price: {
             amount: product?.variants.nodes[0].priceV2.amount,
             currencyCode: product?.variants.nodes[0].priceV2.currencyCode,
@@ -24,7 +25,7 @@ export const transformProduct = (product: CoreProductFragment) => {
     };
 };
 
-export type Collection = Awaited<ReturnType<typeof transformCollection>>;
+export type CollectionType = Awaited<ReturnType<typeof transformCollection>>;
 export const transformCollection = (
     collection: CoreCollectionFragment & {
         products?: { nodes?: CoreProductFragment[] };
@@ -40,7 +41,7 @@ export const transformCollection = (
     };
 };
 
-export type Cart = Awaited<ReturnType<typeof transformCart>>;
+export type CartType = Awaited<ReturnType<typeof transformCart>>;
 export const transformCart = (data: GetCartQuery) => {
     if (data?.cart) {
         const { cart } = data;
@@ -66,7 +67,7 @@ export const transformCart = (data: GetCartQuery) => {
     }
 };
 
-export type CheckoutUrl = Awaited<ReturnType<typeof transformCheckoutUrl>>;
+export type CheckoutUrlType = Awaited<ReturnType<typeof transformCheckoutUrl>>;
 export const transformCheckoutUrl = (data: GetCheckoutUrlQuery) => {
     if (data?.cart && data.cart.checkoutUrl) {
         const {
