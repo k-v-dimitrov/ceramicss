@@ -7,12 +7,19 @@ import { Footer, Header } from "@/components";
 
 import { rebuildShopifyProductId } from "@/utils";
 import DetailedProduct from "@/components/product/detailed";
+import { useCart } from "@/hooks";
 
 interface Props {
     product: ProductType;
 }
 
 const ProductOverview: NextPage<Props> = ({ product }) => {
+    const { addItem } = useCart();
+
+    const addToCartHandler = async (variantId: string, quantity: number) => {
+        await addItem({ merchandiseId: variantId, quantity });
+    };
+
     return (
         <div className="container m-auto">
             <Head>
@@ -22,12 +29,7 @@ const ProductOverview: NextPage<Props> = ({ product }) => {
 
             <Header />
 
-            <DetailedProduct
-                product={product}
-                onAddToCart={() => {
-                    alert("Implement me");
-                }}
-            />
+            <DetailedProduct product={product} onAddToCart={addToCartHandler} />
 
             <Footer />
         </div>

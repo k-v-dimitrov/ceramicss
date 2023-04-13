@@ -1,3 +1,3 @@
 export interface DetailedProductProps {
-    onAddToCart: () => void;
+    onAddToCart: (variantId: string, quantity: number) => Promise<void>;
 }

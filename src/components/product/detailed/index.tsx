@@ -14,6 +14,10 @@ const DetailedProduct: React.FC<ProductProps & DetailedProductProps> = ({
         product?.images?.[0]
     );
 
+    const handleAddToCart = () => {
+        onAddToCart(product.variantId, selectedQty);
+    };
+
     return (
         <section className="grid grid-cols-2">
             <div>
@@ -41,7 +45,7 @@ const DetailedProduct: React.FC<ProductProps & DetailedProductProps> = ({
                         setQuantity={setSelectedQty}
                     />
 
-                    <Button onClick={onAddToCart}>Добави в количка</Button>
+                    <Button onClick={handleAddToCart}>Добави в количка</Button>
                 </div>
             </div>
         </section>
