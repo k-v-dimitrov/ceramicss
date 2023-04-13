@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Link from "next/link";
 
 import { QuantityPicker, Button, ImageRotator } from "@/components";
 
@@ -48,17 +49,22 @@ const DetailedProduct: React.FC<ProductProps & DetailedProductProps> = ({
 
                 {/* Quantity, Add to cart button */}
                 <div className="flex mt-10 gap-4">
-                    <QuantityPicker
-                        currQuantity={selectedQty}
-                        setQuantity={setSelectedQty}
-                    />
-
                     {!(initiallyAddedToCart || addedToCart) ? (
-                        <Button onClick={handleAddToCart}>
-                            Добави в количка
-                        </Button>
+                        <>
+                            <QuantityPicker
+                                currQuantity={selectedQty}
+                                setQuantity={setSelectedQty}
+                            />
+                            <Button onClick={handleAddToCart}>
+                                Добави в количка
+                            </Button>
+                        </>
                     ) : (
-                        <Button onClick={handleAddToCart}>Dobaveno</Button>
+                        <div className="flex flex-col gap-2">
+                            <p className="text-primary-500 text-lg">
+                                Добавено в количката!
+                            </p>
+                        </div>
                     )}
                 </div>
             </div>
