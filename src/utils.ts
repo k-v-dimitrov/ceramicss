@@ -27,35 +27,3 @@ export const rebuildShopifyCollectionId = (id: string) => {
 export const rebuildShopifyProductId = (id: string) => {
     return `gid://shopify/Product/${id}`;
 };
-
-// ---------------- Storefront Client Actions ---------------- //
-
-export async function removeItem(lineId: string) {
-    return fetch("/api/cart/lines/remove", {
-        method: "POST",
-        body: JSON.stringify({ lineId }),
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
-}
-
-export async function addItem(line: CartLineInput) {
-    return fetch("/api/cart/lines/add", {
-        method: "POST",
-        body: JSON.stringify({ line }),
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
-}
-
-export async function updateItem(line: CartLineUpdateInput) {
-    return fetch("/api/cart/lines/update", {
-        method: "POST",
-        body: JSON.stringify({ line }),
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
-}
