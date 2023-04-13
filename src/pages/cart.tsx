@@ -4,17 +4,23 @@ import Link from "next/link";
 import Head from "next/head";
 import Modal from "react-modal";
 
+import { CartType } from "@/services";
 import { Header, Footer, Product, Button } from "@/components";
 
 import { useCart } from "@/hooks";
 
-// const calculateTotalCartPrice = (products: CartState["products"]) =>
-//     products.reduce<number>((acc, curr) => {
-//         return acc + Number(curr.price?.amount) * curr.quantity;
-//     }, 0);
+const calculateTotalCartPrice = (lines?: NonNullable<CartType>["lines"]) => {
+    if (!lines) {
+        return 0;
+    }
+
+    return lines.reduce<number>((acc, curr) => {
+        return acc + Number(curr.price.amount) * curr.quantity;
+    }, 0);
+};
 
 const Cart: NextPage = () => {
-    const { error, cart, isLoading, updateItem, removeItem } = useCart();
+    const { cart, isLoading, updateItem, removeItem } = useCart();
 
     const [removeIncentive, setRemoveIncentive] = useState<{
         modalShown: boolean;
@@ -102,10 +108,6 @@ const Cart: NextPage = () => {
                                     key={line.id}
                                     line={line}
                                     selectedQuantity={line.quantity}
-                                    calculatedPrice={
-                                        line.quantity *
-                                        Number(line.price.amount)
-                                    }
                                     onProductRemove={async (
                                         productId: string
                                     ) => {
@@ -133,7 +135,9 @@ const Cart: NextPage = () => {
                             </h2>
                             <div className="flex justify-between my-8 text-gray-800 text-lg">
                                 <p>Междинна сума</p>
-                                <p>## BGN</p>
+                                <p>
+                                    {calculateTotalCartPrice(cart?.lines)} BGN
+                                </p>
                             </div>
 
                             <a

@@ -10,7 +10,6 @@ const ListProduct: React.FC<Omit<ProductProps, "product"> & ListItemProps> = ({
     line,
     selectedQuantity,
     onQuantityUpdate,
-    calculatedPrice,
     onProductRemove,
 }) => {
     const [quantity, setQuantity] = useState(selectedQuantity);
@@ -63,7 +62,8 @@ const ListProduct: React.FC<Omit<ProductProps, "product"> & ListItemProps> = ({
 
                 <div className="flex items-center gap-4">
                     <p className="text-gray-700 font-bold min-w-[96px]">
-                        {calculatedPrice} {line?.price.currencyCode}
+                        {line.price.amount * quantity}{" "}
+                        {line?.price.currencyCode}
                     </p>
 
                     <div className="min-w-[64px]">
