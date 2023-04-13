@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { GetStaticPropsContext, type NextPage } from "next";
 import Head from "next/head";
 
@@ -6,7 +7,7 @@ import { Storefront, ProductType } from "@/services";
 import { Footer, Header } from "@/components";
 
 import { rebuildShopifyProductId } from "@/utils";
-import DetailedProduct from "@/components/product/detailed";
+import { Product } from "@/components";
 import { useCart } from "@/hooks";
 
 interface Props {
@@ -14,11 +15,19 @@ interface Props {
 }
 
 const ProductOverview: NextPage<Props> = ({ product }) => {
-    const { addItem } = useCart();
+    const { addItem, isProductInCart, isLoading } = useCart();
+
+    const [isAlreadyInCart, setIsAddedToCart] = useState<boolean | null>(null);
 
     const addToCartHandler = async (variantId: string, quantity: number) => {
         await addItem({ merchandiseId: variantId, quantity });
     };
+
+    useEffect(() => {
+        if (!isLoading) {
+            setIsAddedToCart(isProductInCart(product.id));
+        }
+    }, [isLoading, isProductInCart, product.id]);
 
     return (
         <div className="container m-auto">
@@ -29,7 +38,11 @@ const ProductOverview: NextPage<Props> = ({ product }) => {
 
             <Header />
 
-            <DetailedProduct product={product} onAddToCart={addToCartHandler} />
+            <Product.Detailed
+                product={product}
+                onAddToCart={addToCartHandler}
+                initiallyAddedToCart={isAlreadyInCart}
+            />
 
             <Footer />
         </div>

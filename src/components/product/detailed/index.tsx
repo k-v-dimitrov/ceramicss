@@ -8,15 +8,23 @@ import { DetailedProductProps } from "./detailed.props";
 const DetailedProduct: React.FC<ProductProps & DetailedProductProps> = ({
     product,
     onAddToCart,
+    initiallyAddedToCart,
 }) => {
     const [selectedQty, setSelectedQty] = useState(1);
     const [spotlightedImage, setSpotlightedImage] = useState(
         product?.images?.[0]
     );
 
-    const handleAddToCart = () => {
-        onAddToCart(product.variantId, selectedQty);
+    const [addedToCart, setIsAddedToCart] = useState(false);
+
+    const handleAddToCart = async () => {
+        await onAddToCart(product.variantId, selectedQty);
+        setIsAddedToCart(true);
     };
+
+    if (initiallyAddedToCart === null) {
+        return null;
+    }
 
     return (
         <section className="grid grid-cols-2">
@@ -45,7 +53,13 @@ const DetailedProduct: React.FC<ProductProps & DetailedProductProps> = ({
                         setQuantity={setSelectedQty}
                     />
 
-                    <Button onClick={handleAddToCart}>Добави в количка</Button>
+                    {!(initiallyAddedToCart || addedToCart) ? (
+                        <Button onClick={handleAddToCart}>
+                            Добави в количка
+                        </Button>
+                    ) : (
+                        <Button onClick={handleAddToCart}>Dobaveno</Button>
+                    )}
                 </div>
             </div>
         </section>
