@@ -1,8 +1,8 @@
-import { TransformedCollectionIds } from "@/services";
+import { CollectionType } from "@/services";
 
 interface CollectionsMenuProps {
-    collectionIdentifiers: TransformedCollectionIds;
-    currentCollection: TransformedCollectionIds[number];
+    allCollections: CollectionType[];
+    currentCollection: CollectionType;
 }
 
 export default CollectionsMenuProps;

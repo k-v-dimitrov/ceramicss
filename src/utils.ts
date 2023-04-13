@@ -1,3 +1,5 @@
+import { CartLineInput, CartLineUpdateInput } from "./types/graphql";
+
 /**
  * Shopify's ids look very ugly, e.g. gid:/shopify/Collection/438093119769
  * This function will match only the numbers from the id and return it.

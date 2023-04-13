@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Link from "next/link";
 
 import { QuantityPicker, Button, ImageRotator } from "@/components";
 
@@ -8,11 +9,23 @@ import { DetailedProductProps } from "./detailed.props";
 const DetailedProduct: React.FC<ProductProps & DetailedProductProps> = ({
     product,
     onAddToCart,
+    initiallyAddedToCart,
 }) => {
     const [selectedQty, setSelectedQty] = useState(1);
     const [spotlightedImage, setSpotlightedImage] = useState(
-        product?.images[0]
+        product?.images?.[0]
     );
+
+    const [addedToCart, setIsAddedToCart] = useState(false);
+
+    const handleAddToCart = async () => {
+        await onAddToCart(product.variantId, selectedQty);
+        setIsAddedToCart(true);
+    };
+
+    if (initiallyAddedToCart === null) {
+        return null;
+    }
 
     return (
         <section className="grid grid-cols-2">
@@ -25,23 +38,34 @@ const DetailedProduct: React.FC<ProductProps & DetailedProductProps> = ({
             </div>
 
             <div className="pt-16">
-                <p className="text-lg mb-2 font-light">{product?.tag}</p>
+                <p className="text-lg mb-2 font-light">{product?.tags[0]}</p>
                 <p className="text-3xl mb-6 text-primary-500">
                     {product?.title}
                 </p>
                 <p className="text-2xl mb-6 text-gray-700">
-                    {product?.variants.amount} {product?.variants.currencyCode}
+                    {product?.price.amount} {product?.price.currencyCode}
                 </p>
                 <p className="w-3/4">{product?.description}</p>
 
                 {/* Quantity, Add to cart button */}
                 <div className="flex mt-10 gap-4">
-                    <QuantityPicker
-                        currQuantity={selectedQty}
-                        setQuantity={setSelectedQty}
-                    />
-
-                    <Button onClick={onAddToCart}>Добави в количка</Button>
+                    {!(initiallyAddedToCart || addedToCart) ? (
+                        <>
+                            <QuantityPicker
+                                currQuantity={selectedQty}
+                                setQuantity={setSelectedQty}
+                            />
+                            <Button onClick={handleAddToCart}>
+                                Добави в количка
+                            </Button>
+                        </>
+                    ) : (
+                        <div className="flex flex-col gap-2">
+                            <p className="text-primary-500 text-lg">
+                                Добавено в количката!
+                            </p>
+                        </div>
+                    )}
                 </div>
             </div>
         </section>

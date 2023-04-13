@@ -1,21 +1,16 @@
 import { GetStaticPropsContext, type NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
 
-import {
-    Storefront,
-    TransformedCollectionProducts,
-    TransformedCollections,
-} from "@/services";
+import { Storefront, CollectionType, ProductType } from "@/services";
 
 import { Header, Footer, CollectionsMenu, Product } from "@/components";
 
 import { rebuildShopifyCollectionId, sanitizeShopifyId } from "src/utils";
 
 interface Props {
-    currentCollection: TransformedCollections[number];
-    collectionProducts: TransformedCollectionProducts;
-    allCollections: TransformedCollections;
+    currentCollection: CollectionType;
+    collectionProducts: ProductType[];
+    allCollections: CollectionType[];
 }
 
 const ProductsOverview: NextPage<Props> = ({
@@ -34,7 +29,7 @@ const ProductsOverview: NextPage<Props> = ({
 
             <section className="flex">
                 <CollectionsMenu
-                    collectionIdentifiers={allCollections}
+                    allCollections={allCollections}
                     currentCollection={currentCollection}
                 />
 
@@ -55,10 +50,10 @@ const ProductsOverview: NextPage<Props> = ({
 
 export async function getStaticPaths() {
     try {
-        const ids = await Storefront.collections.listIds();
+        const ids = (await Storefront.collections.list()).map((c) => c.id);
 
-        const paths = ids.map(({ id }) => ({
-            params: { collectionId: sanitizeShopifyId(id) },
+        const paths = ids.map((id) => ({
+            params: { collectionId: id },
         }));
 
         return {
@@ -85,10 +80,10 @@ export async function getStaticProps(
             rebuildShopifyCollectionId(collectionId)
         );
 
-        const allCollections = await Storefront.collections.listIds();
+        const allCollections = await Storefront.collections.list();
 
         const currentCollection = allCollections.find(
-            ({ id }) => id === rebuildShopifyCollectionId(collectionId)
+            ({ id }) => id === collectionId
         );
 
         return {

@@ -1,5 +1,5 @@
-import type { TransformedCollectionIds, TransformedProduct } from "@/services";
+import type { ProductType } from "@/services";
 
 export interface ProductProps {
-    product: TransformedProduct;
+    product: ProductType;
 }

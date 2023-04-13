@@ -1,7 +1,7 @@
 query SearchProducts($query: String!) {
     products(first: 20, query: $query) {
         nodes {
-            title
+            ...coreProduct
         }
     }
 }

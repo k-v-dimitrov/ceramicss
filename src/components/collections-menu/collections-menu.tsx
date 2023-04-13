@@ -1,6 +1,5 @@
 import { type FC } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import classNames from "classnames";
 
 import type CollectionsMenuProps from "./collections-menu.props";
@@ -9,7 +8,7 @@ import COLLECTION_PICTOGRAM from "./collections-menu.constants";
 import { sanitizeShopifyId } from "@/utils";
 
 const CollectionsMenu: FC<CollectionsMenuProps> = ({
-    collectionIdentifiers,
+    allCollections,
     currentCollection,
 }) => {
     return (
@@ -18,7 +17,7 @@ const CollectionsMenu: FC<CollectionsMenuProps> = ({
                 Продукти
             </h1>
 
-            {collectionIdentifiers.map(({ id, title }) => {
+            {allCollections.map(({ id, title }) => {
                 const isSelected =
                     sanitizeShopifyId(currentCollection.id) === id;
 

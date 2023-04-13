@@ -1,7 +1,7 @@
-import { TransformedProduct } from "@/services";
+import { ProductType } from "@/services";
 import { CurrencyCode } from "@/types/graphql";
 
-export const getMockedCartProducts = (): TransformedProduct[] => [
+export const getMockedCartProducts = (): ProductType[] => [
     {
         id: "gid://shopify/Product/8122847396121",
         title: 'Игла "Лорем 3"',
@@ -15,11 +15,12 @@ export const getMockedCartProducts = (): TransformedProduct[] => [
                 url: "https://cdn.shopify.com/s/files/1/0723/0134/7097/products/Ceramicss_FB_Post_1_172_1.png?v=1676720848",
             },
         ],
-        variants: {
+        price: {
             amount: "0.0",
             currencyCode: CurrencyCode.Bgn,
         },
-        tag: "ИГЛА",
+        variantId: "123",
+        tags: ["ИГЛА"],
     },
     {
         id: "gid://shopify/Product/8122845135129",
@@ -35,11 +36,12 @@ export const getMockedCartProducts = (): TransformedProduct[] => [
                 url: "https://cdn.shopify.com/s/files/1/0723/0134/7097/products/Ceramicss_FB_Post_1_111_2.png?v=1676720734",
             },
         ],
-        variants: {
+        price: {
             amount: "0.0",
             currencyCode: CurrencyCode.Bgn,
         },
-        tag: "КОЛИЕ",
+        variantId: "123",
+        tags: ["КОЛИЕ"],
     },
     {
         id: "gid://shopify/Product/8122817970457",
@@ -76,10 +78,11 @@ export const getMockedCartProducts = (): TransformedProduct[] => [
                 url: "https://cdn.shopify.com/s/files/1/0723/0134/7097/products/Ceramicss_FB_Post_1_181.png?v=1676720294",
             },
         ],
-        variants: {
+        price: {
             amount: "25.0",
             currencyCode: CurrencyCode.Bgn,
         },
-        tag: "ЧАША",
+        tags: ["ЧАША"],
+        variantId: "123",
     },
 ];

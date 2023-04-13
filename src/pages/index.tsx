@@ -3,7 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 
-import { Storefront, type TransformedProduct } from "@/services";
+import { Storefront, type ProductType } from "@/services";
 
 import { Header, Footer, Product } from "@/components";
 import { rebuildShopifyProductId } from "@/utils";
@@ -15,7 +15,7 @@ import TeamPhoto1 from "@/public/imgs/front-team-1.png";
 import TeamPhoto2 from "@/public/imgs/front-team-2.png";
 
 interface HomeProps {
-    recommendedProducts: TransformedProduct[];
+    recommendedProducts: ProductType[];
 }
 
 const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {

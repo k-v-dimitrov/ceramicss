@@ -1,14 +1,7 @@
 query GetCollections {
     collections(first: 50) {
         nodes {
-            title
-            id
-            image {
-                url
-                height
-                width
-                altText
-            }
+            ...coreCollection
         }
     }
 }
