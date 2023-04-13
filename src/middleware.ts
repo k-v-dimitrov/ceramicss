@@ -10,7 +10,9 @@ export async function middleware(req: NextRequest) {
             const result = await Storefront.cart.create();
 
             if (result) {
-                res.cookies.set("cart", result?.id);
+                res.cookies.set("cart", result?.id, {
+                    expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+                });
             }
         } catch (error) {}
     }
