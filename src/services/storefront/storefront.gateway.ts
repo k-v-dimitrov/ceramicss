@@ -4,10 +4,20 @@ import {
     type QueryOptions,
     type MutationOptions,
     OperationVariables,
+    DefaultOptions,
 } from "@apollo/client";
 
 const endpoint = process.env.SHOPIFY_STOREFRONT_ENDPOINT;
 const accessToken = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN;
+
+const defaultOptions: DefaultOptions = {
+    watchQuery: {
+        fetchPolicy: "no-cache",
+    },
+    query: {
+        fetchPolicy: "no-cache",
+    },
+};
 
 const client = new ApolloClient({
     uri: endpoint,
@@ -15,6 +25,7 @@ const client = new ApolloClient({
         "X-Shopify-Storefront-Access-Token": accessToken,
     },
     cache: new InMemoryCache(),
+    defaultOptions,
 });
 
 const StoreFrontGateway = {
