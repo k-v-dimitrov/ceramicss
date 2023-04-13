@@ -16,7 +16,10 @@ export default async function handler(
             [req.body.line]
         );
 
-        if (result?.cartLinesAdd?.userErrors) {
+        if (
+            result?.cartLinesAdd?.userErrors &&
+            result.cartLinesAdd.userErrors.length > 0
+        ) {
             return res.status(501).json({
                 success: false,
                 error: result.cartLinesAdd.userErrors,

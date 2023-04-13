@@ -14,12 +14,15 @@ export default async function handler(
         const result = await Storefront.cart.lineItems.update(
             req.cookies.cart!,
             {
-                id: req.body.id,
-                quantity: req.body.quantity,
+                id: req.body.line.id,
+                quantity: req.body.line.quantity,
             }
         );
 
-        if (result?.cartLinesUpdate?.userErrors) {
+        if (
+            result?.cartLinesUpdate?.userErrors &&
+            result.cartLinesUpdate.userErrors.length > 0
+        ) {
             return res.status(501).json({
                 success: false,
                 error: result.cartLinesUpdate.userErrors,

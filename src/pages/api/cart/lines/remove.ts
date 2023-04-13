@@ -16,19 +16,20 @@ export default async function handler(
             req.body.lineId
         );
 
-        if (result?.cartLinesRemove?.userErrors) {
+        if (
+            result?.cartLinesRemove?.userErrors &&
+            result?.cartLinesRemove?.userErrors.length > 0
+        ) {
             return res.status(501).json({
                 success: false,
                 error: result.cartLinesRemove.userErrors,
             });
         }
 
-        return res
-            .status(200)
-            .json({
-                success: true,
-                errors: result?.cartLinesRemove?.userErrors,
-            });
+        return res.status(200).json({
+            success: true,
+            errors: result?.cartLinesRemove?.userErrors,
+        });
     } catch (error) {
         return res.status(500).json({ success: false, error });
     }
