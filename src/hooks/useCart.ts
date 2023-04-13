@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 
 import { type CartType } from "@/services";
 import { CartLineInput, CartLineUpdateInput } from "@/types/graphql";
+import { rebuildShopifyProductId } from "@/utils";
 
 const initialState: {
-    data: CartType | null;
+    cartData: CartType | null;
     error: unknown;
     isLoading: boolean;
 } = {
-    data: null,
+    cartData: null,
     error: null,
     isLoading: true,
 };
@@ -21,7 +22,9 @@ const useCart = () => {
 
         fetch(`/api/cart`)
             .then((res) => res.json())
-            .then((data) => setState((prevState) => ({ ...prevState, data })))
+            .then((data) =>
+                setState((prevState) => ({ ...prevState, cartData: data }))
+            )
             .catch((error) =>
                 setState((prevState) => ({ ...prevState, error }))
             )
@@ -60,13 +63,24 @@ const useCart = () => {
         });
     }
 
+    function isProductInCart(productId: string) {
+        const asd = !!state.cartData?.lines.find(
+            (line) => line.product.id === rebuildShopifyProductId(productId)
+        );
+
+        console.log(state.cartData?.lines, productId, asd);
+
+        return asd;
+    }
+
     return {
-        cart: state.data,
+        cart: state.cartData,
         error: state.error,
         isLoading: state.isLoading,
         removeItem,
         addItem,
         updateItem,
+        isProductInCart,
     };
 };
 
