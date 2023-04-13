@@ -61,7 +61,7 @@ export const transformCart = (data: GetCartQuery) => {
                 product: {
                     tags: node.merchandise.product.tags,
                     title: node.merchandise.product.title,
-                    image: node.merchandise.product.images.nodes[0].url,
+                    image: node.merchandise.product.images.nodes[0],
                     description: node.merchandise.product.description,
                 },
             })),

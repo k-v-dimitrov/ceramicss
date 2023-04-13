@@ -19,6 +19,9 @@ query GetCart($id: ID!) {
                             images(first: 1) {
                                 nodes {
                                     url
+                                    height
+                                    width
+                                    altText
                                 }
                             }
                         }
