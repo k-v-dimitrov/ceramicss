@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { type NextPage } from "next";
 import Link from "next/link";
 import Head from "next/head";
@@ -9,7 +9,16 @@ import { Header, Footer, Product, Button } from "@/components";
 
 import { useCart } from "@/hooks";
 
-const calculateTotalCartPrice = (lines?: NonNullable<CartType>["lines"]) => {
+const mapCartLineItems = (lines: NonNullable<CartType>["lines"]) =>
+    lines.map((line) => {
+        const { product, ...restLine } = line;
+
+        return {
+            ...restLine,
+        };
+    });
+
+const calculateInitialCartPrice = (lines: NonNullable<CartType>["lines"]) => {
     if (!lines) {
         return 0;
     }
@@ -21,11 +30,52 @@ const calculateTotalCartPrice = (lines?: NonNullable<CartType>["lines"]) => {
 
 const Cart: NextPage = () => {
     const { cart, isLoading, updateItem, removeItem } = useCart();
+    const [cartState, setCartState] = useState<{
+        lineItems: ReturnType<typeof mapCartLineItems> | null;
+        totalCartPrice: number | null;
+    }>({
+        lineItems: null,
+        totalCartPrice: null,
+    });
 
     const [removeIncentive, setRemoveIncentive] = useState<{
         modalShown: boolean;
         productId: string;
     } | null>(null);
+
+    useEffect(() => {
+        if (!isLoading) {
+            if (cart && cart.lines) {
+                setCartState({
+                    lineItems: mapCartLineItems(cart.lines),
+                    totalCartPrice: calculateInitialCartPrice(cart.lines),
+                });
+            }
+        }
+    }, [cart, cart?.lines, isLoading]);
+
+    const updateTotalCartPrice = (productId: string, quantity: number) => {
+        setCartState((prevState) => {
+            const { lineItems } = prevState;
+            const index = lineItems?.findIndex((item) => item.id === productId);
+
+            if (index === -1 || typeof index === "undefined") {
+                return prevState;
+            }
+
+            const newLineItems = [...lineItems!];
+            newLineItems[index].quantity = quantity;
+
+            const totalCartPrice =
+                newLineItems?.reduce(
+                    (acc, curr) =>
+                        acc + Number(curr.price.amount) * curr.quantity,
+                    0
+                ) || 0;
+
+            return { ...prevState, lineItems: newLineItems, totalCartPrice };
+        });
+    };
 
     return (
         <div className="container m-auto">
@@ -120,6 +170,11 @@ const Cart: NextPage = () => {
                                         productId: string,
                                         quantity: number
                                     ) => {
+                                        updateTotalCartPrice(
+                                            productId,
+                                            quantity
+                                        );
+
                                         await updateItem({
                                             id: productId,
                                             quantity,
@@ -135,9 +190,7 @@ const Cart: NextPage = () => {
                             </h2>
                             <div className="flex justify-between my-8 text-gray-800 text-lg">
                                 <p>Междинна сума</p>
-                                <p>
-                                    {calculateTotalCartPrice(cart?.lines)} BGN
-                                </p>
+                                <p>{cartState.totalCartPrice} BGN</p>
                             </div>
 
                             <a
