@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { type NextPage } from "next";
 import Link from "next/link";
 import Head from "next/head";
@@ -14,6 +15,11 @@ import { useCart } from "@/hooks";
 
 const Cart: NextPage = () => {
     const { error, cart, isLoading, updateItem, removeItem } = useCart();
+
+    const [removeIncentive, setRemoveIncentive] = useState<{
+        modalShown: boolean;
+        productId: string;
+    } | null>(null);
 
     return (
         <div className="container m-auto">
@@ -39,10 +45,52 @@ const Cart: NextPage = () => {
                             </h2>
 
                             <Link href="/collections">
-                                <Button className="w-full">Към магазин</Button>
+                                <Button className="w-full bg-primary-500 font-bold text-white">
+                                    Към магазин
+                                </Button>
                             </Link>
                         </div>
                     </Modal>
+
+                    <Modal
+                        isOpen={
+                            (removeIncentive &&
+                                removeIncentive.modalShown &&
+                                removeIncentive.productId &&
+                                true) ||
+                            false
+                        }
+                        className="bg-black bg-opacity-50 h-full outline-none flex justify-center items-center"
+                        ariaHideApp={false}
+                    >
+                        <div className="bg-gray-200 rounded-lg h-fit p-10 mx-auto text-center">
+                            <h2 className="text-2xl font-bold mb-6">
+                                Премахване на този продукт?
+                            </h2>
+
+                            <div className="flex gap-4 justify-center">
+                                <Button
+                                    className="text-primary-500 bg-white"
+                                    onClick={async () => {
+                                        await removeItem(
+                                            removeIncentive!.productId
+                                        );
+
+                                        window.location.reload();
+                                    }}
+                                >
+                                    Премахни
+                                </Button>
+
+                                <Button
+                                    onClick={() => setRemoveIncentive(null)}
+                                >
+                                    Откажи
+                                </Button>
+                            </div>
+                        </div>
+                    </Modal>
+
                     <h1 className="text-4xl text-primary-500 font-bold">
                         Количка
                     </h1>
@@ -61,7 +109,10 @@ const Cart: NextPage = () => {
                                     onProductRemove={async (
                                         productId: string
                                     ) => {
-                                        await removeItem(productId);
+                                        setRemoveIncentive({
+                                            modalShown: true,
+                                            productId,
+                                        });
                                     }}
                                     onQuantityUpdate={async (
                                         productId: string,
