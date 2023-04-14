@@ -22,7 +22,7 @@ const Collections: NextPage<Props> = ({ collections }) => {
 
             <Header />
 
-            <section className=" mt-10">
+            <section className="p-6 mt-10">
                 <h1 className="text-4xl text-primary-500 font-bold">Магазин</h1>
 
                 <ul className="flex items-center justify-center flex-col md:grid md:grid-cols-3">

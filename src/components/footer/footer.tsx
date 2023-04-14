@@ -24,7 +24,7 @@ const Footer: FC<FooterProps> = () => {
                     </Link>
                 </div>
 
-                <ul className="flex flex-col sm:flex-row md:my-5 lg:w-10/12 lg:justify-end">
+                <ul className="flex flex-row flex-wrap justify-center sm:flex-row md:my-5 lg:w-10/12 lg:justify-end">
                     {SITE_NAV.map((navComponent) => {
                         return (
                             <li
