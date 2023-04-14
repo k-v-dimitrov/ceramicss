@@ -15,7 +15,7 @@ const ImageRotator: FC<ImageRotatorProps> = ({
     };
 
     return (
-        <>
+        <div className="m-6 lg:m-0">
             <Image
                 alt={spotlightImage?.altText || ""}
                 src={spotlightImage?.url}
@@ -36,7 +36,7 @@ const ImageRotator: FC<ImageRotatorProps> = ({
                     />
                 ))}
             </ul>
-        </>
+        </div>
     );
 };
 

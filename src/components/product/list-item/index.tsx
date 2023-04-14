@@ -27,7 +27,7 @@ const ListProduct: React.FC<Omit<ProductProps, "product"> & ListItemProps> = ({
 
     const coverImage = line?.product.image;
     return (
-        <div className="flex flex-row my-10">
+        <div className="flex flex-row my-10 px-6">
             <span className="mr-4">
                 <Image
                     src={coverImage?.url}
@@ -37,7 +37,7 @@ const ListProduct: React.FC<Omit<ProductProps, "product"> & ListItemProps> = ({
                 />
             </span>
 
-            <div className="flex-col justify-between w-full">
+            <div className="flex-col justify-around lg:justify-between w-full">
                 <p className="text-gray-600 text-sm mb-1">
                     {line.product?.tags[0]}
                 </p>
@@ -58,9 +58,11 @@ const ListProduct: React.FC<Omit<ProductProps, "product"> & ListItemProps> = ({
                     </button>
                 </p>
 
-                <p className="my-6 w-3/4">{line?.product.description}</p>
+                <p className="hidden lg:block my-6 w-3/4">
+                    {line?.product.description}
+                </p>
 
-                <div className="flex items-center gap-4">
+                <div className="flex items-center mt-4 lg:gap-4">
                     <p className="text-gray-700 font-bold min-w-[96px]">
                         {line.price.amount * quantity}{" "}
                         {line?.price.currencyCode}

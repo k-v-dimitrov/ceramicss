@@ -95,7 +95,7 @@ const Cart: NextPage = () => {
                         className="bg-black bg-opacity-50 h-full outline-none flex justify-center items-center"
                         ariaHideApp={false}
                     >
-                        <div className="bg-gray-200 rounded-lg h-fit p-5 w-1/3 mx-auto text-center">
+                        <div className="bg-gray-200 rounded-lg h-fit p-5 lg:w-1/3 mx-auto text-center">
                             <h2 className="text-2xl font-bold mb-6">
                                 Количката е празна
                             </h2>
@@ -147,11 +147,11 @@ const Cart: NextPage = () => {
                         </div>
                     </Modal>
 
-                    <h1 className="text-4xl text-primary-500 font-bold">
+                    <h1 className="text-4xl text-primary-500 font-bold p-6">
                         Количка
                     </h1>
 
-                    <section className="grid grid-cols-2">
+                    <section className="lg:grid lg:grid-cols-2">
                         <div>
                             {cart?.lines.map((line) => (
                                 <Product.ListItem
@@ -184,7 +184,7 @@ const Cart: NextPage = () => {
                             ))}
                         </div>
 
-                        <div className="bg-gray-200 rounded-lg h-fit p-5 w-2/3 mx-auto">
+                        <div className="bg-gray-200 rounded-lg h-fit p-5 lg:w-2/3 mx-auto">
                             <h2 className="text-2xl font-bold">
                                 Информация за поръчката
                             </h2>

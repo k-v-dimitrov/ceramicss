@@ -27,7 +27,7 @@ const ProductsOverview: NextPage<Props> = ({
 
             <Header />
 
-            <section className="flex">
+            <section className="lg:flex">
                 <CollectionsMenu
                     allCollections={allCollections}
                     currentCollection={currentCollection}

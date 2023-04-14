@@ -43,7 +43,26 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
                 </Link>
             </section>
 
-            <section className="flex justify-center">
+            <section className="">
+                <div className="p-6 lg:p-12 flex flex-col items-center">
+                    <div className="flex flex-col">
+                        <h1 className="text-primary-500 text-3xl self-start">
+                            Препоръчани
+                        </h1>
+
+                        <div className="flex flex-col gap-5 lg:flex-row">
+                            {recommendedProducts.map((product) => (
+                                <Product.GridItem
+                                    key={product?.id}
+                                    product={product}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section className="flex justify-center bg-[#EAEAEA]">
                 <div className="p-12 flex flex-col items-center">
                     <div className="flex flex-col gap-5">
                         <h1 className="text-primary-500 text-3xl self-start">
@@ -62,25 +81,6 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
                                 alt="Team photo first"
                                 className="object-scale-down"
                             />
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section className="bg-[#EAEAEA]">
-                <div className="p-12 flex flex-col items-center">
-                    <div className="flex flex-col">
-                        <h1 className="text-primary-500 text-3xl self-start">
-                            Препоръчани
-                        </h1>
-
-                        <div className="flex flex-col gap-5 lg:flex-row">
-                            {recommendedProducts.map((product) => (
-                                <Product.GridItem
-                                    key={product?.id}
-                                    product={product}
-                                />
-                            ))}
                         </div>
                     </div>
                 </div>
