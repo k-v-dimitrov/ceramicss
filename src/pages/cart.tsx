@@ -5,7 +5,7 @@ import Head from "next/head";
 import Modal from "react-modal";
 
 import { CartType } from "@/services";
-import { Header, Footer, Product, Button } from "@/components";
+import { Header, Footer, Product, Button, Loading } from "@/components";
 
 import { useCart } from "@/hooks";
 
@@ -86,7 +86,7 @@ const Cart: NextPage = () => {
 
             <Header />
 
-            {isLoading && <h1>Loading...</h1>}
+            {isLoading && <Loading />}
 
             {!isLoading && (
                 <>

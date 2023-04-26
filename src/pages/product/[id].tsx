@@ -4,7 +4,7 @@ import Head from "next/head";
 
 import { Storefront, ProductType } from "@/services";
 
-import { Footer, Header } from "@/components";
+import { Footer, Header, Loading } from "@/components";
 
 import { rebuildShopifyProductId } from "@/utils";
 import { Product } from "@/components";
@@ -38,11 +38,15 @@ const ProductOverview: NextPage<Props> = ({ product }) => {
 
             <Header />
 
-            <Product.Detailed
-                product={product}
-                onAddToCart={addToCartHandler}
-                initiallyAddedToCart={isAlreadyInCart}
-            />
+            {isLoading ? (
+                <Loading />
+            ) : (
+                <Product.Detailed
+                    product={product}
+                    onAddToCart={addToCartHandler}
+                    initiallyAddedToCart={isAlreadyInCart}
+                />
+            )}
 
             <Footer />
         </div>
