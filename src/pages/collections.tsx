@@ -25,7 +25,7 @@ const Collections: NextPage<Props> = ({ collections }) => {
             <section className="p-6 mt-10">
                 <h1 className="text-4xl text-primary-500 font-bold">Магазин</h1>
 
-                <ul className="flex items-center justify-center flex-col md:grid md:grid-cols-3">
+                <ul className="grid grid-cols-2 md:grid-cols-3">
                     {collections.map(({ title, id, image }) => {
                         return (
                             <Link
@@ -41,7 +41,8 @@ const Collections: NextPage<Props> = ({ collections }) => {
                                         height={image.height}
                                     />
                                 )}
-                                <p className="ml-5 text-xl">{title}</p>
+                                
+                                <p className="text-gray-700 lg:ml-5 lg:text-xl">{title}</p>
                             </Link>
                         );
                     })}

@@ -43,7 +43,7 @@ const Footer: FC<FooterProps> = () => {
                                         <Link
                                             key={subLink.label}
                                             href={subLink.href}
-                                            className="text text-sm my-1 hover:underline"
+                                            className="text text-sm my-1 hover:underline text-gray-700"
                                         >
                                             {subLink.label}
                                         </Link>

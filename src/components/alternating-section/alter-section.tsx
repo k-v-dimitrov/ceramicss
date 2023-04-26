@@ -32,7 +32,12 @@ const AlterSection: FC<AlternatingSectionProps> = ({
                 >
                     {title}
                 </h1>
-                <p className={cx("lg:text-xl mb-4", { "lg:w-3/4": true })}>
+                <p
+                    className={cx("lg:text-xl mb-4", {
+                        "lg:w-3/4": true,
+                        "text-gray-700": true,
+                    })}
+                >
                     {paragraph}
                 </p>
             </div>

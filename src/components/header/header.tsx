@@ -12,7 +12,7 @@ import classNames from "classnames";
 const Header: FC<HeaderProps> = () => {
     const router = useRouter();
     const [activeMobileMenu, setActiveMobileMenu] = useState(false);
-    const isCartEmpty = false;
+    const isCartEmpty = true;
 
     // Disable scroll on opened modal
     useEffect(() => {
@@ -39,12 +39,6 @@ const Header: FC<HeaderProps> = () => {
 
     const Desktop = () => (
         <>
-            <div className="hidden lg:flex">
-                <Link href="/" className="w-24">
-                    <Logo />
-                </Link>
-            </div>
-
             <div className="gap-x-16 text-primary-500 hidden lg:flex">
                 {SITE_NAV.map(({ label, href }) => (
                     <Link key={label} href={href}>
@@ -62,7 +56,7 @@ const Header: FC<HeaderProps> = () => {
                     <input type="text" className="bg-unset mr-2" />
                 </div>
 
-                <Link href="/cart">
+                <Link href="/cart" className="hidden lg:block">
                     <div className="inline-block relative">
                         <DynamicCartIcon />
 
@@ -78,7 +72,7 @@ const Header: FC<HeaderProps> = () => {
     const Mobile = () => (
         <Modal
             isOpen={activeMobileMenu}
-            className="bg-black bg-opacity-50 h-full outline-none flex"
+            className="bg-black bg-opacity-50 h-full outline-none flex justify-end"
             overlayClassName="fixed top-[88px] h-[calc(100%-88px)] w-full border-t-2 border-t-gray-300"
             ariaHideApp={false}
         >
@@ -123,6 +117,16 @@ const Header: FC<HeaderProps> = () => {
 
     const MobileToggler = () => (
         <div className="flex gap-8 lg:hidden">
+            <Link href="/cart" className="lg:hidden">
+                <div className="inline-block relative">
+                    <DynamicCartIcon />
+
+                    <div className="hover:cursor-pointer flex justify-center items-center h-10 w-10 bg-primary-500 rounded-full">
+                        <div className="icon-cart text-white text-xl"></div>
+                    </div>
+                </div>
+            </Link>
+
             {activeMobileMenu ? (
                 <button className="lg:hidden" onClick={toggleMobileMenu}>
                     <i className="icon-remove text-[24px]"></i>
@@ -132,19 +136,26 @@ const Header: FC<HeaderProps> = () => {
                     <i className="icon-menu"></i>
                 </button>
             )}
+        </div>
+    );
 
+    const HomeLogoButton = () => (
+        <>
             <Link href="/" className="w-24">
                 <Logo />
             </Link>
-        </div>
+        </>
     );
 
     return (
         <div className="bg-white w-full">
             <div className="flex justify-between items-center p-6 lg:mx-auto lg:container">
-                <MobileToggler />
+                <HomeLogoButton />
                 <Desktop />
-                <Mobile />
+                <div className="lg:hidden">
+                    <Mobile />
+                    <MobileToggler />
+                </div>
             </div>
         </div>
     );
