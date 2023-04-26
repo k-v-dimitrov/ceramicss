@@ -96,7 +96,7 @@ const Cart: NextPage = () => {
                         ariaHideApp={false}
                     >
                         <div className="bg-gray-200 rounded-lg h-fit p-5 lg:w-1/3 mx-auto text-center">
-                            <h2 className="text-2xl font-bold mb-6">
+                            <h2 className="text-2xl font-bold mb-6 text-gray-700">
                                 Количката е празна
                             </h2>
 
@@ -120,7 +120,7 @@ const Cart: NextPage = () => {
                         ariaHideApp={false}
                     >
                         <div className="bg-gray-200 rounded-lg h-fit p-10 mx-auto text-center">
-                            <h2 className="text-2xl font-bold mb-6">
+                            <h2 className="text-2xl font-bold mb-6 text-gray-700">
                                 Премахване на този продукт?
                             </h2>
 
@@ -185,7 +185,7 @@ const Cart: NextPage = () => {
                         </div>
 
                         <div className="bg-gray-200 rounded-lg h-fit p-5 lg:w-2/3 mx-auto">
-                            <h2 className="text-2xl font-bold">
+                            <h2 className="text-2xl font-bold text-gray-700">
                                 Информация за поръчката
                             </h2>
                             <div className="flex justify-between my-8 text-gray-800 text-lg">
