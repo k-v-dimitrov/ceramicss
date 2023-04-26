@@ -52,7 +52,9 @@ const Contacts: FC<ContactsProps> = () => {
                                 <div className="mr-4">
                                     <contact.icon />
                                 </div>
-                                <p className="text-2xl">{contact.label}</p>
+                                <p className="text-2xl text-gray-700">
+                                    {contact.label}
+                                </p>
                             </Link>
                         </li>
                     );
