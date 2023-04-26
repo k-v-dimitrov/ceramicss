@@ -7,4 +7,5 @@ export * from "./product";
 export * from "./button";
 export * from "./quantity-picker";
 export * from "./image-rotator";
+export * from "./cookie-consent";
 export * from "./loading";
