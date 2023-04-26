@@ -22,6 +22,7 @@ const defaultOptions: DefaultOptions = {
 const client = new ApolloClient({
     uri: endpoint,
     headers: {
+        //@ts-ignore
         "X-Shopify-Storefront-Access-Token": accessToken,
     },
     cache: new InMemoryCache(),
