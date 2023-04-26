@@ -29,8 +29,10 @@ const GridProduct: React.FC<ProductProps> = ({ product }) => {
                 <p className="text-gray-600 text-sm mt-1">{product?.tags[0]}</p>
 
                 <div className="flex justify-between mt-2">
-                    <p className="text-lg font-bold">{product?.title}</p>
-                    <p className="font-light">
+                    <p className="text-lg font-bold text-gray-700">
+                        {product?.title}
+                    </p>
+                    <p className="font-light text-gray-700">
                         {product?.price.amount}
                         {product?.price.currencyCode}
                     </p>
