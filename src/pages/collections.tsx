@@ -41,7 +41,8 @@ const Collections: NextPage<Props> = ({ collections }) => {
                                         height={image.height}
                                     />
                                 )}
-                                <p className="lg:ml-5 lg:text-xl">{title}</p>
+                                
+                                <p className="text-gray-700 lg:ml-5 lg:text-xl">{title}</p>
                             </Link>
                         );
                     })}

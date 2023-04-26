@@ -58,7 +58,7 @@ const ListProduct: React.FC<Omit<ProductProps, "product"> & ListItemProps> = ({
                     </button>
                 </p>
 
-                <p className="hidden lg:block my-6 w-3/4">
+                <p className="hidden lg:block my-6 w-3/4 text-gray-700">
                     {line?.product.description}
                 </p>
 
