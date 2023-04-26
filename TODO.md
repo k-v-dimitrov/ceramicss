@@ -1,7 +1,6 @@
 # TODO
 
-- [ ] Replace all svg icons with font icons
-
+- [ ] Remove getProductIds and getCollectionIds
 
 ## What we need from Desi:
 
@@ -11,6 +10,7 @@ Missing cover photos for collections:
 3. Захарници
 4. Играчки, магнити
 
+We need favicon
 
 ## Tags
 

@@ -1,0 +1,5 @@
+query GetCheckoutUrl($id: ID!) {
+    cart(id: $id) {
+        checkoutUrl
+    }
+}

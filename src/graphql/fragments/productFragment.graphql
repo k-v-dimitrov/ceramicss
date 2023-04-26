@@ -1,0 +1,26 @@
+fragment coreProduct on Product {
+    id
+    title
+    description
+    tags
+    variants(first: 1) {
+        nodes {
+            id
+            priceV2 {
+                amount
+                currencyCode
+            }
+        }
+    }
+    images(first: 5) {
+        edges {
+            node {
+                altText
+                height
+                width
+                id
+                url
+            }
+        }
+    }
+}

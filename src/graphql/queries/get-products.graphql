@@ -1,0 +1,11 @@
+query GetProducts {
+    products(first: 250) {
+        pageInfo {
+            hasNextPage
+        }
+
+        nodes {
+            ...coreProduct
+        }
+    }
+}

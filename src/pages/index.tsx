@@ -3,22 +3,24 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 
+import { Storefront, type ProductType } from "@/services";
+
+import { Header, Footer, Product } from "@/components";
+import { rebuildShopifyProductId } from "@/utils";
+
+import { getRecommendedProductIds } from "@/constants/recommended-products.constants";
+
 import LandingCoverPhoto from "@/public/imgs/landing-cover.png";
 import TeamPhoto1 from "@/public/imgs/front-team-1.png";
 import TeamPhoto2 from "@/public/imgs/front-team-2.png";
-import { Footer } from "src/components/footer";
-import { getRecommendedProductIds } from "src/constants/recommended-products.constants";
-import { ShopifyClient } from "src/services/shopify-client";
-import { Product } from "src/types/shared";
-import { Header } from "@/components";
 
 interface HomeProps {
-    recommendedProducts: Product[];
+    recommendedProducts: ProductType[];
 }
 
 const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
     return (
-        <>
+        <div className="container m-auto">
             <Head>
                 <title>Ceramicss - Home</title>
                 <link rel="icon" href="/favicon.ico" />
@@ -41,7 +43,26 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
                 </Link>
             </section>
 
-            <section>
+            <section className="">
+                <div className="p-6 lg:p-12 flex flex-col items-center">
+                    <div className="flex flex-col">
+                        <h1 className="text-primary-500 text-3xl self-start">
+                            Препоръчани
+                        </h1>
+
+                        <div className="flex flex-col gap-5 lg:flex-row">
+                            {recommendedProducts.map((product) => (
+                                <Product.GridItem
+                                    key={product?.id}
+                                    product={product}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section className="flex justify-center bg-[#EAEAEA]">
                 <div className="p-12 flex flex-col items-center">
                     <div className="flex flex-col gap-5">
                         <h1 className="text-primary-500 text-3xl self-start">
@@ -52,44 +73,21 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
                             <Image
                                 src={TeamPhoto1}
                                 alt="Team photo first"
-                                className="object-fit"
+                                className="object-scale-down"
                             />
 
                             <Image
                                 src={TeamPhoto2}
                                 alt="Team photo first"
-                                className="object-fit"
+                                className="object-scale-down"
                             />
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section className="bg-[#EAEAEA]">
-                <div className="p-12 flex flex-col items-center">
-                    <div className="flex flex-col gap-5">
-                        <h1 className="text-primary-500 text-3xl self-start">
-                            Препоръчани
-                        </h1>
-
-                        <div className="flex flex-col gap-10 lg:flex-row">
-                            {recommendedProducts.map((product) => {
-                                return (
-                                    <Image
-                                        key={product.id}
-                                        src={product.images[0]}
-                                        alt={product.description}
-                                        className="object-fit"
-                                    />
-                                );
-                            })}
                         </div>
                     </div>
                 </div>
             </section>
 
             <Footer />
-        </>
+        </div>
     );
 };
 
@@ -100,9 +98,9 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         const recommendedProductIds = getRecommendedProductIds();
 
         const recommendedProducts = await Promise.all(
-            recommendedProductIds.map((id) =>
-                ShopifyClient.getInstance().getProductById(id)
-            )
+            recommendedProductIds.map((id) => {
+                return Storefront.products.get(rebuildShopifyProductId(id));
+            })
         );
 
         return {

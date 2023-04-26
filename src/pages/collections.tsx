@@ -1,19 +1,20 @@
-import { Footer, Header } from "@/components";
 import { GetStaticPropsContext, type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { ShopifyClient } from "src/services/shopify-client";
+import Image from "next/image";
 
-import { type Collection } from "src/types/shared";
-import { sanitizeShopifyId } from "src/utils";
+import { Storefront, type CollectionType } from "@/services";
+
+import { Footer, Header } from "@/components";
+import { sanitizeShopifyId } from "@/utils";
 
 interface Props {
-    collectionList: Collection[];
+    collections: CollectionType[];
 }
 
-const Collections: NextPage<Props> = ({ collectionList }) => {
+const Collections: NextPage<Props> = ({ collections }) => {
     return (
-        <>
+        <div className="container m-auto">
             <Head>
                 <title>Ceramicss - Collections</title>
                 <link rel="icon" href="/favicon.ico" />
@@ -21,39 +22,44 @@ const Collections: NextPage<Props> = ({ collectionList }) => {
 
             <Header />
 
-            <section className="py-24 flex items-center justify-center bg-white">
-                <h1> Collections page </h1>
+            <section className="p-6 mt-10">
+                <h1 className="text-4xl text-primary-500 font-bold">Магазин</h1>
+
+                <ul className="flex items-center justify-center flex-col md:grid md:grid-cols-3">
+                    {collections.map(({ title, id, image }) => {
+                        return (
+                            <Link
+                                className="p-4 hover:underline hover:cursor-pointer m-auto"
+                                key={id}
+                                href={`/products/${sanitizeShopifyId(id)}`}
+                            >
+                                {image && image.width && image.height && (
+                                    <Image
+                                        src={image.url}
+                                        alt={image.altText || ""}
+                                        width={image.width}
+                                        height={image.height}
+                                    />
+                                )}
+                                <p className="ml-5 text-xl">{title}</p>
+                            </Link>
+                        );
+                    })}
+                </ul>
             </section>
 
-            <ul className="flex items-center justify-center flex-col">
-                {collectionList.map(({ title, id }) => {
-                    return (
-                        <Link
-                            className="p-2 hover:underline hover:cursor-pointer"
-                            key={id}
-                            href={`/products/${sanitizeShopifyId(id)}`}
-                        >
-                            {title}
-                        </Link>
-                    );
-                })}
-            </ul>
-
             <Footer />
-        </>
+        </div>
     );
 };
 
 export async function getStaticProps(context: GetStaticPropsContext) {
     try {
-        const collectionList =
-            await ShopifyClient.getInstance().getAllCollections({
-                shouldReturnOnlyIds: false,
-            });
+        const collections = await Storefront.collections.list();
 
         return {
             props: {
-                collectionList,
+                collections,
             },
         };
     } catch (err) {

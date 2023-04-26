@@ -1,46 +1,62 @@
+import { useEffect, useState } from "react";
 import { GetStaticPropsContext, type NextPage } from "next";
 import Head from "next/head";
-import Client from "shopify-buy";
-import { ShopifyClient } from "src/services/shopify-client";
 
-import type { Product, ShopifyImage } from "src/types/shared";
-import {
-    rebuildShopifyCollectionId,
-    rebuildShopifyProductId,
-    sanitizeShopifyId,
-} from "src/utils";
+import { Storefront, ProductType } from "@/services";
+
+import { Footer, Header } from "@/components";
+
+import { rebuildShopifyProductId } from "@/utils";
+import { Product } from "@/components";
+import { useCart } from "@/hooks";
 
 interface Props {
-    product: Product;
+    product: ProductType;
 }
 
-const ProductsOverview: NextPage<Props> = ({ product }) => {
+const ProductOverview: NextPage<Props> = ({ product }) => {
+    const { addItem, isProductInCart, isLoading } = useCart();
+
+    const [isAlreadyInCart, setIsAddedToCart] = useState<boolean | null>(null);
+
+    const addToCartHandler = async (variantId: string, quantity: number) => {
+        await addItem({ merchandiseId: variantId, quantity });
+    };
+
+    useEffect(() => {
+        if (!isLoading) {
+            setIsAddedToCart(isProductInCart(product.id));
+        }
+    }, [isLoading, isProductInCart, product.id]);
+
     return (
-        <>
+        <div className="container m-auto">
             <Head>
                 <title> Ceramicss - Single Product Page </title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <section className="py-24 flex items-center justify-center flex-col bg-white">
-                <h1> Product overview page </h1>
 
-                <p>{JSON.stringify(product, null, 4)}</p>
-            </section>
+            <Header />
 
-            <ul className="flex items-center justify-center flex-col"></ul>
-        </>
+            <Product.Detailed
+                product={product}
+                onAddToCart={addToCartHandler}
+                initiallyAddedToCart={isAlreadyInCart}
+            />
+
+            <Footer />
+        </div>
     );
 };
 
 export async function getStaticPaths() {
     try {
-        const allProductIds =
-            await ShopifyClient.getInstance().getAllProductIds({
-                shouldSanitizeIds: true,
-            });
+        const allProductIds = (await Storefront.products.all()).map(
+            (p) => p.id
+        );
 
-        const allProductPaths = allProductIds.map((productId) => ({
-            params: productId,
+        const allProductPaths = allProductIds.map((id) => ({
+            params: { id },
         }));
 
         return {
@@ -56,12 +72,16 @@ export async function getStaticProps(
     context: GetStaticPropsContext<{ id: string }>
 ) {
     const { params } = context;
+
     if (!params) {
         return {};
     }
+
     try {
         const { id } = params;
-        const product = await ShopifyClient.getInstance().getProductById(id);
+        const product = await Storefront.products.get(
+            rebuildShopifyProductId(id)
+        );
 
         return { props: { product } };
     } catch (err) {
@@ -69,4 +89,4 @@ export async function getStaticProps(
     }
 }
 
-export default ProductsOverview;
+export default ProductOverview;
