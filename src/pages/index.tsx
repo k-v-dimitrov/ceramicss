@@ -6,30 +6,19 @@ import Image from "next/image";
 import { Storefront, type ProductType } from "@/services";
 
 import { Header, Footer, Product } from "@/components";
-import { deleteAllCookies, rebuildShopifyProductId } from "@/utils";
+import { rebuildShopifyProductId } from "@/utils";
 
 import { getRecommendedProductIds } from "@/constants/recommended-products.constants";
 
 import LandingCoverPhoto from "@/public/imgs/landing-cover.png";
 import TeamPhoto1 from "@/public/imgs/front-team-1.png";
 import TeamPhoto2 from "@/public/imgs/front-team-2.png";
-import { useEffect } from "react";
 
 interface HomeProps {
     recommendedProducts: ProductType[];
 }
 
 const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
-    useEffect(() => {
-        if (
-            document.referrer.includes(
-                process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN_NAME
-            )
-        ) {
-            deleteAllCookies();
-        }
-    }, []);
-
     return (
         <div className="container m-auto">
             <Head>
