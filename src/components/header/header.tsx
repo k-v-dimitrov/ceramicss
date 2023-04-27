@@ -1,4 +1,4 @@
-import { useState, useCallback, type FC, useEffect } from "react";
+import { useState, useCallback, type FC, useEffect, useContext } from "react";
 import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -6,13 +6,15 @@ import Modal from "react-modal";
 
 import { SITE_NAV } from "@/constants/navigation.constants";
 
+import { CartContext } from "@/contexts";
+
 import type HeaderProps from "./header.props";
 import { HomeButton } from "@/components";
 
 const Header: FC<HeaderProps> = () => {
+    const { cart } = useContext(CartContext);
     const router = useRouter();
     const [activeMobileMenu, setActiveMobileMenu] = useState(false);
-    const isCartEmpty = true;
 
     // Disable scroll on opened modal
     useEffect(() => {
@@ -27,15 +29,19 @@ const Header: FC<HeaderProps> = () => {
         setActiveMobileMenu((prev) => !prev);
     };
 
-    const DynamicCartIcon = useCallback(() => {
+    const CartIndicator = useCallback(() => {
+        if (!cart?.hasItems) {
+            return null;
+        }
+
         return (
             <>
-                {!isCartEmpty && (
-                    <div className="absolute h-3 w-3 bg-warning-500 right-0 rounded-full" />
-                )}
+                <div className="absolute h-5 w-5 bg-warning-500 top-[-6px] right-[-6px] rounded-full text-white text-sm font-extrabold text-center">
+                    {cart.lines.length}
+                </div>
             </>
         );
-    }, [isCartEmpty]);
+    }, [cart]);
 
     const Desktop = () => (
         <>
@@ -58,7 +64,7 @@ const Header: FC<HeaderProps> = () => {
 
                 <Link href="/cart" className="hidden lg:block">
                     <div className="inline-block relative">
-                        <DynamicCartIcon />
+                        <CartIndicator />
 
                         <div className="hover:cursor-pointer flex justify-center items-center h-10 w-10 bg-primary-500 rounded-full">
                             <div className="icon-cart text-white text-xl"></div>
@@ -119,7 +125,7 @@ const Header: FC<HeaderProps> = () => {
         <div className="flex gap-8 lg:hidden">
             <Link href="/cart" className="lg:hidden">
                 <div className="inline-block relative">
-                    <DynamicCartIcon />
+                    <CartIndicator />
 
                     <div className="hover:cursor-pointer flex justify-center items-center h-10 w-10 bg-primary-500 rounded-full">
                         <div className="icon-cart text-white text-xl"></div>

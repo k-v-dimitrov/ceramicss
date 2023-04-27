@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { type NextPage } from "next";
 import Link from "next/link";
 import Head from "next/head";
@@ -7,7 +7,7 @@ import Modal from "react-modal";
 import { CartType } from "@/services";
 import { Header, Footer, Product, Button, Loading } from "@/components";
 
-import { useCart } from "@/hooks";
+import { CartContext } from "@/contexts";
 
 const mapCartLineItems = (lines: NonNullable<CartType>["lines"]) =>
     lines.map((line) => {
@@ -29,7 +29,8 @@ const calculateInitialCartPrice = (lines: NonNullable<CartType>["lines"]) => {
 };
 
 const Cart: NextPage = () => {
-    const { cart, isLoading, updateItem, removeItem } = useCart();
+    const { cart, isLoading, removeItem, updateItem } = useContext(CartContext);
+
     const [cartState, setCartState] = useState<{
         lineItems: ReturnType<typeof mapCartLineItems> | null;
         totalCartPrice: number | null;
@@ -128,7 +129,7 @@ const Cart: NextPage = () => {
                                 <Button
                                     className="text-primary-500 bg-white"
                                     onClick={async () => {
-                                        await removeItem(
+                                        await removeItem!(
                                             removeIncentive!.productId
                                         );
 
@@ -175,7 +176,7 @@ const Cart: NextPage = () => {
                                             quantity
                                         );
 
-                                        await updateItem({
+                                        await updateItem!({
                                             id: productId,
                                             quantity,
                                         });
