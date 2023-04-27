@@ -1,27 +1,18 @@
-import { useCallback, type FC } from "react";
-import Image from "next/image";
-
-import FooterProps from "./footer.props";
+import { type FC } from "react";
+import Link from "next/link";
 
 import { SITE_NAV, SOCIAL_LINKS } from "@/constants/navigation.constants";
 
-import FooterLogo from "@/public/imgs/footer-logo.png";
+import { HomeButton } from "@/components";
 
-import Link from "next/link";
+import FooterProps from "./footer.props";
 
 const Footer: FC<FooterProps> = () => {
     return (
         <footer>
             <div className="flex flex-col text-center items-center justify-center md:flex-col md:my-5 lg:w-full lg:flex-row lg:items-start lg:text-start lg:p-4">
-                <div className="m-4 lg:w-1/12">
-                    <Link href="/">
-                        <Image
-                            src={FooterLogo}
-                            width="100"
-                            height="37"
-                            alt="footer logo"
-                        />
-                    </Link>
+                <div className="w-[100px] m-4">
+                    <HomeButton />
                 </div>
 
                 <ul className="flex flex-row flex-wrap justify-center sm:flex-row md:my-5 lg:w-10/12 lg:justify-end">
@@ -78,4 +69,3 @@ const Footer: FC<FooterProps> = () => {
 };
 
 export default Footer;
-Image;
