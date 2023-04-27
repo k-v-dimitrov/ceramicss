@@ -12,7 +12,7 @@ import type HeaderProps from "./header.props";
 import { HomeButton } from "@/components";
 
 const Header: FC<HeaderProps> = () => {
-    const { isLoading: isLoadingCart, cart } = useContext(CartContext);
+    const { cart } = useContext(CartContext);
     const router = useRouter();
     const [activeMobileMenu, setActiveMobileMenu] = useState(false);
 
