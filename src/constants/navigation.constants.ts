@@ -22,16 +22,16 @@ export const SITE_NAV: SiteNav[] = [
         label: "За нас",
         subLinks: [
             { href: "/info", label: "Информация" },
-            { href: "/", label: "Общи условия" },
+            { href: "/404", label: "Общи условия" },
         ],
     },
     {
         href: "/collections",
         label: "Магазин",
         subLinks: [
-            { href: "/", label: "Чаши" },
-            { href: "/", label: "Обеци" },
-            { href: "/", label: "Други" },
+            { href: "/products/438093119769", label: "Чаши" },
+            { href: "/products/438094135577", label: "Обеци" },
+            { href: "/collections", label: "Други" },
         ],
     },
     {
