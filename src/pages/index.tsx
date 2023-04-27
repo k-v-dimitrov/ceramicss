@@ -10,10 +10,6 @@ import { rebuildShopifyProductId } from "@/utils";
 
 import { getRecommendedProductIds } from "@/constants/recommended-products.constants";
 
-import LandingCoverPhoto from "@/public/imgs/landing-cover.png";
-import TeamPhoto1 from "@/public/imgs/front-team-1.png";
-import TeamPhoto2 from "@/public/imgs/front-team-2.png";
-
 interface HomeProps {
     recommendedProducts: ProductType[];
 }
@@ -28,13 +24,14 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
 
             <Header />
 
-            <section
-                className="flex flex-col relative bg-center"
-                style={{
-                    backgroundImage: `url(${LandingCoverPhoto.src})`,
-                    height: "70vh",
-                }}
-            >
+            <section className="flex flex-col relative bg-center h-[70vh]">
+                <Image
+                    src="/imgs/landing-cover.webp"
+                    height={1980 / 2}
+                    width={940 / 2}
+                    alt=""
+                    className="w-full h-full object-cover"
+                />
                 <Link
                     className="py-4 px-6 bg-[#FFF] text-primary-500 font-semibold rounded-3xl hover:cursor-pointer absolute top-3/4 left-1/2 -translate-x-2/4"
                     href="/collections"
@@ -72,13 +69,18 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
 
                             <div className="flex flex-col gap-10 lg:flex-row">
                                 <Image
-                                    src={TeamPhoto1}
+                                    priority
+                                    src="/imgs/front-team-1.webp"
+                                    height={391 / 2}
+                                    width={638 / 2}
                                     alt="Team photo first"
                                     className="object-scale-down"
                                 />
 
                                 <Image
-                                    src={TeamPhoto2}
+                                    src="/imgs/front-team-2.webp"
+                                    height={391 / 2}
+                                    width={638 / 2}
                                     alt="Team photo first"
                                     className="object-scale-down"
                                 />

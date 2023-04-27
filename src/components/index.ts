@@ -1,5 +1,6 @@
 export * from "./header";
 export * from "./alternating-section";
+export * from "./bubble-icon";
 export * from "./footer";
 export * from "./contacts";
 export * from "./collections-menu";

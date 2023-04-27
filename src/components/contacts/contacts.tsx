@@ -1,39 +1,36 @@
 import { type FC } from "react";
+import Link from "next/link";
+import Image from "next/image";
+
+import { BubbleIcon } from "@/components";
 
 import ContactsProps from "./contacts.props";
 
-import SimpleLogo from "@/public/icons/simple-logo.svg";
-import MailIcon from "@/public/icons/mail-icon.svg";
-import TelIcon from "@/public/icons/tel-icon.svg";
-import FacebookIcon from "@/public/icons/facebook.svg";
-import InstagramIcon from "@/public/icons/instagram.svg";
-import Link from "next/link";
-
 type ContactRow = {
     label: string;
-    icon: React.FC;
+    icon: React.ReactNode;
     href: string;
 };
 
 const CONTACTS_LIST: ContactRow[] = [
     {
         label: "+359 88 501 1100",
-        icon: TelIcon,
+        icon: <BubbleIcon type="tel" />,
         href: "tel:+359885011100",
     },
     {
         label: "info@ceramicss.eu",
-        icon: MailIcon,
+        icon: <BubbleIcon type="mail" />,
         href: "mailto:info@ceramicss.eu",
     },
     {
         label: "CeramicsS",
-        icon: FacebookIcon,
+        icon: <BubbleIcon type="facebook" />,
         href: "https://www.facebook.com",
     },
     {
         label: "ceramicss.eu",
-        icon: InstagramIcon,
+        icon: <BubbleIcon type="instagram" />,
         href: "https://www.instagram.com",
     },
 ];
@@ -49,9 +46,7 @@ const Contacts: FC<ContactsProps> = () => {
                                 href={contact.href}
                                 className="flex my-3 items-center"
                             >
-                                <div className="mr-4">
-                                    <contact.icon />
-                                </div>
+                                <div className="mr-4">{contact.icon}</div>
                                 <p className="text-2xl text-gray-700">
                                     {contact.label}
                                 </p>
@@ -62,7 +57,7 @@ const Contacts: FC<ContactsProps> = () => {
             </ul>
 
             <div className="my-20">
-                <SimpleLogo />
+                <Image src="/imgs/simple-logo.svg" height={375} width={316} alt="" />
             </div>
         </section>
     );
