@@ -8,18 +8,18 @@ const initialState: {
     cartData: CartType | null;
     error: unknown;
     isLoading: boolean;
+    refreshFlag: boolean;
 } = {
     cartData: null,
     error: null,
     isLoading: true,
+    refreshFlag: false,
 };
 
 const useCart = () => {
     const [state, setState] = useState(initialState);
 
-    useEffect(() => {
-        setState(initialState);
-
+    const refreshCartState = () => {
         fetch(`/api/cart`)
             .then((res) => res.json())
             .then((data) =>
@@ -29,9 +29,24 @@ const useCart = () => {
                 setState((prevState) => ({ ...prevState, error }))
             )
             .finally(() =>
-                setState((prevState) => ({ ...prevState, isLoading: false }))
+                setState((prevState) => ({
+                    ...prevState,
+                    isLoading: false,
+                    refreshFlag: false,
+                }))
             );
+    };
+
+    useEffect(() => {
+        setState(initialState);
+        refreshCartState();
     }, []);
+
+    useEffect(() => {
+        if (state.refreshFlag) {
+            refreshCartState();
+        }
+    }, [state.refreshFlag]);
 
     async function removeItem(lineId: string) {
         return fetch("/api/cart/lines/remove", {
@@ -44,13 +59,17 @@ const useCart = () => {
     }
 
     async function addItem(line: CartLineInput) {
-        return fetch("/api/cart/lines/add", {
+        const res = await fetch("/api/cart/lines/add", {
             method: "POST",
             body: JSON.stringify({ line }),
             headers: {
                 "Content-Type": "application/json",
             },
         });
+
+        setState((prevState) => ({ ...prevState, refreshFlag: true }));
+
+        return res;
     }
 
     async function updateItem(line: CartLineUpdateInput) {
