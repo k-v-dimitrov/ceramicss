@@ -16,6 +16,7 @@ const SearchDesktop = () => {
                 onChange={({ target: { value } }) => setSearchQuery(value)}
                 value={searchQuery}
             />
+
             {/* Search results */}
             {searchResults && (
                 <div className="absolute w-full max-h-[600px] overflow-auto top-[45px] right-[0px] z-50 bg-white border">

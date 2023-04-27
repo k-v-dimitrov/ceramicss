@@ -14,10 +14,7 @@ const SearchedProduct: React.FC<ProductProps> = ({ product }) => {
     const sanitizedProductId = sanitizeShopifyId(product?.id);
 
     return (
-        <Link
-            href={`/product/${sanitizedProductId}`}
-            className="hover:underline"
-        >
+        <a href={`/product/${sanitizedProductId}`} className="hover:underline">
             <div className="p-10">
                 <Image
                     src={coverImage?.url}
@@ -32,7 +29,7 @@ const SearchedProduct: React.FC<ProductProps> = ({ product }) => {
                     <p className="font-bold text-gray-700">{product?.title}</p>
                 </div>
             </div>
-        </Link>
+        </a>
     );
 };
 
