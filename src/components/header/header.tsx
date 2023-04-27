@@ -1,13 +1,13 @@
 import { useState, useCallback, type FC, useEffect } from "react";
+import classNames from "classnames";
 import Link from "next/link";
-import Modal from "react-modal";
 import { useRouter } from "next/router";
+import Modal from "react-modal";
 
-import Logo from "@/public/icons/logo.svg";
 import { SITE_NAV } from "@/constants/navigation.constants";
 
 import type HeaderProps from "./header.props";
-import classNames from "classnames";
+import { HomeButton } from "@/components";
 
 const Header: FC<HeaderProps> = () => {
     const router = useRouter();
@@ -129,28 +129,20 @@ const Header: FC<HeaderProps> = () => {
 
             {activeMobileMenu ? (
                 <button className="lg:hidden" onClick={toggleMobileMenu}>
-                    <i className="icon-remove text-[24px]"></i>
+                    <i className="icon-remove text-[32px]"></i>
                 </button>
             ) : (
                 <button className="lg:hidden" onClick={toggleMobileMenu}>
-                    <i className="icon-menu"></i>
+                    <i className="icon-menu text-[32px]"></i>
                 </button>
             )}
         </div>
     );
 
-    const HomeLogoButton = () => (
-        <>
-            <Link href="/" className="w-24">
-                <Logo />
-            </Link>
-        </>
-    );
-
     return (
         <div className="bg-white w-full">
             <div className="flex justify-between items-center p-6 lg:mx-auto lg:container">
-                <HomeLogoButton />
+                <HomeButton />
                 <Desktop />
                 <div className="lg:hidden">
                     <Mobile />
