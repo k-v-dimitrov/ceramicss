@@ -21,7 +21,7 @@ const SearchDesktop = () => {
             {searchResults && (
                 <div className="absolute w-full max-h-[600px] overflow-auto top-[45px] right-[0px] z-50 bg-white border">
                     {searchResults.map((p) => (
-                        <Product.GridItem key={p.id} product={p} />
+                        <Product.Searched key={p.id} product={p} />
                     ))}
                 </div>
             )}

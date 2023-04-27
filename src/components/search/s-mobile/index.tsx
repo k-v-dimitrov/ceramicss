@@ -7,9 +7,6 @@ const SearchToggler = ({
 }: {
     requestMobileSearch: () => void;
 }) => {
-    // const { searchResults, searchQuery, setSearchQuery, isLoading } =
-    //     useSearch();
-
     return (
         <div className="pb-4 px-3" onClick={requestMobileSearch}>
             <div className="flex items-center bg-gray-300 rounded-full px-2 py-2 self-center">
@@ -37,7 +34,7 @@ export const SearchMobile = () => {
 
     return (
         <>
-            <div className="flex items-center bg-gray-300 rounded-full px-2 py-2 self-center ">
+            <div className="flex items-center bg-gray-300 rounded-full px-2 py-2 self-center w-[80%]">
                 <input
                     ref={callbackInputRef}
                     type="text"
