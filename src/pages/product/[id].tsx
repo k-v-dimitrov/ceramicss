@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GetStaticPropsContext, type NextPage } from "next";
 import Head from "next/head";
 
@@ -8,24 +8,24 @@ import { Footer, Header, Loading } from "@/components";
 
 import { rebuildShopifyProductId } from "@/utils";
 import { Product } from "@/components";
-import { useCart } from "@/hooks";
+import { CartContext } from "@/contexts";
 
 interface Props {
     product: ProductType;
 }
 
 const ProductOverview: NextPage<Props> = ({ product }) => {
-    const { addItem, isProductInCart, isLoading } = useCart();
+    const { addItem, isLoading, isProductInCart } = useContext(CartContext);
 
     const [isAlreadyInCart, setIsAddedToCart] = useState<boolean | null>(null);
 
     const addToCartHandler = async (variantId: string, quantity: number) => {
-        await addItem({ merchandiseId: variantId, quantity });
+        await addItem!({ merchandiseId: variantId, quantity });
     };
 
     useEffect(() => {
         if (!isLoading) {
-            setIsAddedToCart(isProductInCart(product.id));
+            setIsAddedToCart(isProductInCart!(product.id));
         }
     }, [isLoading, isProductInCart, product.id]);
 
