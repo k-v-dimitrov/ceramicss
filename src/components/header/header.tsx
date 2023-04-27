@@ -9,7 +9,7 @@ import { SITE_NAV } from "@/constants/navigation.constants";
 import { CartContext } from "@/contexts";
 
 import type HeaderProps from "./header.props";
-import { HomeButton } from "@/components";
+import { HomeButton, Search } from "@/components";
 
 const Header: FC<HeaderProps> = () => {
     const { cart } = useContext(CartContext);
@@ -54,13 +54,7 @@ const Header: FC<HeaderProps> = () => {
             </div>
 
             <div className="flex">
-                <div className="hidden lg:flex items-center bg-gray-300 rounded-full px-2 py-2 mr-3 self-center">
-                    <div className="mr-3">
-                        <div className="icon-search cursor-pointer text-primary-500 text-lg" />
-                    </div>
-
-                    <input type="text" className="bg-unset mr-2" />
-                </div>
+                <Search />
 
                 <Link href="/cart" className="hidden lg:block">
                     <div className="inline-block relative">
