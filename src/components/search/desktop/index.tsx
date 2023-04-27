@@ -25,8 +25,8 @@ const SearchDesktop = () => {
                 </div>
             )}
             {!isLoading && searchQuery && !searchResults && (
-                <div className="absolute w-full max-h-[600px] overflow-auto top-[45px] right-[0px] z-50 bg-white border">
-                    Не беше намерен такъв продукт!
+                <div className="absolute w-full max-h-[600px] overflow-auto top-[45px] right-[0px] z-50 bg-white border p-2">
+                    Не намерихме такъв продукт!
                 </div>
             )}
         </div>
