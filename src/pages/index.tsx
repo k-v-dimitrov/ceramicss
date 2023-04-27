@@ -24,9 +24,7 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
 
             <Header />
 
-            <section
-                className="flex flex-col relative bg-center h-[70vh]"
-            >
+            <section className="flex flex-col relative bg-center h-[70vh]">
                 <Image
                     src="/imgs/landing-cover.webp"
                     height={1980 / 2}
@@ -71,6 +69,7 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
 
                             <div className="flex flex-col gap-10 lg:flex-row">
                                 <Image
+                                    priority
                                     src="/imgs/front-team-1.webp"
                                     height={391 / 2}
                                     width={638 / 2}
