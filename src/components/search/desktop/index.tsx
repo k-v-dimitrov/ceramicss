@@ -1,9 +1,9 @@
 import { useDebounce } from "@/hooks";
 import { ProductType } from "@/services";
 import { useEffect, useState } from "react";
-import { Product } from "../product";
+import { Product } from "@/components";
 
-const Search = () => {
+const SearchDesktop = () => {
     // Search state
     const [searchQuery, setSearchQuery] = useState<string>("");
     const debouncedQuery = useDebounce(searchQuery, 300);
@@ -63,4 +63,4 @@ const Search = () => {
     );
 };
 
-export default Search;
+export default SearchDesktop;

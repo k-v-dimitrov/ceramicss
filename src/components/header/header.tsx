@@ -54,7 +54,7 @@ const Header: FC<HeaderProps> = () => {
             </div>
 
             <div className="flex">
-                <Search />
+                <Search.Desktop />
 
                 <Link href="/cart" className="hidden lg:block">
                     <div className="inline-block relative">
