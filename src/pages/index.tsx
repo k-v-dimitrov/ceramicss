@@ -74,27 +74,29 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
             </section>
 
             <section className="flex justify-center bg-[#EAEAEA]">
-                <div className="p-12 flex flex-col items-center">
-                    <div className="flex flex-col gap-5">
-                        <h1 className="text-primary-500 text-3xl self-start">
-                            Екип
-                        </h1>
+                <Link href="/about">
+                    <div className="p-12 flex flex-col items-center">
+                        <div className="flex flex-col gap-5">
+                            <h1 className="text-primary-500 text-3xl self-start">
+                                Екип
+                            </h1>
 
-                        <div className="flex flex-col gap-10 lg:flex-row">
-                            <Image
-                                src={TeamPhoto1}
-                                alt="Team photo first"
-                                className="object-scale-down"
-                            />
+                            <div className="flex flex-col gap-10 lg:flex-row">
+                                <Image
+                                    src={TeamPhoto1}
+                                    alt="Team photo first"
+                                    className="object-scale-down"
+                                />
 
-                            <Image
-                                src={TeamPhoto2}
-                                alt="Team photo first"
-                                className="object-scale-down"
-                            />
+                                <Image
+                                    src={TeamPhoto2}
+                                    alt="Team photo first"
+                                    className="object-scale-down"
+                                />
+                            </div>
                         </div>
                     </div>
-                </div>
+                </Link>
             </section>
 
             <Footer />
