@@ -129,11 +129,11 @@ const Header: FC<HeaderProps> = () => {
 
             {activeMobileMenu ? (
                 <button className="lg:hidden" onClick={toggleMobileMenu}>
-                    <i className="icon-remove text-[24px]"></i>
+                    <i className="icon-remove text-[32px]"></i>
                 </button>
             ) : (
                 <button className="lg:hidden" onClick={toggleMobileMenu}>
-                    <i className="icon-menu"></i>
+                    <i className="icon-menu text-[32px]"></i>
                 </button>
             )}
         </div>
