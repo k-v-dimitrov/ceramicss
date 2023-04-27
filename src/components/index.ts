@@ -10,3 +10,4 @@ export * from "./image-rotator";
 export * from "./cookie-consent";
 export * from "./loading";
 export * from "./home-button";
+export * from "./search";

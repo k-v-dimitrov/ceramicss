@@ -18,20 +18,20 @@ export const SITE_NAV: SiteNav[] = [
         label: "Начало",
     },
     {
-        href: "/about",
-        label: "За нас",
-        subLinks: [
-            { href: "/info", label: "Информация" },
-            { href: "/404", label: "Общи условия" },
-        ],
-    },
-    {
         href: "/collections",
         label: "Магазин",
         subLinks: [
             { href: "/products/438093119769", label: "Чаши" },
             { href: "/products/438094135577", label: "Обеци" },
             { href: "/collections", label: "Други" },
+        ],
+    },
+    {
+        href: "/about",
+        label: "За нас",
+        subLinks: [
+            { href: "/info", label: "Информация" },
+            { href: "/404", label: "Общи условия" },
         ],
     },
     {
