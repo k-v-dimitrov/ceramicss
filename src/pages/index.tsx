@@ -26,8 +26,14 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
 
             <section
                 className="flex flex-col relative bg-center h-[70vh]"
-                style={{ backgroundImage: `url("/imgs/landing-cover.png")` }}
             >
+                <Image
+                    src="/imgs/landing-cover.webp"
+                    height={1980 / 2}
+                    width={940 / 2}
+                    alt=""
+                    className="w-full h-full object-cover"
+                />
                 <Link
                     className="py-4 px-6 bg-[#FFF] text-primary-500 font-semibold rounded-3xl hover:cursor-pointer absolute top-3/4 left-1/2 -translate-x-2/4"
                     href="/collections"
@@ -65,7 +71,7 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
 
                             <div className="flex flex-col gap-10 lg:flex-row">
                                 <Image
-                                    src="/imgs/front-team-1.png"
+                                    src="/imgs/front-team-1.webp"
                                     height={391 / 2}
                                     width={638 / 2}
                                     alt="Team photo first"
@@ -73,7 +79,7 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
                                 />
 
                                 <Image
-                                    src="/imgs/front-team-2.png"
+                                    src="/imgs/front-team-2.webp"
                                     height={391 / 2}
                                     width={638 / 2}
                                     alt="Team photo first"
