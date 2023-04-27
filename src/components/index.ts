@@ -1,5 +1,6 @@
 export * from "./header";
 export * from "./alternating-section";
+export * from "./bubble-icon";
 export * from "./footer";
 export * from "./contacts";
 export * from "./collections-menu";
@@ -10,3 +11,4 @@ export * from "./image-rotator";
 export * from "./cookie-consent";
 export * from "./loading";
 export * from "./home-button";
+export * from "./search";

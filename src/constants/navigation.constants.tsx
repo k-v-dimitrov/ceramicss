@@ -1,5 +1,4 @@
-import FacebookIcon from "@/public/icons/facebook.svg";
-import InstagramIcon from "@/public/icons/instagram.svg";
+import { BubbleIcon } from "@/components/bubble-icon";
 
 type SiteNav = {
     label: string;
@@ -9,7 +8,7 @@ type SiteNav = {
 
 type SocialLink = {
     href: string;
-    icon: React.FC;
+    icon: React.ReactNode;
 };
 
 export const SITE_NAV: SiteNav[] = [
@@ -18,20 +17,20 @@ export const SITE_NAV: SiteNav[] = [
         label: "Начало",
     },
     {
-        href: "/about",
-        label: "За нас",
-        subLinks: [
-            { href: "/info", label: "Информация" },
-            { href: "/404", label: "Общи условия" },
-        ],
-    },
-    {
         href: "/collections",
         label: "Магазин",
         subLinks: [
             { href: "/products/438093119769", label: "Чаши" },
             { href: "/products/438094135577", label: "Обеци" },
             { href: "/collections", label: "Други" },
+        ],
+    },
+    {
+        href: "/about",
+        label: "За нас",
+        subLinks: [
+            { href: "/info", label: "Информация" },
+            { href: "/404", label: "Общи условия" },
         ],
     },
     {
@@ -45,6 +44,6 @@ export const SITE_NAV: SiteNav[] = [
 ];
 
 export const SOCIAL_LINKS: SocialLink[] = [
-    { href: "https://www.facebook.com", icon: FacebookIcon },
-    { href: "https://www.instagram.com", icon: InstagramIcon },
+    { href: "https://www.facebook.com", icon: <BubbleIcon type="facebook" /> },
+    { href: "https://www.instagram.com", icon: <BubbleIcon type="instagram" /> },
 ];

@@ -53,7 +53,7 @@ const Footer: FC<FooterProps> = () => {
                                     href={social.href}
                                     className="hover:underline"
                                 >
-                                    <social.icon />
+                                    {social.icon}
                                 </Link>
                             </li>
                         );

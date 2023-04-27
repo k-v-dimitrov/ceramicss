@@ -1,9 +1,10 @@
-import "@/styles/globals.css";
-
+import { useEffect, useState } from "react";
 import { type AppProps } from "next/app";
 
 import { CookieConsent } from "@/components";
-import { useEffect, useState } from "react";
+import { CartProvider } from "@/contexts";
+
+import "@/styles/globals.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
     const [hasAcceptedCookies, setHasAcceptedCookies] = useState(true);
@@ -19,12 +20,12 @@ function MyApp({ Component, pageProps }: AppProps) {
     };
 
     return (
-        <>
+        <CartProvider>
             {!hasAcceptedCookies && (
                 <CookieConsent onAcceptCookies={handleCookieAcceptance} />
             )}
             <Component {...pageProps} />
-        </>
+        </CartProvider>
     );
 }
 

@@ -1,4 +1,4 @@
-import { useState, useCallback, type FC, useEffect } from "react";
+import { useState, useCallback, type FC, useEffect, useContext } from "react";
 import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -6,13 +6,17 @@ import Modal from "react-modal";
 
 import { SITE_NAV } from "@/constants/navigation.constants";
 
+import { CartContext } from "@/contexts";
+
 import type HeaderProps from "./header.props";
-import { HomeButton } from "@/components";
+import { HomeButton, Search } from "@/components";
 
 const Header: FC<HeaderProps> = () => {
+    const { cart } = useContext(CartContext);
     const router = useRouter();
     const [activeMobileMenu, setActiveMobileMenu] = useState(false);
-    const isCartEmpty = true;
+
+    const [mobileSearchView, setMobileSearchView] = useState(false);
 
     // Disable scroll on opened modal
     useEffect(() => {
@@ -25,17 +29,26 @@ const Header: FC<HeaderProps> = () => {
 
     const toggleMobileMenu = () => {
         setActiveMobileMenu((prev) => !prev);
+        setMobileSearchView(false);
     };
 
-    const DynamicCartIcon = useCallback(() => {
+    const handleSearchViewRequest = () => {
+        setMobileSearchView(true);
+    };
+
+    const CartIndicator = useCallback(() => {
+        if (!cart?.hasItems) {
+            return null;
+        }
+
         return (
             <>
-                {!isCartEmpty && (
-                    <div className="absolute h-3 w-3 bg-warning-500 right-0 rounded-full" />
-                )}
+                <div className="absolute h-5 w-5 bg-warning-500 top-[-6px] right-[-6px] rounded-full text-white text-sm font-extrabold text-center">
+                    {cart.lines.length}
+                </div>
             </>
         );
-    }, [isCartEmpty]);
+    }, [cart]);
 
     const Desktop = () => (
         <>
@@ -48,17 +61,11 @@ const Header: FC<HeaderProps> = () => {
             </div>
 
             <div className="flex">
-                <div className="hidden lg:flex items-center bg-gray-300 rounded-full px-2 py-2 mr-3 self-center">
-                    <div className="mr-3">
-                        <div className="icon-search cursor-pointer text-primary-500 text-lg" />
-                    </div>
-
-                    <input type="text" className="bg-unset mr-2" />
-                </div>
+                <Search.Desktop />
 
                 <Link href="/cart" className="hidden lg:block">
                     <div className="inline-block relative">
-                        <DynamicCartIcon />
+                        <CartIndicator />
 
                         <div className="hover:cursor-pointer flex justify-center items-center h-10 w-10 bg-primary-500 rounded-full">
                             <div className="icon-cart text-white text-xl"></div>
@@ -100,33 +107,15 @@ const Header: FC<HeaderProps> = () => {
                     })}
                 </div>
 
-                <div className="pb-4 px-3">
-                    <div className="flex items-center bg-gray-300 rounded-full px-2 py-2 self-center">
-                        <input
-                            type="text"
-                            className="bg-unset ml-2 placeholder-gray-600 w-full"
-                            placeholder="Какво търсите?"
-                        />
-
-                        <div className="icon-search cursor-pointer text-primary-500 text-lg mr-2" />
-                    </div>
-                </div>
+                <Search.Mobile.Toggler
+                    requestMobileSearch={handleSearchViewRequest}
+                />
             </div>
         </Modal>
     );
 
     const MobileToggler = () => (
         <div className="flex gap-8 lg:hidden">
-            <Link href="/cart" className="lg:hidden">
-                <div className="inline-block relative">
-                    <DynamicCartIcon />
-
-                    <div className="hover:cursor-pointer flex justify-center items-center h-10 w-10 bg-primary-500 rounded-full">
-                        <div className="icon-cart text-white text-xl"></div>
-                    </div>
-                </div>
-            </Link>
-
             {activeMobileMenu ? (
                 <button className="lg:hidden" onClick={toggleMobileMenu}>
                     <i className="icon-remove text-[32px]"></i>
@@ -142,12 +131,34 @@ const Header: FC<HeaderProps> = () => {
     return (
         <div className="bg-white w-full">
             <div className="flex justify-between items-center p-6 lg:mx-auto lg:container">
-                <HomeButton />
-                <Desktop />
-                <div className="lg:hidden">
-                    <Mobile />
-                    <MobileToggler />
-                </div>
+                {mobileSearchView ? (
+                    <>
+                        <Search.Mobile.Search />
+                        <MobileToggler />
+                    </>
+                ) : (
+                    <>
+                        <HomeButton />
+                        <Desktop />
+                        <div className="lg:hidden">
+                            <Mobile />
+
+                            <div className="flex gap-8">
+                                <Link href="/cart" className="lg:hidden">
+                                    <div className="inline-block relative">
+                                        <CartIndicator />
+
+                                        <div className="hover:cursor-pointer flex justify-center items-center h-10 w-10 bg-primary-500 rounded-full">
+                                            <div className="icon-cart text-white text-xl"></div>
+                                        </div>
+                                    </div>
+                                </Link>
+
+                                <MobileToggler />
+                            </div>
+                        </div>
+                    </>
+                )}
             </div>
         </div>
     );
