@@ -3,16 +3,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import { Storefront } from "@/services";
 
 export const config = {
-    matcher: [
-        /*
-         * Match all request paths except for the ones starting with:
-         * - api (API routes)
-         * - _next/static (static files)
-         * - _next/image (image optimization files)
-         * - favicon.ico (favicon file)
-         */
-        "/((?!api|_next/static|_next/image|favicon.ico).*)",
-    ],
+    matcher: ["/api/:path"],
 };
 
 export async function middleware(req: NextRequest) {
@@ -44,7 +35,8 @@ export async function middleware(req: NextRequest) {
                     });
                 }
             } catch (error) {
-                throw new Error("Not yet implemented.");
+                const test = error as Error;
+                throw new Error(test.message);
             }
         }
     }

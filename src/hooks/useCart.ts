@@ -87,8 +87,6 @@ const useCart = () => {
             (line) => line.product.id === rebuildShopifyProductId(productId)
         );
 
-        console.log(state.cartData?.lines, productId, asd);
-
         return asd;
     }
 
