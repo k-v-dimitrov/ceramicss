@@ -3,9 +3,8 @@ import { type NextRequest, NextResponse } from "next/server";
 import { Storefront } from "@/services";
 
 export const config = {
-    matcher: ["/api/:path"],
+    matcher: "/((?!_next|public|favicon.ico).*)",
 };
-
 export async function middleware(req: NextRequest) {
     const res = NextResponse.next();
 
