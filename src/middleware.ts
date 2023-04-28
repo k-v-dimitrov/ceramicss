@@ -44,7 +44,8 @@ export async function middleware(req: NextRequest) {
                     });
                 }
             } catch (error) {
-                throw new Error("Not yet implemented.");
+                const test = error as Error;
+                throw new Error(test.message);
             }
         }
     }
