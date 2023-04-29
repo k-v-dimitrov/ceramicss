@@ -33,7 +33,7 @@ const ProductsOverview: NextPage<Props> = ({
                     currentCollection={currentCollection}
                 />
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 m-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-3 m-auto gap-12 px-2">
                     <Product.GridItem product={collectionProducts?.[0]} />
                     <Product.GridItem product={collectionProducts?.[1]} />
                     <Product.GridItem product={collectionProducts?.[2]} />

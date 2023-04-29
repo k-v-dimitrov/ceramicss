@@ -14,29 +14,24 @@ const GridProduct: React.FC<ProductProps> = ({ product }) => {
     const sanitizedProductId = sanitizeShopifyId(product?.id);
 
     return (
-        <Link
-            href={`/product/${sanitizedProductId}`}
-            className="hover:underline"
-        >
-            <div className="p-10">
-                <Image
-                    src={coverImage?.url}
-                    alt={coverImage?.altText || ""}
-                    width={350}
-                    height={350}
-                />
+        <Link href={`/product/${sanitizedProductId}`}>
+            <Image
+                src={coverImage?.url}
+                alt={coverImage?.altText || ""}
+                width={350}
+                height={350}
+            />
 
-                <p className="text-gray-600 text-sm mt-1">{product?.tags[0]}</p>
+            <p className="text-gray-600 text-sm mt-2">{product?.tags[0]}</p>
 
-                <div className="flex justify-between mt-2">
-                    <p className="text-lg font-bold text-gray-700">
-                        {product?.title}
-                    </p>
-                    <p className="font-light text-gray-700">
-                        {product?.price.amount}
-                        {product?.price.currencyCode}
-                    </p>
-                </div>
+            <div className="flex justify-between mt-2">
+                <p className="text-lg font-bold text-gray-700">
+                    {product?.title}
+                </p>
+                <p className="font-light text-gray-700">
+                    {product?.price.amount}
+                    {product?.price.currencyCode}
+                </p>
             </div>
         </Link>
     );
