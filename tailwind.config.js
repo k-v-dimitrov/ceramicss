@@ -2,6 +2,9 @@
 module.exports = {
     content: ["./src/**/*.{ts,tsx}"],
     theme: {
+        boxShadow: {
+            outline: "0px 0px 0px 1px rgb(0, 106, 172)"
+        },
         colors: {
             primary: {
                 100: "#C8F3FA",
