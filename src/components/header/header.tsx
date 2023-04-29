@@ -9,14 +9,12 @@ import { SITE_NAV } from "@/constants/navigation.constants";
 import { CartContext } from "@/contexts";
 
 import type HeaderProps from "./header.props";
-import { HomeButton, Search } from "@/components";
+import { HomeButton, SearchInput } from "@/components";
 
 const Header: FC<HeaderProps> = () => {
     const { cart } = useContext(CartContext);
     const router = useRouter();
     const [activeMobileMenu, setActiveMobileMenu] = useState(false);
-
-    const [mobileSearchView, setMobileSearchView] = useState(false);
 
     // Disable scroll on opened modal
     useEffect(() => {
@@ -29,11 +27,6 @@ const Header: FC<HeaderProps> = () => {
 
     const toggleMobileMenu = () => {
         setActiveMobileMenu((prev) => !prev);
-        setMobileSearchView(false);
-    };
-
-    const handleSearchViewRequest = () => {
-        setMobileSearchView(true);
     };
 
     const CartIndicator = useCallback(() => {
@@ -50,6 +43,12 @@ const Header: FC<HeaderProps> = () => {
         );
     }, [cart]);
 
+    const handleSearchSubmit = () => {
+        if (router.query.searchQuery && activeMobileMenu) {
+            toggleMobileMenu();
+        }
+    };
+
     const Desktop = () => (
         <>
             <div className="gap-x-16 text-primary-500 hidden lg:flex">
@@ -61,7 +60,7 @@ const Header: FC<HeaderProps> = () => {
             </div>
 
             <div className="flex">
-                <Search.Desktop />
+                <SearchInput className="hidden lg:flex mr-4" />
 
                 <Link href="/cart" className="hidden lg:block">
                     <div className="inline-block relative">
@@ -79,12 +78,17 @@ const Header: FC<HeaderProps> = () => {
     const Mobile = () => (
         <Modal
             isOpen={activeMobileMenu}
-            className="bg-black bg-opacity-50 h-full outline-none flex justify-end"
-            overlayClassName="fixed top-[88px] h-[calc(100%-88px)] w-full border-t-2 border-t-gray-300"
+            className="w-full h-full border-t border-primary-500"
+            overlayClassName="fixed top-[88px] h-[calc(100%-88px)] w-full"
             ariaHideApp={false}
         >
-            <div className="flex flex-col justify-between w-3/4 h-full bg-white">
-                <div className="flex flex-col text-xl text-primary-500">
+            <div className="flex flex-col h-full bg-white px-2 py-4">
+                <SearchInput
+                    className="h-12 mb-4"
+                    onSubmit={handleSearchSubmit}
+                />
+
+                <div className="flex flex-col gap-2">
                     {SITE_NAV.map(({ label, href }) => {
                         const isCurrentLink = router.asPath === href;
 
@@ -92,73 +96,51 @@ const Header: FC<HeaderProps> = () => {
                             <Link
                                 key={label}
                                 href={href}
-                                className={classNames({
-                                    "bg-gray-300": isCurrentLink,
-                                    "px-4": true,
-                                    "py-3": true,
-                                    "mt-4": true,
-                                    "mx-4": true,
-                                    "rounded-xl": true,
-                                })}
+                                className={classNames(
+                                    "px-4 rounded-xl py-3 text-primary-500 font-bold text-lg",
+                                    {
+                                        "bg-gray-300": isCurrentLink,
+                                    }
+                                )}
                             >
                                 {label}
                             </Link>
                         );
                     })}
                 </div>
-
-                <Search.Mobile.Toggler
-                    requestMobileSearch={handleSearchViewRequest}
-                />
             </div>
         </Modal>
-    );
-
-    const MobileToggler = () => (
-        <div className="flex gap-8 lg:hidden">
-            {activeMobileMenu ? (
-                <button className="lg:hidden" onClick={toggleMobileMenu}>
-                    <i className="icon-remove text-[32px]"></i>
-                </button>
-            ) : (
-                <button className="lg:hidden" onClick={toggleMobileMenu}>
-                    <i className="icon-menu text-[32px]"></i>
-                </button>
-            )}
-        </div>
     );
 
     return (
         <div className="bg-white w-full">
             <div className="flex justify-between items-center p-6 lg:mx-auto lg:container">
-                {mobileSearchView ? (
-                    <>
-                        <Search.Mobile.Search />
-                        <MobileToggler />
-                    </>
-                ) : (
-                    <>
-                        <HomeButton />
-                        <Desktop />
-                        <div className="lg:hidden">
-                            <Mobile />
+                <>
+                    <HomeButton />
+                    <Desktop />
+                    <div className="lg:hidden">
+                        <Mobile />
 
-                            <div className="flex gap-8">
-                                <Link href="/cart" className="lg:hidden">
-                                    <div className="inline-block relative">
-                                        <CartIndicator />
+                        <div className="flex gap-8">
+                            <Link href="/cart" className="lg:hidden">
+                                <div className="inline-block relative">
+                                    <CartIndicator />
 
-                                        <div className="hover:cursor-pointer flex justify-center items-center h-10 w-10 bg-primary-500 rounded-full">
-                                            <div className="icon-cart text-white text-xl"></div>
-                                        </div>
+                                    <div className="hover:cursor-pointer flex justify-center items-center h-10 w-10 bg-primary-500 rounded-full">
+                                        <div className="icon-cart text-white text-xl"></div>
                                     </div>
-                                </Link>
+                                </div>
+                            </Link>
 
-                                <MobileToggler />
-                            </div>
+                            <button
+                                className="lg:hidden"
+                                onClick={toggleMobileMenu}
+                            >
+                                <i className="icon-menu text-[32px]"></i>
+                            </button>
                         </div>
-                    </>
-                )}
+                    </div>
+                </>
             </div>
         </div>
     );

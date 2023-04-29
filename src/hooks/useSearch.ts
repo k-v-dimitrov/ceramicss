@@ -1,59 +1,58 @@
-import { ProductType } from "@/services";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import useDebounce from "./useDebounce";
 
-const useSearch = () => {
-    // Search state
-    const [searchQuery, setSearchQuery] = useState<string>("");
-    const debouncedQuery = useDebounce(searchQuery, 300);
-    const [searchResults, setSearchResults] = useState<ProductType[] | null>(
-        null
-    );
+import { ProductType } from "@/services";
 
-    const [isLoading, setIsLoading] = useState(true);
+interface State {
+    error: unknown;
+    isLoading: boolean;
+    products: ProductType[] | null;
+}
 
-    const executeSearch = async (query: string) => {
-        setIsLoading(true);
-
-        if (!query || query === "") {
-            return null;
-        }
-
-        const res = await fetch("/api/search", {
-            method: "POST",
-            body: JSON.stringify({
-                query,
-            }),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-
-        const qResult = (await res.json()) as ProductType[];
-        setSearchResults(() => (qResult.length > 0 ? qResult : null));
-        setIsLoading(false);
-    };
-
-    useEffect(() => {
-        if (searchQuery !== "") {
-            setIsLoading(true);
-        }
-    }, [searchQuery]);
-
-    useEffect(() => {
-        if (debouncedQuery === "") {
-            setSearchResults(null);
-        } else {
-            executeSearch(debouncedQuery);
-        }
-    }, [debouncedQuery]);
-
-    return {
-        setSearchQuery,
-        searchResults,
-        searchQuery,
-        isLoading,
-    };
+const initialState: State = {
+    error: null,
+    products: null,
+    isLoading: true,
 };
 
+const useSearch = () => {
+    const router = useRouter();
+    const query = router.query.searchQuery as string | undefined;
+    const [state, setState] = useState<State>(initialState);
+
+    useEffect(() => {
+        const search = async () => {
+            setState(initialState);
+
+            try {
+                const response = await fetch("/api/search", {
+                    method: "POST",
+                    body: JSON.stringify({ query }),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+
+                const { data } = await response.json();
+
+                setState((p) => ({
+                    ...p,
+                    products: data?.length > 0 ? data : null,
+                }));
+            } catch (error) {
+                setState((p) => ({ ...p, error }));
+            } finally {
+                setState((p) => ({ ...p, isLoading: false }));
+            }
+        };
+
+        if (!query) {
+            return;
+        }
+
+        (async () => search())();
+    }, [query]);
+
+    return { ...state, query };
+};
 export default useSearch;
