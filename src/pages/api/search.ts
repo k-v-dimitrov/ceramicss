@@ -12,7 +12,7 @@ export default async function handler(
 
     try {
         const result = await Storefront.products.search(req.body.query);
-        return res.status(200).json(result);
+        return res.status(200).json({ success: true, data: result });
     } catch (error) {
         return res.status(500).json({ success: false, error });
     }
