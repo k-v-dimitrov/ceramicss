@@ -27,3 +27,11 @@ export const rebuildShopifyCollectionId = (id: string) => {
 export const rebuildShopifyProductId = (id: string) => {
     return `gid://shopify/Product/${id}`;
 };
+
+export const formatPrice = (price: number | string) => {
+    if (typeof price === "string") {
+        return Number.parseFloat(price).toFixed(2);
+    }
+
+    return price.toFixed(2);
+};
