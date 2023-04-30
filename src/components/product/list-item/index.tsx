@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
+import { formatPrice } from "@/utils";
 import { QuantityPicker } from "@/components";
 
 import { ProductProps } from "../product.props";
@@ -64,7 +65,7 @@ const ListProduct: React.FC<Omit<ProductProps, "product"> & ListItemProps> = ({
 
                 <div className="flex items-center mt-4 lg:gap-4">
                     <p className="text-gray-700 font-bold min-w-[96px]">
-                        {line.price.amount * quantity}{" "}
+                        {formatPrice(line.price.amount * quantity)}{" "}
                         {line?.price.currencyCode}
                     </p>
 

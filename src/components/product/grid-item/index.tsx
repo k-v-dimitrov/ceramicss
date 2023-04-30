@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 
+import { formatPrice, sanitizeShopifyId } from "@/utils";
+
 import type { ProductProps } from "../product.props";
-import { sanitizeShopifyId } from "@/utils";
 
 const GridProduct: React.FC<ProductProps> = ({ product }) => {
     const coverImage = product?.images?.[0];
@@ -33,7 +34,7 @@ const GridProduct: React.FC<ProductProps> = ({ product }) => {
                         {product?.title}
                     </p>
                     <p className="font-light text-gray-700">
-                        {product?.price.amount}
+                        {formatPrice(product?.price.amount)}
                         {product?.price.currencyCode}
                     </p>
                 </div>
