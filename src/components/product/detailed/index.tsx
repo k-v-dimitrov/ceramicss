@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Link from "next/link";
 
 import { QuantityPicker, Button, ImageRotator } from "@/components";
 
@@ -38,7 +37,9 @@ const DetailedProduct: React.FC<ProductProps & DetailedProductProps> = ({
             </div>
 
             <div className="px-6 py-8 lg:pt-16">
-                <p className="text-lg mb-2 font-light">{product?.tags[0]}</p>
+                <p className="text-lg mb-2 font-light capitalize">
+                    {product?.tags[0]}
+                </p>
                 <p className="text-3xl mb-6 text-primary-500">
                     {product?.title}
                 </p>
