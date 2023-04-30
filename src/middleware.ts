@@ -3,42 +3,31 @@ import { type NextRequest, NextResponse } from "next/server";
 import { Storefront } from "@/services";
 
 export const config = {
-    matcher: ["/api/:path"],
+    matcher: ["/((?!_next/static|_next/image|favicon.ico|imgs|fonts).*)"],
 };
 
 export async function middleware(req: NextRequest) {
     const res = NextResponse.next();
-    const cartId = req.cookies.get("cart");
+    const cookie = req.cookies.get("cart");
 
-    if (!cartId) {
-        try {
-            const result = await Storefront.cart.create();
+    if (!cookie) {
+        const cart = await Storefront.cart.create();
 
-            if (result) {
-                res.cookies.set("cart", result?.id, {
-                    expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
-                });
-            }
-        } catch (error) {
-            throw new Error("Not yet implemented.");
-        }
+        const expires = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7);
+
+        res.cookies.set("cart", cart!.id, { expires });
     } else {
-        const cart = await Storefront.cart.get(cartId.value);
+        const isCartValid = await Storefront.cart.get(cookie.value);
 
-        if (!cart) {
-            try {
-                const result = await Storefront.cart.create();
-
-                if (result) {
-                    res.cookies.set("cart", result?.id, {
-                        expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
-                    });
-                }
-            } catch (error) {
-                const test = error as Error;
-                throw new Error(test.message);
-            }
+        if (isCartValid) {
+            return res;
         }
+
+        const cart = await Storefront.cart.create();
+
+        const expires = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7);
+
+        res.cookies.set("cart", cart!.id, { expires });
     }
 
     return res;
