@@ -26,7 +26,7 @@ const GridProduct: React.FC<ProductProps> = ({ product }) => {
                     height={350}
                 />
 
-                <p className="text-gray-600 text-sm mt-1">{product?.tags[0]}</p>
+                <p className="text-gray-600 text-sm mt-1 capitalize">{product?.tags[0]}</p>
 
                 <div className="flex justify-between mt-2">
                     <p className="text-lg font-bold text-gray-700">
