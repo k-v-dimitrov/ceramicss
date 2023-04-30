@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { formatPrice } from "@/utils";
 import { QuantityPicker, Button, ImageRotator } from "@/components";
 
 import { ProductProps } from "../product.props";
@@ -44,7 +45,8 @@ const DetailedProduct: React.FC<ProductProps & DetailedProductProps> = ({
                     {product?.title}
                 </p>
                 <p className="text-2xl mb-6 text-gray-700">
-                    {product?.price.amount} {product?.price.currencyCode}
+                    {formatPrice(product?.price.amount)}{" "}
+                    {product?.price.currencyCode}
                 </p>
                 <p className="w-3/4">{product?.description}</p>
 

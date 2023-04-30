@@ -8,6 +8,7 @@ import { CartType } from "@/services";
 import { Header, Footer, Product, Button, Loading } from "@/components";
 
 import { CartContext } from "@/contexts";
+import { formatPrice } from "@/utils";
 
 const mapCartLineItems = (lines: NonNullable<CartType>["lines"]) =>
     lines.map((line) => {
@@ -191,7 +192,9 @@ const Cart: NextPage = () => {
                             </h2>
                             <div className="flex justify-between my-8 text-gray-800 text-lg">
                                 <p>Междинна сума</p>
-                                <p>{cartState.totalCartPrice} BGN</p>
+                                <p>
+                                    {formatPrice(cartState.totalCartPrice || 0)} BGN
+                                </p>
                             </div>
 
                             <a
