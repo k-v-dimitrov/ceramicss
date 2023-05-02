@@ -2,12 +2,12 @@ import { type NextRequest, NextResponse } from "next/server";
 
 import { Storefront } from "@/services";
 
-export const config = {
-    matcher: ["/api/:path"],
-};
-
 export async function middleware(req: NextRequest) {
     const res = NextResponse.next();
+
+    if (!req.url.startsWith("/api")) {
+        return res;
+    }
 
     const cookie = req.cookies.get("cart");
 
