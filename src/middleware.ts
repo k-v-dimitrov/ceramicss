@@ -5,7 +5,7 @@ import { Storefront } from "@/services";
 export async function middleware(req: NextRequest) {
     const res = NextResponse.next();
 
-    if (!req.url.startsWith("/api")) {
+    if (!req.url.includes("/api")) {
         return res;
     }
 
