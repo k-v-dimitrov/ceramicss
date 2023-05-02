@@ -3,7 +3,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import { Storefront } from "@/services";
 
 export const config = {
-    matcher: ["/((?!_next/static|_next/image|favicon.ico|imgs|fonts).*)"],
+    matcher: ["/api/:path"],
 };
 
 export async function middleware(req: NextRequest) {
