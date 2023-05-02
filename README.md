@@ -38,6 +38,10 @@ You can run the project using the following scripts:
 - yarn storybook: Start the Storybook development server.
 - yarn build:storybook: Build the Storybook app for production.
 
+### Deployment
+
+CeramiccS is deployed on Vercel where `master` is the production branch. All env's are configured from vercel's dashboard.
+
 ### Dependencies
 Here are the key dependencies used in this project:
 - @apollo/client: A GraphQL client for React that is used to fetch data from Shopify.
