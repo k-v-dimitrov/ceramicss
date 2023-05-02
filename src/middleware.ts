@@ -8,6 +8,7 @@ export const config = {
 
 export async function middleware(req: NextRequest) {
     const res = NextResponse.next();
+
     const cookie = req.cookies.get("cart");
 
     if (!cookie) {
