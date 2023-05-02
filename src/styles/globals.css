@@ -37,11 +37,13 @@
 
 .icon-menu:before {
     content: "\e910";
-    color: #006aab;
+    color: white;
+    font-size: 20px;
+    line-height: unset;
 }
 .icon-remove:before {
     content: "\e90f";
-    color: #626262;
+    color: white;
     line-height: unset;
 }
 .icon-bowl:before {

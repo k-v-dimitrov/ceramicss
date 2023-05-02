@@ -117,11 +117,17 @@ const Header: FC<HeaderProps> = () => {
     const MobileToggler = () => (
         <div className="flex gap-8 lg:hidden">
             {activeMobileMenu ? (
-                <button className="lg:hidden" onClick={toggleMobileMenu}>
-                    <i className="icon-remove text-[32px]"></i>
+                <button
+                    className="lg:hidden hover:cursor-pointer flex justify-center items-center text-center h-10 w-10 bg-primary-500 rounded-full"
+                    onClick={toggleMobileMenu}
+                >
+                    <i className="icon-remove text-[18px]"></i>
                 </button>
             ) : (
-                <button className="lg:hidden" onClick={toggleMobileMenu}>
+                <button
+                    className="lg:hidden hover:cursor-pointer flex justify-center text-center h-10 w-10 bg-primary-500 rounded-full"
+                    onClick={toggleMobileMenu}
+                >
                     <i className="icon-menu text-[32px]"></i>
                 </button>
             )}
@@ -143,7 +149,7 @@ const Header: FC<HeaderProps> = () => {
                         <div className="lg:hidden">
                             <Mobile />
 
-                            <div className="flex gap-8">
+                            <div className="flex gap-4">
                                 <Link href="/cart" className="lg:hidden">
                                     <div className="inline-block relative">
                                         <CartIndicator />
