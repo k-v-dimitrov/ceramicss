@@ -9,6 +9,7 @@ import { Footer, Header, Loading } from "@/components";
 import { rebuildShopifyProductId } from "@/utils";
 import { Product } from "@/components";
 import { CartContext } from "@/contexts";
+import { NextSeo } from "next-seo";
 
 interface Props {
     product: ProductType;
@@ -31,10 +32,25 @@ const ProductOverview: NextPage<Props> = ({ product }) => {
 
     return (
         <div className="container m-auto">
-            <Head>
-                <title> Ceramicss - Single Product Page </title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
+            <NextSeo
+                title={`CeramicsS - ${product.title}`}
+                description={product.description}
+                openGraph={{
+                    url: `https://ceramicss.eu/product/${product.id}`,
+                    title: `CeramicsS - ${product.title}`,
+                    description: product.description,
+                    images: [
+                        {
+                            url: product.images![0].url,
+                            width: product.images![0].width,
+                            height: product.images![0].height,
+                            alt: product.images![0].altText!,
+                            type: "image/webp",
+                        },
+                    ],
+                    siteName: "CeramicsS",
+                }}
+            />
 
             <Header />
 

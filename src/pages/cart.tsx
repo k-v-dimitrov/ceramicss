@@ -9,6 +9,7 @@ import { Header, Footer, Product, Button, Loading } from "@/components";
 
 import { CartContext } from "@/contexts";
 import { formatPrice } from "@/utils";
+import { NextSeo } from "next-seo";
 
 const mapCartLineItems = (lines: NonNullable<CartType>["lines"]) =>
     lines.map((line) => {
@@ -81,10 +82,13 @@ const Cart: NextPage = () => {
 
     return (
         <div className="container m-auto">
-            <Head>
-                <title>Ceramicss - Home</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
+            <NextSeo
+                title="CeramicsS"
+                description="
+                    CeramicsS е вашият магазин за красиви ръчно изработени керамични изделия. Нашите продукти се изработват с любов и грижа, гарантирайки уникалността и високото качество на всеки един артикул. CeramicsS се фокусира върху устойчивото и етично производство. Разгледайте нашата колекция днес и си донесете допълнително изкуство и елегантност. Не просто магазин за красиви керамични изделия!
+                "
+                noindex
+            />
 
             <Header />
 
@@ -193,7 +197,8 @@ const Cart: NextPage = () => {
                             <div className="flex justify-between my-8 text-gray-800 text-lg">
                                 <p>Междинна сума</p>
                                 <p>
-                                    {formatPrice(cartState.totalCartPrice || 0)} BGN
+                                    {formatPrice(cartState.totalCartPrice || 0)}{" "}
+                                    BGN
                                 </p>
                             </div>
 
