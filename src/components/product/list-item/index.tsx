@@ -47,11 +47,11 @@ const ListProduct: React.FC<Omit<ProductProps, "product"> & ListItemProps> = ({
                     {line.product?.title}
 
                     <button
-                        className="hover:cursor-pointer"
+                        className="hover:cursor-pointer text-gray-700"
                         onClick={onRemoveHandler}
                     >
                         <span
-                            className="icon-remove"
+                            className="icon-remove "
                             style={{
                                 lineHeight: "unset",
                             }}

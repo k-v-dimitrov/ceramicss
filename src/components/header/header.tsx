@@ -121,7 +121,7 @@ const Header: FC<HeaderProps> = () => {
                     className="lg:hidden hover:cursor-pointer flex justify-center items-center text-center h-10 w-10 bg-primary-500 rounded-full"
                     onClick={toggleMobileMenu}
                 >
-                    <i className="icon-remove text-[18px]"></i>
+                    <i className="icon-remove text-[18px] text-white"></i>
                 </button>
             ) : (
                 <button
