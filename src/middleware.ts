@@ -2,12 +2,12 @@ import { type NextRequest, NextResponse } from "next/server";
 
 import { Storefront } from "@/services";
 
-export const config = {
-    matcher: ["/((?!_next/static|_next/image|favicon.ico|imgs|fonts).*)"],
-};
-
 export async function middleware(req: NextRequest) {
     const res = NextResponse.next();
+
+    if (!req.url.includes("/api")) {
+        return res;
+    }
 
     const cookie = req.cookies.get("cart");
 
