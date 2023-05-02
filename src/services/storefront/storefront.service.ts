@@ -13,6 +13,7 @@ import {
     CartLineInput,
     RemoveLineDocument,
     UpdateLineDocument,
+    GetCartLightDocument,
 } from "@/types/graphql";
 
 import { sanitizeShopifyId } from "@/utils";
@@ -101,6 +102,14 @@ const getCart = async (id: string) => {
     return transformCart(data);
 };
 
+const getCartLight = async (id: string) => {
+    const { data } = await StoreFrontGateway.query(GetCartLightDocument, {
+        id,
+    });
+
+    return !!data;
+};
+
 const getCheckoutUrl = async (id: string) => {
     const { data } = await StoreFrontGateway.query(GetCheckoutUrlDocument, {
         id,
@@ -155,6 +164,7 @@ const Storefront = {
     },
     cart: {
         get: getCart,
+        getLight: getCartLight,
         create: createCart,
         lineItems: {
             add: addCartLineItem,

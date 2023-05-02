@@ -18,7 +18,7 @@ export async function middleware(req: NextRequest) {
 
         res.cookies.set("cart", cart!.id, { expires });
     } else {
-        const isCartValid = await Storefront.cart.get(cookie.value);
+        const isCartValid = await Storefront.cart.getLight(cookie.value);
 
         if (isCartValid) {
             return res;
