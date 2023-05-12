@@ -14,6 +14,8 @@ interface HomeProps {
     recommendedProducts: ProductType[];
 }
 
+const COVER_IMAGE = "/imgs/landing/cover-11.webp";
+
 const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
     return (
         <div className="container m-auto">
@@ -29,7 +31,7 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
                         "CeramicsS е вашият магазин за красиви ръчно изработени керамични изделия. Нашите продукти се изработват с любов и грижа, гарантирайки уникалността и високото качество на всеки един артикул. CeramicsS се фокусира върху устойчивото и етично производство. Разгледайте нашата колекция днес и си донесете допълнително изкуство и елегантност. Не просто магазин за красиви керамични изделия!",
                     images: [
                         {
-                            url: "/imgs/landing-cover.webp",
+                            url: COVER_IMAGE,
                             width: 800,
                             height: 600,
                             alt: "CeramicsS landing",
@@ -42,11 +44,11 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
 
             <Header />
 
-            <section className="flex flex-col relative bg-center h-[70vh]">
+            <section className="flex flex-col relative bg-center h-[80vh]">
                 <Image
-                    src="/imgs/landing-cover.webp"
-                    height={1980 / 2}
-                    width={940 / 2}
+                    src={COVER_IMAGE}
+                    height={1980}
+                    width={940}
                     alt=""
                     className="w-full h-full object-cover"
                 />
