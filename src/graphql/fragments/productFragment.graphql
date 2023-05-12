@@ -3,6 +3,7 @@ fragment coreProduct on Product {
     title
     description
     tags
+    availableForSale
     variants(first: 1) {
         nodes {
             id
