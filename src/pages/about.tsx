@@ -21,8 +21,8 @@ const About: NextPage = () => {
                     images: [
                         {
                             url: "/imgs/landing-cover.webp",
-                            width: 800,
-                            height: 600,
+                            width: 1600,
+                            height: 1200,
                             alt: "CeramicsS landing",
                             type: "image/webp",
                         },
@@ -37,9 +37,10 @@ const About: NextPage = () => {
                 SectionImage={
                     <Image
                         src="/imgs/blank.png"
-                        height={732}
-                        width={732}
+                        height={732 * 2}
+                        width={732 * 2}
                         alt="test"
+                        className="rounded-lg"
                     />
                 }
                 title="Test"
@@ -51,9 +52,10 @@ const About: NextPage = () => {
                 SectionImage={
                     <Image
                         src="/imgs/blank.png"
-                        height={732}
-                        width={732}
+                        height={732 * 2}
+                        width={732 * 2}
                         alt="test"
+                        className="rounded-lg"
                     />
                 }
                 title="Test"
@@ -64,9 +66,10 @@ const About: NextPage = () => {
                 SectionImage={
                     <Image
                         src="/imgs/blank.png"
-                        height={732}
-                        width={732}
+                        height={732 * 2}
+                        width={732 * 2}
                         alt="test"
+                        className="rounded-lg"
                     />
                 }
                 title="Test"

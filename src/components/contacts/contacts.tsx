@@ -57,7 +57,13 @@ const Contacts: FC<ContactsProps> = () => {
             </ul>
 
             <div className="my-20">
-                <Image src="/imgs/simple-logo.svg" height={375} width={316} alt="" />
+                <Image
+                    src="/imgs/simple-logo.svg"
+                    height={375}
+                    width={316}
+                    alt=""
+                    className="rounded-lg"
+                />
             </div>
         </section>
     );
