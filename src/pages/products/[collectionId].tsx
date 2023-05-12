@@ -53,12 +53,12 @@ const ProductsOverview: NextPage<Props> = ({
                 />
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 m-auto">
-                    <Product.GridItem product={collectionProducts?.[0]} />
-                    <Product.GridItem product={collectionProducts?.[1]} />
-                    <Product.GridItem product={collectionProducts?.[2]} />
-                    <Product.GridItem product={collectionProducts?.[0]} />
-                    <Product.GridItem product={collectionProducts?.[0]} />
-                    <Product.GridItem product={collectionProducts?.[0]} />
+                    {collectionProducts.map((collectionProduct) => (
+                        <Product.GridItem
+                            key={collectionProduct.id}
+                            product={collectionProduct}
+                        />
+                    ))}
                 </div>
             </section>
 
