@@ -23,7 +23,9 @@ const SearchedProduct: React.FC<ProductProps> = ({ product }) => {
                     height={350 * 2}
                 />
 
-                <p className="text-gray-600 text-sm mt-2">{product?.tags[0]}</p>
+                <p className="text-gray-600 text-sm mt-2 capitalize">
+                    {product?.tags[0]}
+                </p>
 
                 <div className="flex justify-between mt-1">
                     <p className="font-bold text-gray-700">{product?.title}</p>

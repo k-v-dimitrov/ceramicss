@@ -39,7 +39,7 @@ const ListProduct: React.FC<Omit<ProductProps, "product"> & ListItemProps> = ({
             </span>
 
             <div className="flex-col justify-around lg:justify-between w-full">
-                <p className="text-gray-600 text-sm mb-1">
+                <p className="text-gray-600 text-sm mb-1 capitalize">
                     {line.product?.tags[0]}
                 </p>
 
