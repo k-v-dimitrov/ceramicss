@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { formatPrice } from "@/utils";
 import { QuantityPicker, Button, ImageRotator } from "@/components";
@@ -17,11 +17,23 @@ const DetailedProduct: React.FC<ProductProps & DetailedProductProps> = ({
     );
 
     const [addedToCart, setIsAddedToCart] = useState(false);
+    const [inStock, setInStock] = useState<boolean | null>(null);
 
     const handleAddToCart = async () => {
         await onAddToCart(product.variantId, selectedQty);
         setIsAddedToCart(true);
     };
+    useEffect(() => {
+        fetch("/api/product/check-availability", {
+            method: "POST",
+            body: JSON.stringify({ id: product.id }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((res) => res.json())
+            .then(({ data }) => setInStock(data));
+    }, [product.id]);
 
     if (initiallyAddedToCart === null) {
         return null;
@@ -50,26 +62,35 @@ const DetailedProduct: React.FC<ProductProps & DetailedProductProps> = ({
                 </p>
                 <p className="w-3/4">{product?.description}</p>
 
-                {/* Quantity, Add to cart button */}
-                <div className="flex flex-col lg:flex-row mt-10 gap-4">
-                    {!(initiallyAddedToCart || addedToCart) ? (
-                        <>
-                            <QuantityPicker
-                                currQuantity={selectedQty}
-                                setQuantity={setSelectedQty}
-                            />
-                            <Button onClick={handleAddToCart}>
-                                Добави в количка
-                            </Button>
-                        </>
-                    ) : (
-                        <div className="flex flex-col gap-2">
-                            <p className="text-primary-500 text-lg">
-                                Добавено в количката!
-                            </p>
-                        </div>
-                    )}
-                </div>
+                {!inStock && (
+                    <div className="flex flex-col lg:flex-row mt-10 gap-4">
+                        <Button className="bg-gray-600 cursor-default" disabled>
+                            Изчерпано Количество
+                        </Button>
+                    </div>
+                )}
+
+                {inStock && (
+                    <div className="flex flex-col lg:flex-row mt-10 gap-4">
+                        {!(initiallyAddedToCart || addedToCart) ? (
+                            <>
+                                <QuantityPicker
+                                    currQuantity={selectedQty}
+                                    setQuantity={setSelectedQty}
+                                />
+                                <Button onClick={handleAddToCart}>
+                                    Добави в количка
+                                </Button>
+                            </>
+                        ) : (
+                            <div className="flex flex-col gap-2">
+                                <p className="text-primary-500 text-lg">
+                                    Добавено в количката!
+                                </p>
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
         </section>
     );
