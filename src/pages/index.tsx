@@ -91,16 +91,16 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
                                 <Image
                                     priority
                                     src="/imgs/front-team-1.webp"
-                                    height={391 / 2}
-                                    width={638 / 2}
+                                    height={391}
+                                    width={638}
                                     alt="Team photo first"
                                     className="object-scale-down"
                                 />
 
                                 <Image
                                     src="/imgs/front-team-2.webp"
-                                    height={391 / 2}
-                                    width={638 / 2}
+                                    height={391}
+                                    width={638}
                                     alt="Team photo first"
                                     className="object-scale-down"
                                 />

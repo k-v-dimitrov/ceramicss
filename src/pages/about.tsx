@@ -37,8 +37,8 @@ const About: NextPage = () => {
                 SectionImage={
                     <Image
                         src="/imgs/blank.png"
-                        height={732}
-                        width={732}
+                        height={732 * 2}
+                        width={732 * 2}
                         alt="test"
                     />
                 }
@@ -51,8 +51,8 @@ const About: NextPage = () => {
                 SectionImage={
                     <Image
                         src="/imgs/blank.png"
-                        height={732}
-                        width={732}
+                        height={732 * 2}
+                        width={732 * 2}
                         alt="test"
                     />
                 }
@@ -64,8 +64,8 @@ const About: NextPage = () => {
                 SectionImage={
                     <Image
                         src="/imgs/blank.png"
-                        height={732}
-                        width={732}
+                        height={732 * 2}
+                        width={732 * 2}
                         alt="test"
                     />
                 }

@@ -19,8 +19,8 @@ const SearchedProduct: React.FC<ProductProps> = ({ product }) => {
                 <Image
                     src={coverImage?.url}
                     alt={coverImage?.altText || ""}
-                    width={350}
-                    height={350}
+                    width={350 * 2}
+                    height={350 * 2}
                 />
 
                 <p className="text-gray-600 text-sm mt-2">{product?.tags[0]}</p>

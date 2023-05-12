@@ -33,8 +33,8 @@ const ListProduct: React.FC<Omit<ProductProps, "product"> & ListItemProps> = ({
                 <Image
                     src={coverImage?.url}
                     alt={coverImage?.altText || ""}
-                    width={240}
-                    height={240}
+                    width={240 * 2}
+                    height={240 * 2}
                 />
             </span>
 
