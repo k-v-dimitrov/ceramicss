@@ -19,8 +19,8 @@ const ImageRotator: FC<ImageRotatorProps> = ({
             <Image
                 alt={spotlightImage?.altText || ""}
                 src={spotlightImage?.url}
-                width={640 * 2}
-                height={640 * 2}
+                width={640}
+                height={640}
             />
 
             <ul className="grid grid-cols-3">
@@ -29,8 +29,8 @@ const ImageRotator: FC<ImageRotatorProps> = ({
                         key={image.url}
                         alt={image?.altText || ""}
                         src={image?.url}
-                        width={640 * 2}
-                        height={640 * 2}
+                        width={640}
+                        height={640}
                         className="hover:cursor-pointer"
                         onClick={handleSpotlightImageSelection(image)}
                     />

@@ -37,8 +37,8 @@ const Collections: NextPage<Props> = ({ collections }) => {
                                     <Image
                                         src={image.url}
                                         alt={image.altText || ""}
-                                        width={image.width * 2}
-                                        height={image.height * 2}
+                                        width={image.width}
+                                        height={image.height}
                                     />
                                 )}
 
