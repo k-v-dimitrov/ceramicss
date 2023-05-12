@@ -32,8 +32,8 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
                     images: [
                         {
                             url: COVER_IMAGE,
-                            width: 800,
-                            height: 600,
+                            width: 1600,
+                            height: 1200,
                             alt: "CeramicsS landing",
                             type: "image/webp",
                         },

@@ -34,8 +34,8 @@ const ProductsOverview: NextPage<Props> = ({
                     images: [
                         {
                             url: "/imgs/landing-cover.webp",
-                            width: 800,
-                            height: 600,
+                            width: 1600,
+                            height: 1200,
                             alt: "CeramicsS landing",
                             type: "image/webp",
                         },
