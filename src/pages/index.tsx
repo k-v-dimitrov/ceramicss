@@ -6,15 +6,13 @@ import Image from "next/image";
 import { Storefront, type ProductType } from "@/services";
 
 import { Header, Footer, Product } from "@/components";
-import { rebuildShopifyProductId } from "@/utils";
+import { COVER_IMAGE, rebuildShopifyProductId } from "@/utils";
 
 import { getRecommendedProductIds } from "@/constants/recommended-products.constants";
 
 interface HomeProps {
     recommendedProducts: ProductType[];
 }
-
-const COVER_IMAGE = "/imgs/landing/cover-11.webp";
 
 const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
     return (
@@ -32,8 +30,8 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
                     images: [
                         {
                             url: COVER_IMAGE,
-                            width: 1600,
-                            height: 1200,
+                            width: 1200,
+                            height: 630,
                             alt: "CeramicsS landing",
                             type: "image/webp",
                         },

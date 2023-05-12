@@ -35,3 +35,5 @@ export const formatPrice = (price: number | string) => {
 
     return price.toFixed(2);
 };
+
+export const COVER_IMAGE = "/imgs/landing/cover-11.webp";
