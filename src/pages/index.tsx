@@ -14,6 +14,8 @@ interface HomeProps {
     recommendedProducts: ProductType[];
 }
 
+const COVER_IMAGE = "/imgs/landing/cover-11.webp";
+
 const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
     return (
         <div className="container m-auto">
@@ -29,9 +31,9 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
                         "CeramicsS е вашият магазин за красиви ръчно изработени керамични изделия. Нашите продукти се изработват с любов и грижа, гарантирайки уникалността и високото качество на всеки един артикул. CeramicsS се фокусира върху устойчивото и етично производство. Разгледайте нашата колекция днес и си донесете допълнително изкуство и елегантност. Не просто магазин за красиви керамични изделия!",
                     images: [
                         {
-                            url: "/imgs/landing-cover.webp",
-                            width: 800,
-                            height: 600,
+                            url: COVER_IMAGE,
+                            width: 1600,
+                            height: 1200,
                             alt: "CeramicsS landing",
                             type: "image/webp",
                         },
@@ -42,13 +44,13 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
 
             <Header />
 
-            <section className="flex flex-col relative bg-center h-[70vh]">
+            <section className="flex flex-col relative bg-center h-[80vh]">
                 <Image
-                    src="/imgs/landing-cover.webp"
-                    height={1980 / 2}
-                    width={940 / 2}
+                    src={COVER_IMAGE}
+                    height={1980}
+                    width={940}
                     alt=""
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-lg"
                 />
                 <Link
                     className="py-4 px-6 bg-[#FFF] text-primary-500 font-semibold rounded-3xl hover:cursor-pointer absolute top-3/4 left-1/2 -translate-x-2/4"
@@ -89,18 +91,18 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
                                 <Image
                                     priority
                                     src="/imgs/front-team-1.webp"
-                                    height={391 / 2}
-                                    width={638 / 2}
+                                    height={391}
+                                    width={638}
                                     alt="Team photo first"
-                                    className="object-scale-down"
+                                    className="object-scale-down rounded-lg"
                                 />
 
                                 <Image
                                     src="/imgs/front-team-2.webp"
-                                    height={391 / 2}
-                                    width={638 / 2}
+                                    height={391}
+                                    width={638}
                                     alt="Team photo first"
-                                    className="object-scale-down"
+                                    className="object-scale-down rounded-lg"
                                 />
                             </div>
                         </div>

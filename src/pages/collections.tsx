@@ -39,10 +39,13 @@ const Collections: NextPage<Props> = ({ collections }) => {
                                         alt={image.altText || ""}
                                         width={image.width}
                                         height={image.height}
+                                        className="rounded-lg"
                                     />
                                 )}
-                                
-                                <p className="text-gray-700 lg:ml-5 lg:text-xl">{title}</p>
+
+                                <p className="text-gray-700 lg:ml-5 lg:text-xl">
+                                    {title}
+                                </p>
                             </Link>
                         );
                     })}
