@@ -44,7 +44,7 @@ const PassProtect = ({ onUnlock }: { onUnlock: () => void }) => {
     );
 };
 
-const lockedOn = "localhost";
+const lockedOn = "ceramicss";
 
 // ~~~~ /DELETE
 
