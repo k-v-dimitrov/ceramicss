@@ -50,7 +50,7 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
                     height={1980}
                     width={940}
                     alt=""
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-lg"
                 />
                 <Link
                     className="py-4 px-6 bg-[#FFF] text-primary-500 font-semibold rounded-3xl hover:cursor-pointer absolute top-3/4 left-1/2 -translate-x-2/4"
@@ -94,7 +94,7 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
                                     height={391}
                                     width={638}
                                     alt="Team photo first"
-                                    className="object-scale-down"
+                                    className="object-scale-down rounded-lg"
                                 />
 
                                 <Image
@@ -102,7 +102,7 @@ const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
                                     height={391}
                                     width={638}
                                     alt="Team photo first"
-                                    className="object-scale-down"
+                                    className="object-scale-down rounded-lg"
                                 />
                             </div>
                         </div>

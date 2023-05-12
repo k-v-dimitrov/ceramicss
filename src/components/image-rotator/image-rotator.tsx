@@ -15,15 +15,16 @@ const ImageRotator: FC<ImageRotatorProps> = ({
     };
 
     return (
-        <div className="m-6 lg:m-0">
+        <div className="m-6 lg:m-0 lg:px-24">
             <Image
+                className="w-full rounded-lg"
                 alt={spotlightImage?.altText || ""}
                 src={spotlightImage?.url}
                 width={640}
                 height={640}
             />
 
-            <ul className="grid grid-cols-3">
+            <ul className="grid grid-cols-3 gap-1 mt-2">
                 {images?.map((image) => (
                     <Image
                         key={image.url}
@@ -31,7 +32,7 @@ const ImageRotator: FC<ImageRotatorProps> = ({
                         src={image?.url}
                         width={640}
                         height={640}
-                        className="hover:cursor-pointer"
+                        className="hover:cursor-pointer rounded-lg"
                         onClick={handleSpotlightImageSelection(image)}
                     />
                 ))}

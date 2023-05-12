@@ -39,6 +39,7 @@ const Collections: NextPage<Props> = ({ collections }) => {
                                         alt={image.altText || ""}
                                         width={image.width}
                                         height={image.height}
+                                        className="rounded-lg"
                                     />
                                 )}
 

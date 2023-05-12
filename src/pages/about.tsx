@@ -40,6 +40,7 @@ const About: NextPage = () => {
                         height={732 * 2}
                         width={732 * 2}
                         alt="test"
+                        className="rounded-lg"
                     />
                 }
                 title="Test"
@@ -54,6 +55,7 @@ const About: NextPage = () => {
                         height={732 * 2}
                         width={732 * 2}
                         alt="test"
+                        className="rounded-lg"
                     />
                 }
                 title="Test"
@@ -67,6 +69,7 @@ const About: NextPage = () => {
                         height={732 * 2}
                         width={732 * 2}
                         alt="test"
+                        className="rounded-lg"
                     />
                 }
                 title="Test"

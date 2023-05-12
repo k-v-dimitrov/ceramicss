@@ -35,6 +35,7 @@ const ListProduct: React.FC<Omit<ProductProps, "product"> & ListItemProps> = ({
                     alt={coverImage?.altText || ""}
                     width={240}
                     height={240}
+                    className="rounded-lg"
                 />
             </span>
 

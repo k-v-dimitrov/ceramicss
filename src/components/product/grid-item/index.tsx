@@ -25,6 +25,7 @@ const GridProduct: React.FC<ProductProps> = ({ product }) => {
                     alt={coverImage?.altText || ""}
                     width={350}
                     height={350}
+                    className="rounded-lg"
                 />
 
                 <p className="text-gray-600 text-sm mt-1 capitalize">
