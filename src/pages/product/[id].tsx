@@ -42,8 +42,8 @@ const ProductOverview: NextPage<Props> = ({ product }) => {
                     images: [
                         {
                             url: product.images![0].url,
-                            width: product.images![0].width! * 2,
-                            height: product.images![0].height! * 2,
+                            width: 1200,
+                            height: 630,
                             alt: product.images![0].altText!,
                             type: "image/webp",
                         },

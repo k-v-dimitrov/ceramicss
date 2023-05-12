@@ -5,7 +5,11 @@ import { Storefront, CollectionType, ProductType } from "@/services";
 
 import { Header, Footer, CollectionsMenu, Product } from "@/components";
 
-import { rebuildShopifyCollectionId, sanitizeShopifyId } from "src/utils";
+import {
+    COVER_IMAGE,
+    rebuildShopifyCollectionId,
+    sanitizeShopifyId,
+} from "src/utils";
 import { NextSeo } from "next-seo";
 
 interface Props {
@@ -33,9 +37,9 @@ const ProductsOverview: NextPage<Props> = ({
                         "CeramicsS е вашият магазин за красиви ръчно изработени керамични изделия. Нашите продукти се изработват с любов и грижа, гарантирайки уникалността и високото качество на всеки един артикул. CeramicsS се фокусира върху устойчивото и етично производство. Разгледайте нашата колекция днес и си донесете допълнително изкуство и елегантност. Не просто магазин за красиви керамични изделия!",
                     images: [
                         {
-                            url: "/imgs/landing-cover.webp",
-                            width: 1600,
-                            height: 1200,
+                            url: COVER_IMAGE,
+                            width: 1200,
+                            height: 630,
                             alt: "CeramicsS landing",
                             type: "image/webp",
                         },
