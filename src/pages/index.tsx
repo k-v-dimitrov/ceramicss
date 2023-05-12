@@ -3,18 +3,68 @@ import { NextSeo } from "next-seo";
 import Link from "next/link";
 import Image from "next/image";
 
+import Modal from "react-modal";
+
 import { Storefront, type ProductType } from "@/services";
 
-import { Header, Footer, Product } from "@/components";
+import { Header, Footer, Product, Button } from "@/components";
 import { COVER_IMAGE, rebuildShopifyProductId } from "@/utils";
 
 import { getRecommendedProductIds } from "@/constants/recommended-products.constants";
+import { useEffect, useState } from "react";
+
+// ~~~~ DELETE
+const password = "YE48ce2c9MNDLMD";
+const PassProtect = ({ onUnlock }: { onUnlock: () => void }) => {
+    const [input, setInput] = useState("");
+
+    const handlePasswordSubmit = () => {
+        if (input === password) {
+            onUnlock();
+        }
+    };
+
+    return (
+        <Modal
+            isOpen
+            className="bg-black bg-opacity-50 h-full outline-none flex flex-col justify-center items-center gap-3"
+            ariaHideApp={false}
+        >
+            <h1 className="text-white">CeramicsS е заключен!</h1>
+
+            <input
+                type="password"
+                onChange={(e) => {
+                    setInput(e.target.value);
+                }}
+            />
+
+            <Button onClick={handlePasswordSubmit}>Влез</Button>
+        </Modal>
+    );
+};
+
+const lockedOn = "ceramicss";
+
+// ~~~~ /DELETE
 
 interface HomeProps {
     recommendedProducts: ProductType[];
 }
 
 const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
+    // ~~~~ DELETE
+    const [isLocked, setLocked] = useState(true);
+
+    useEffect(() => {
+        setLocked(document.location.href.includes(lockedOn));
+    }, []);
+
+    if (isLocked) {
+        return <PassProtect onUnlock={() => setLocked(false)} />;
+    }
+    // ~~~~ /DELETE
+
     return (
         <div className="container m-auto">
             <NextSeo
