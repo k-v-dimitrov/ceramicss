@@ -23,6 +23,7 @@ const DetailedProduct: React.FC<ProductProps & DetailedProductProps> = ({
         await onAddToCart(product.variantId, selectedQty);
         setIsAddedToCart(true);
     };
+
     useEffect(() => {
         fetch("/api/product/check-availability", {
             method: "POST",
