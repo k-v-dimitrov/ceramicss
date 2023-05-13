@@ -1,20 +1,16 @@
 import classNames from "classnames";
-import { type FC } from "react";
+import { type ButtonHTMLAttributes, type FC } from "react";
 
-import ButtonProps from "./button.props";
-
-const Button: FC<ButtonProps> = ({ onClick, children, className }) => {
-    const hasCustomClassNames = !!className;
-
+const Button: FC<ButtonHTMLAttributes<HTMLButtonElement>> = (props) => {
     return (
         <button
-            onClick={onClick}
-            className={(hasCustomClassNames
-                ? className
-                : "bg-primary-500 font-bold text-white"
-            ).concat(" px-6 py-2 rounded-lg")}
+            {...props}
+            className={classNames(
+                "bg-primary-500 font-bold text-white px-6 py-2 rounded-lg",
+                props.className
+            )}
         >
-            {children}
+            {props.children}
         </button>
     );
 };

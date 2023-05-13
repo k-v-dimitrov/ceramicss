@@ -19,6 +19,7 @@ export const getMockedCartProducts = (): ProductType[] => [
             amount: "0.0",
             currencyCode: CurrencyCode.Bgn,
         },
+        isAvailableForSale: true,
         variantId: "123",
         tags: ["ИГЛА"],
     },
@@ -40,6 +41,7 @@ export const getMockedCartProducts = (): ProductType[] => [
             amount: "0.0",
             currencyCode: CurrencyCode.Bgn,
         },
+        isAvailableForSale: true,
         variantId: "123",
         tags: ["КОЛИЕ"],
     },
@@ -78,6 +80,7 @@ export const getMockedCartProducts = (): ProductType[] => [
                 url: "https://cdn.shopify.com/s/files/1/0723/0134/7097/products/Ceramicss_FB_Post_1_181.png?v=1676720294",
             },
         ],
+        isAvailableForSale: true,
         price: {
             amount: "25.0",
             currencyCode: CurrencyCode.Bgn,

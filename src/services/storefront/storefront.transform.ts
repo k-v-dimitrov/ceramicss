@@ -15,6 +15,7 @@ export const transformProduct = (product: CoreProductFragment) => {
         tags: product?.tags,
         variantId: product?.variants.nodes[0].id,
         description: product.description,
+        isAvailableForSale: product.availableForSale,
         price: {
             amount: product?.variants.nodes[0].priceV2.amount,
             currencyCode: product?.variants.nodes[0].priceV2.currencyCode,
