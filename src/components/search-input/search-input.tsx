@@ -25,7 +25,7 @@ const SearchInput: FC<SearchInputProps> = ({ onSubmit, className }) => {
     return (
         <form
             className={classNames(
-                "focus-within:shadow-outline bg-[#EAEAEA] rounded-full justify-center items-center px-4 transition flex",
+                "focus-within:shadow-outline bg-[#EAEAEA] rounded-full justify-center items-center px-4 transition flex min-h-[48px]",
                 className
             )}
             onSubmit={handleSubmit}
