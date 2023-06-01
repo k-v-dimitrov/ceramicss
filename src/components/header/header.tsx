@@ -1,173 +1,123 @@
-import { useState, useCallback, type FC, useEffect, useContext } from "react";
-import classNames from "classnames";
+"use client";
+
+import clsx from "clsx";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import Modal from "react-modal";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 
-import { SITE_NAV } from "@/constants/navigation.constants";
+import { useToggle } from "@/hooks";
+import { Burger, Logo, Cart, Magnifier } from "@/components/vectors";
 
-import { CartContext } from "@/contexts";
+function Header() {
+    const pathname = usePathname();
+    const [isSidebarOpen, toggleSidebar] = useToggle();
 
-import type HeaderProps from "./header.props";
-import { HomeButton, Search } from "@/components";
-
-const Header: FC<HeaderProps> = () => {
-    const { cart } = useContext(CartContext);
-    const router = useRouter();
-    const [activeMobileMenu, setActiveMobileMenu] = useState(false);
-
-    const [mobileSearchView, setMobileSearchView] = useState(false);
-
-    // Disable scroll on opened modal
+    // HACK: prevent scrolling when sidebar is open
+    // https://www.jayfreestone.com/writing/locking-body-scroll-ios/
+    const scrollTop = useRef(0);
     useEffect(() => {
-        if (activeMobileMenu) {
-            document.body.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "unset";
-        }
-    }, [activeMobileMenu]);
-
-    const toggleMobileMenu = () => {
-        setActiveMobileMenu((prev) => !prev);
-        setMobileSearchView(false);
-    };
-
-    const handleSearchViewRequest = () => {
-        setMobileSearchView(true);
-    };
-
-    const CartIndicator = useCallback(() => {
-        if (!cart?.hasItems) {
-            return null;
+        if (isSidebarOpen) {
+            scrollTop.current = window.scrollY;
+            document.body.classList.add("fixed");
+            document.body.classList.add("overflow-hidden");
+            document.body.classList.add("top-0");
+            document.body.classList.add("left-0");
+            document.body.classList.add("right-0");
+            document.body.classList.add("bottom-0");
+            return;
         }
 
-        return (
-            <>
-                <div className="absolute h-5 w-5 bg-warning-500 top-[-6px] right-[-6px] rounded-full text-white text-sm font-extrabold text-center">
-                    {cart.lines.length}
-                </div>
-            </>
-        );
-    }, [cart]);
+        document.body.classList.remove("fixed");
+        document.body.classList.remove("overflow-hidden");
+        document.body.classList.remove("top-0");
+        document.body.classList.remove("right-0");
 
-    const Desktop = () => (
-        <>
-            <div className="gap-x-16 text-primary-500 hidden lg:flex">
-                {SITE_NAV.map(({ label, href }) => (
-                    <Link key={label} href={href}>
-                        {label}
-                    </Link>
-                ))}
-            </div>
-
-            <div className="flex">
-                <Search.Desktop />
-
-                <Link href="/cart" className="hidden lg:block">
-                    <div className="inline-block relative">
-                        <CartIndicator />
-
-                        <div className="hover:cursor-pointer flex justify-center items-center h-10 w-10 bg-primary-500 rounded-full">
-                            <div className="icon-cart text-white text-xl"></div>
-                        </div>
-                    </div>
-                </Link>
-            </div>
-        </>
-    );
-
-    const Mobile = () => (
-        <Modal
-            isOpen={activeMobileMenu}
-            className="bg-black bg-opacity-50 h-full outline-none flex justify-end"
-            overlayClassName="fixed top-[88px] h-[calc(100%-88px)] w-full border-t-2 border-t-gray-300"
-            ariaHideApp={false}
-        >
-            <div className="flex flex-col justify-between w-3/4 h-full bg-white">
-                <div className="flex flex-col text-xl text-primary-500">
-                    {SITE_NAV.map(({ label, href }) => {
-                        const isCurrentLink = router.asPath === href;
-
-                        return (
-                            <Link
-                                key={label}
-                                href={href}
-                                className={classNames({
-                                    "bg-gray-300": isCurrentLink,
-                                    "px-4": true,
-                                    "py-3": true,
-                                    "mt-4": true,
-                                    "mx-4": true,
-                                    "rounded-xl": true,
-                                })}
-                            >
-                                {label}
-                            </Link>
-                        );
-                    })}
-                </div>
-
-                <Search.Mobile.Toggler
-                    requestMobileSearch={handleSearchViewRequest}
-                />
-            </div>
-        </Modal>
-    );
-
-    const MobileToggler = () => (
-        <div className="flex gap-8 lg:hidden">
-            {activeMobileMenu ? (
-                <button
-                    className="lg:hidden hover:cursor-pointer flex justify-center items-center text-center h-10 w-10 bg-primary-500 rounded-full"
-                    onClick={toggleMobileMenu}
-                >
-                    <i className="icon-remove text-[18px] text-white"></i>
-                </button>
-            ) : (
-                <button
-                    className="lg:hidden hover:cursor-pointer flex justify-center text-center h-10 w-10 bg-primary-500 rounded-full"
-                    onClick={toggleMobileMenu}
-                >
-                    <i className="icon-menu text-[32px]"></i>
-                </button>
-            )}
-        </div>
-    );
+        window.scrollTo(0, scrollTop.current);
+    }, [isSidebarOpen]);
 
     return (
-        <div className="bg-white w-full">
-            <div className="flex justify-between items-center p-6 lg:mx-auto lg:container">
-                {mobileSearchView ? (
-                    <>
-                        <Search.Mobile.Search />
-                        <MobileToggler />
-                    </>
-                ) : (
-                    <>
-                        <HomeButton />
-                        <Desktop />
-                        <div className="lg:hidden">
-                            <Mobile />
+        <>
+            <header className="bg-white shadow flex p-4 items-center gap-4 z-20 fixed w-full">
+                <button onClick={toggleSidebar}>
+                    <Burger className="w-9 h-8" />
+                </button>
 
-                            <div className="flex gap-4">
-                                <Link href="/cart" className="lg:hidden">
-                                    <div className="inline-block relative">
-                                        <CartIndicator />
+                <Link href="/">
+                    <Logo className="h-9" />
+                </Link>
 
-                                        <div className="hover:cursor-pointer flex justify-center items-center h-10 w-10 bg-primary-500 rounded-full">
-                                            <div className="icon-cart text-white text-xl"></div>
-                                        </div>
-                                    </div>
-                                </Link>
+                <Link
+                    href="/cart"
+                    className="bg-primary-500 rounded-full h-[48px] w-[48px] ml-auto flex justify-center items-center relative"
+                >
+                    <span className="bg-[#fe002f] absolute -top-1.5 -right-1.5 rounded-full h-6 w-6 text-white text-center leading-[26px] text-sm">
+                        1
+                    </span>
+                    <Cart className="h-6 fill-primary" />
+                </Link>
+            </header>
 
-                                <MobileToggler />
-                            </div>
-                        </div>
-                    </>
-                )}
-            </div>
-        </div>
+            {isSidebarOpen && (
+                <div className="bg-white fixed top-[80px] w-full h-[calc(100%-80px)] p-3 z-10">
+                    <div className="bg-[#EAEAEA] rounded-full overflow-hidden flex h-14 items-center px-5 gap-4">
+                        <input
+                            type="text"
+                            className="bg-unset w-full focus:outline-none placeholder:text-[#A0A0A0]"
+                            placeholder="Какво търсите?"
+                        />
+                        <Magnifier className="h-6" />
+                    </div>
+
+                    <div className="flex flex-col mt-4">
+                        <Link
+                            href="/"
+                            className={clsx(
+                                "text-lg text-primary-500 py-4 rounded-xl pl-4 font-bold",
+                                {
+                                    "bg-[#EAEAEA]": pathname === "/",
+                                }
+                            )}
+                        >
+                            Начало
+                        </Link>
+                        <Link
+                            href="/about"
+                            className={clsx(
+                                "text-lg text-primary-500 py-4 rounded-xl pl-4 font-bold",
+                                {
+                                    "bg-[#EAEAEA]": pathname === "/about",
+                                }
+                            )}
+                        >
+                            За Нас
+                        </Link>
+                        <Link
+                            href="/shop"
+                            className={clsx(
+                                "text-lg text-primary-500 py-4 rounded-xl pl-4 font-bold",
+                                {
+                                    "bg-[#EAEAEA]": pathname === "/shop",
+                                }
+                            )}
+                        >
+                            Магазин
+                        </Link>
+                        <Link
+                            href="/contacts"
+                            className={clsx(
+                                "text-lg text-primary-500 py-4 rounded-xl pl-4 font-bold",
+                                {
+                                    "bg-[#EAEAEA]": pathname === "/contacts",
+                                }
+                            )}
+                        >
+                            Контакти
+                        </Link>
+                    </div>
+                </div>
+            )}
+        </>
     );
-};
+}
 
 export default Header;
