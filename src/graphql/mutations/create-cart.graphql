@@ -1,7 +1,0 @@
-mutation CreateCart {
-    cartCreate(input: {}) {
-        cart {
-            id
-        }
-    }
-}

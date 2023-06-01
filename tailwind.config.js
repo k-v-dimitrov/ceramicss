@@ -71,7 +71,7 @@ module.exports = {
             },
             white: "#ffffff",
             black: "#000000",
-            unset: "unset",
+            transparent: "transparent",
         },
         fontFamily: {
             sans: ["Comfortaa", "sans-serif"],

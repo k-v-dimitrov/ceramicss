@@ -1,8 +1,0 @@
-mutation UpdateLine($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
-    cartLinesUpdate(cartId: $cartId, lines: $lines) {
-        userErrors {
-            code
-            message
-        }
-    }
-}

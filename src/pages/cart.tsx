@@ -1,221 +1,73 @@
-import { useContext, useEffect, useState } from "react";
-import { type NextPage } from "next";
+import { Fragment } from "react";
+
 import Link from "next/link";
-import Head from "next/head";
-import Modal from "react-modal";
+import { useCartQuery } from "@/hooks";
+import { CartLine } from "@/components/cart-line";
 
-import { CartType } from "@/services";
-import { Header, Footer, Product, Button, Loading } from "@/components";
+function Page() {
+    const { data, isLoading } = useCartQuery();
 
-import { CartContext } from "@/contexts";
-import { formatPrice } from "@/utils";
-import { NextSeo } from "next-seo";
-
-const mapCartLineItems = (lines: NonNullable<CartType>["lines"]) =>
-    lines.map((line) => {
-        const { product, ...restLine } = line;
-
-        return {
-            ...restLine,
-        };
-    });
-
-const calculateInitialCartPrice = (lines: NonNullable<CartType>["lines"]) => {
-    if (!lines) {
-        return 0;
+    if (isLoading) {
+        return <h1>loading...</h1>;
     }
 
-    return lines.reduce<number>((acc, curr) => {
-        return acc + Number(curr.price.amount) * curr.quantity;
-    }, 0);
-};
+    if (!data?.lines.length) {
+        return (
+            <div className="pb-10 pt-9">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 576 512"
+                    className="h-56 w-2/3 mx-auto mb-4 fill-primary-500"
+                >
+                    <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96zM252 160c0 11 9 20 20 20h44v44c0 11 9 20 20 20s20-9 20-20V180h44c11 0 20-9 20-20s-9-20-20-20H356V96c0-11-9-20-20-20s-20 9-20 20v44H272c-11 0-20 9-20 20z" />
+                </svg>
 
-const Cart: NextPage = () => {
-    const { cart, isLoading, removeItem, updateItem } = useContext(CartContext);
+                <div className="flex flex-col items-center text-center gap-2">
+                    <h1 className="text-2xl font-bold">
+                        Вашата количка е празна
+                    </h1>
+                    <p className="text-[#6A6A6A]">
+                        Изглежда не сте добавили нищо във вашата количка
+                    </p>
 
-    const [cartState, setCartState] = useState<{
-        lineItems: ReturnType<typeof mapCartLineItems> | null;
-        totalCartPrice: number | null;
-    }>({
-        lineItems: null,
-        totalCartPrice: null,
-    });
-
-    const [removeIncentive, setRemoveIncentive] = useState<{
-        modalShown: boolean;
-        productId: string;
-    } | null>(null);
-
-    useEffect(() => {
-        if (!isLoading) {
-            if (cart && cart.lines) {
-                setCartState({
-                    lineItems: mapCartLineItems(cart.lines),
-                    totalCartPrice: calculateInitialCartPrice(cart.lines),
-                });
-            }
-        }
-    }, [cart, cart?.lines, isLoading]);
-
-    const updateTotalCartPrice = (productId: string, quantity: number) => {
-        setCartState((prevState) => {
-            const { lineItems } = prevState;
-            const index = lineItems?.findIndex((item) => item.id === productId);
-
-            if (index === -1 || typeof index === "undefined") {
-                return prevState;
-            }
-
-            const newLineItems = [...lineItems!];
-            newLineItems[index].quantity = quantity;
-
-            const totalCartPrice =
-                newLineItems?.reduce(
-                    (acc, curr) =>
-                        acc + Number(curr.price.amount) * curr.quantity,
-                    0
-                ) || 0;
-
-            return { ...prevState, lineItems: newLineItems, totalCartPrice };
-        });
-    };
+                    <Link
+                        href="/products"
+                        className="bg-primary-500 text-white rounded-full py-4 px-6 mt-2"
+                    >
+                        Към магазина
+                    </Link>
+                </div>
+            </div>
+        );
+    }
 
     return (
-        <div className="container m-auto">
-            <NextSeo
-                title="CeramicsS"
-                description="
-                    CeramicsS е вашият магазин за красиви ръчно изработени керамични изделия. Нашите продукти се изработват с любов и грижа, гарантирайки уникалността и високото качество на всеки един артикул. CeramicsS се фокусира върху устойчивото и етично производство. Разгледайте нашата колекция днес и си донесете допълнително изкуство и елегантност. Не просто магазин за красиви керамични изделия!
-                "
-                noindex
-            />
+        <>
+            <h1 className="mb-2 text-2xl text-primary-500 font-bold">
+                Количка
+            </h1>
 
-            <Header />
+            <div className="bg-gray-200 rounded-md flex justify-between items-center py-4 px-4 mb-3">
+                <div className="font-bold">
+                    <p>Общо:</p>
+                    <p>{`${data.cost.amount} ${data.cost.currencyCode}`}</p>
+                </div>
 
-            {isLoading && <Loading />}
+                <Link
+                    href={data?.url}
+                    className="bg-primary-500 rounded-md text-white px-6 py-4"
+                >
+                    Продължи
+                </Link>
+            </div>
 
-            {!isLoading && (
-                <>
-                    <Modal
-                        isOpen={!cart?.hasItems}
-                        className="bg-black bg-opacity-50 h-full outline-none flex justify-center items-center"
-                        ariaHideApp={false}
-                    >
-                        <div className="bg-gray-200 rounded-lg h-fit p-5 lg:w-1/3 mx-auto text-center">
-                            <h2 className="text-2xl font-bold mb-6 text-gray-700">
-                                Количката е празна
-                            </h2>
-
-                            <Link href="/collections">
-                                <Button className="w-full bg-primary-500 font-bold text-white">
-                                    Към магазин
-                                </Button>
-                            </Link>
-                        </div>
-                    </Modal>
-
-                    <Modal
-                        isOpen={
-                            (removeIncentive &&
-                                removeIncentive.modalShown &&
-                                removeIncentive.productId &&
-                                true) ||
-                            false
-                        }
-                        className="bg-black bg-opacity-50 h-full outline-none flex justify-center items-center"
-                        ariaHideApp={false}
-                    >
-                        <div className="bg-gray-200 rounded-lg h-fit p-10 mx-auto text-center">
-                            <h2 className="text-2xl font-bold mb-6 text-gray-700">
-                                Премахване на този продукт?
-                            </h2>
-
-                            <div className="flex gap-4 justify-center">
-                                <Button
-                                    className="text-primary-500 bg-white"
-                                    onClick={async () => {
-                                        await removeItem!(
-                                            removeIncentive!.productId
-                                        );
-
-                                        window.location.reload();
-                                    }}
-                                >
-                                    Премахни
-                                </Button>
-
-                                <Button
-                                    onClick={() => setRemoveIncentive(null)}
-                                >
-                                    Откажи
-                                </Button>
-                            </div>
-                        </div>
-                    </Modal>
-
-                    <h1 className="text-4xl text-primary-500 font-bold p-6">
-                        Количка
-                    </h1>
-
-                    <section className="lg:grid lg:grid-cols-2">
-                        <div>
-                            {cart?.lines.map((line) => (
-                                <Product.ListItem
-                                    key={line.id}
-                                    line={line}
-                                    selectedQuantity={line.quantity}
-                                    onProductRemove={async (
-                                        productId: string
-                                    ) => {
-                                        setRemoveIncentive({
-                                            modalShown: true,
-                                            productId,
-                                        });
-                                    }}
-                                    onQuantityUpdate={async (
-                                        productId: string,
-                                        quantity: number
-                                    ) => {
-                                        updateTotalCartPrice(
-                                            productId,
-                                            quantity
-                                        );
-
-                                        await updateItem!({
-                                            id: productId,
-                                            quantity,
-                                        });
-                                    }}
-                                />
-                            ))}
-                        </div>
-
-                        <div className="bg-gray-200 rounded-lg h-fit p-5 lg:w-2/3 mx-auto">
-                            <h2 className="text-2xl font-bold text-gray-700">
-                                Информация за поръчката
-                            </h2>
-                            <div className="flex justify-between my-8 text-gray-800 text-lg">
-                                <p>Междинна сума</p>
-                                <p>
-                                    {formatPrice(cartState.totalCartPrice || 0)}{" "}
-                                    BGN
-                                </p>
-                            </div>
-
-                            <a
-                                href={cart?.checkoutUrl}
-                                className="bg-primary-500 font-bold text-white px-6 py-2 rounded-lg block w-full text-center"
-                            >
-                                Продължи
-                            </a>
-                        </div>
-                    </section>
-                </>
-            )}
-
-            <Footer />
-        </div>
+            <div className="flex flex-col gap-3">
+                {data?.lines.map((line) => (
+                    <CartLine key={line.id} line={line} />
+                ))}
+            </div>
+        </>
     );
-};
+}
 
-export default Cart;
+export default Page;

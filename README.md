@@ -35,8 +35,6 @@ You can run the project using the following scripts:
 - yarn start: Start the production server for the NextJS app.
 - yarn lint: Run the linter to check for code quality issues.
 - yarn format: Run Prettier to format the code.
-- yarn storybook: Start the Storybook development server.
-- yarn build:storybook: Build the Storybook app for production.
 
 ### Deployment
 
@@ -55,9 +53,5 @@ Here are the key dependencies used in this project:
 Key dev dependencies used in this project:
 
 - @graphql-codegen/cli: A CLI for generating TypeScript types based on GraphQL queries and mutations.
-- @storybook/react: A UI development environment and playground for React components.
 - eslint: A linter for identifying and reporting on patterns found in JavaScript code.
 - prettier: A tool for enforcing consistent code formatting.
-
-### Disclaimer
-The project includes Storybook, but it is not currently used.

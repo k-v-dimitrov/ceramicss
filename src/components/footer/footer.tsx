@@ -1,71 +1,41 @@
-import { type FC } from "react";
 import Link from "next/link";
 
-import { SITE_NAV, SOCIAL_LINKS } from "@/constants/navigation.constants";
+import { Facebook, Instagram } from "@/components/vectors";
 
-import { HomeButton } from "@/components";
-
-import FooterProps from "./footer.props";
-
-const Footer: FC<FooterProps> = () => {
+function Footer() {
     return (
-        <footer>
-            <div className="flex flex-col text-center items-center justify-center md:flex-col md:my-5 lg:w-full lg:flex-row lg:items-start lg:text-start lg:p-4">
-                <div className="w-[100px] m-4">
-                    <HomeButton />
-                </div>
+        <footer className="bg-primary-500 flex flex-col justify-center items-center py-10 gap-4">
+            <div className="flex gap-4">
+                <a
+                    href="https://facebook.com"
+                    className="bg-white h-10 w-10 rounded-full flex justify-center items-center"
+                >
+                    <Facebook className="h-7 fill-primary-500" />
+                </a>
 
-                <ul className="flex flex-row flex-wrap justify-center sm:flex-row md:my-5 lg:w-10/12 lg:justify-end">
-                    {SITE_NAV.map((navComponent) => {
-                        return (
-                            <li
-                                className="m-3 lg:mx-10 flex flex-col"
-                                key={navComponent.label}
-                            >
-                                <Link
-                                    href={navComponent.href}
-                                    className="text-primary-500 text-lg my-2 lg:text-2xl hover:underline"
-                                >
-                                    {navComponent.label}
-                                </Link>
-
-                                {navComponent.subLinks?.map((subLink) => {
-                                    return (
-                                        <Link
-                                            key={subLink.label}
-                                            href={subLink.href}
-                                            className="text text-sm my-1 hover:underline text-gray-700"
-                                        >
-                                            {subLink.label}
-                                        </Link>
-                                    );
-                                })}
-                            </li>
-                        );
-                    })}
-                </ul>
-
-                <ul className="flex lg:w-1/12 lg:mt-5">
-                    {SOCIAL_LINKS.map((social) => {
-                        return (
-                            <li key={social.href} className="m-2">
-                                <Link
-                                    href={social.href}
-                                    className="hover:underline"
-                                >
-                                    {social.icon}
-                                </Link>
-                            </li>
-                        );
-                    })}
-                </ul>
+                <a
+                    href="https://instagram.com"
+                    className="bg-white h-10 w-10 rounded-full flex justify-center items-center"
+                >
+                    <Instagram className="h-6 fill-primary-500" />
+                </a>
             </div>
 
-            <p className="text-center mt-3">
-                © Ceramiccs, {new Date().getFullYear()}. От ръце за сърце!
-            </p>
+            <div className="flex flex-col justify-center text-white flex-wrap gap-2 font-bold">
+                <div className="flex justify-center gap-4">
+                    <Link href="/about">За Нас</Link>
+                    <Link href="/shop">Магазин</Link>
+                </div>
+
+                <div className="flex justify-center gap-4">
+                    <Link href="/contacts">Контакти</Link>
+                    <Link href="/terms-of-use">Общи Условия</Link>
+                </div>
+            </div>
+
+            <p className="text-white opacity-60">© 2023 Ceramicss</p>
         </footer>
     );
-};
+}
 
 export default Footer;

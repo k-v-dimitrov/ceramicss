@@ -1,12 +1,16 @@
 {
-    "files.associations": {
-        "*.css": "tailwindcss"
-    },
-    "cSpell.words": [
-        "ceramicss",
-        "codegen",
-        "docgen",
-        "tailwindcss",
-        "ceramicss"
-    ]
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "cSpell.words": [
+    "ceramicss",
+    "clsx",
+    "codegen",
+    "docgen",
+    "genql",
+    "tailwindcss"
+  ],
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "cSpell.language": "en,bg-BG,bg"
 }

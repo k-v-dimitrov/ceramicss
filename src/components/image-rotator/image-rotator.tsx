@@ -1,43 +1,40 @@
-import { type FC } from "react";
+import { useState, type FC } from "react";
 import Image from "next/image";
 
-import ImageRotatorProps, { ShopifyImage } from "./image-rotator.props";
+import ImageRotatorProps from "./image-rotator.props";
 
-const ImageRotator: FC<ImageRotatorProps> = ({
-    images,
-    setSpotlightImage,
-    spotlightImage,
-}) => {
-    const handleSpotlightImageSelection = (image: ShopifyImage) => {
-        return () => {
-            setSpotlightImage && setSpotlightImage(image);
-        };
-    };
+const ImageRotator: FC<ImageRotatorProps> = ({ images }) => {
+    const [currentImage, setCurrentImage] = useState(images?.[0]);
 
     return (
-        <div className="m-6 lg:m-0 lg:px-24">
+        <>
             <Image
-                className="w-full rounded-lg"
-                alt={spotlightImage?.altText || ""}
-                src={spotlightImage?.url}
+                className="w-full rounded-lg brightness-95"
+                alt={currentImage?.altText || ""}
+                src={currentImage?.url}
                 width={640}
                 height={640}
+                quality={80}
+                priority
             />
 
-            <ul className="grid grid-cols-3 gap-1 mt-2">
-                {images?.map((image) => (
-                    <Image
-                        key={image.url}
-                        alt={image?.altText || ""}
-                        src={image?.url}
-                        width={640}
-                        height={640}
-                        className="hover:cursor-pointer rounded-lg"
-                        onClick={handleSpotlightImageSelection(image)}
-                    />
-                ))}
+            <ul className="grid grid-cols-3 gap-3 mt-3">
+                {images
+                    ?.filter((image) => image.id !== currentImage?.id)
+                    .map((image) => (
+                        <Image
+                            key={image.url}
+                            alt={image?.altText || ""}
+                            src={image?.url}
+                            width={480}
+                            height={480}
+                            quality={40}
+                            className="hover:cursor-pointer rounded-lg brightness-95"
+                            onClick={() => setCurrentImage(image)}
+                        />
+                    ))}
             </ul>
-        </div>
+        </>
     );
 };
 
