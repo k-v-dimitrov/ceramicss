@@ -3,7 +3,7 @@
     "private": true,
     "scripts": {
         "dev": "conc \"yarn next-dev\" \"yarn graphql-codegen:watch\" -n \"next,graphql\" -c \"auto\"",
-        "next-dev": "next dev",
+        "dev:next": "next dev",
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
@@ -20,7 +20,7 @@
         "@svgr/webpack": "^6.5.1",
         "classnames": "^2.3.2",
         "graphql": "^16.6.0",
-        "next": "latest",
+        "next": "^13.1.6",
         "next-seo": "^6.0.0",
         "react": "18.2.0",
         "react-dom": "18.2.0",
