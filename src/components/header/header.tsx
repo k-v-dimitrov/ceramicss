@@ -37,8 +37,8 @@ function Header() {
 
     return (
         <>
-            <header className="bg-white shadow flex p-4 items-center gap-4 z-20 fixed w-full">
-                <button onClick={toggleSidebar}>
+            <header className="bg-white shadow flex p-4 items-center gap-4 z-20 fixed w-full lg:justify-between max-h-[80px]">
+                <button onClick={toggleSidebar} className="lg:hidden">
                     <Burger className="w-9 h-8" />
                 </button>
 
@@ -46,19 +46,57 @@ function Header() {
                     <Logo className="h-9" />
                 </Link>
 
-                <Link
-                    href="/cart"
-                    className="bg-primary-500 rounded-full h-[48px] w-[48px] ml-auto flex justify-center items-center relative"
-                >
-                    <span className="bg-[#fe002f] absolute -top-1.5 -right-1.5 rounded-full h-6 w-6 text-white text-center leading-[26px] text-sm">
-                        1
-                    </span>
-                    <Cart className="h-6 fill-primary" />
-                </Link>
+                <div className="hidden lg:flex gap-16">
+                    <Link
+                        href="/"
+                        className="text-primary-500 rounded-xl font-bold"
+                    >
+                        Начало
+                    </Link>
+                    <Link
+                        href="/about"
+                        className="text-primary-500 rounded-xl font-bold"
+                    >
+                        За Нас
+                    </Link>
+                    <Link
+                        href="/shop"
+                        className="text-primary-500 rounded-xl font-bold"
+                    >
+                        Магазин
+                    </Link>
+                    <Link
+                        href="/contacts"
+                        className="text-primary-500 rounded-xl font-bold"
+                    >
+                        Контакти
+                    </Link>
+                </div>
+
+                <div className="ml-auto lg:ml-0 flex items-center gap-4">
+                    <div className="bg-[#EAEAEA] rounded-full overflow-hidden hidden lg:flex h-12 items-center px-5 gap-4 text-sm">
+                        <input
+                            type="text"
+                            className="bg-unset w-full focus:outline-none placeholder:text-[#A0A0A0]"
+                            placeholder="Какво търсите?"
+                        />
+                        <Magnifier className="h-6" />
+                    </div>
+
+                    <Link
+                        href="/cart"
+                        className="bg-primary-500 rounded-full h-[48px] w-[48px]  flex justify-center items-center relative"
+                    >
+                        <span className="bg-[#fe002f] absolute -top-1.5 -right-1.5 rounded-full h-6 w-6 text-white text-center leading-[26px] text-sm">
+                            1
+                        </span>
+                        <Cart className="h-6 fill-primary" />
+                    </Link>
+                </div>
             </header>
 
             {isSidebarOpen && (
-                <div className="bg-white fixed top-[80px] w-full h-[calc(100%-80px)] p-3 z-10">
+                <div className="bg-white fixed top-[80px] w-full h-[calc(100%-80px)] p-3 z-10 lg:hidden">
                     <div className="bg-[#EAEAEA] rounded-full overflow-hidden flex h-14 items-center px-5 gap-4">
                         <input
                             type="text"
