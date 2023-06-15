@@ -18,6 +18,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         setHasAcceptedCookies(true);
         localStorage.setItem("cookies", "accepted");
     };
+    
+    // Disables the website
+    return null;
 
     return (
         <CartProvider>
