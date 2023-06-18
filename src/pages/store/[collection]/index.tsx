@@ -30,7 +30,7 @@ function Page({ collection }: InferGetStaticPropsType<typeof getStaticProps>) {
                             />
 
                             <legend className="capitalize text-[#626262] mb-1">
-                                {product.tags[0]}
+                                {product.productType}
                             </legend>
 
                             <div className="flex justify-between">
@@ -106,8 +106,7 @@ export async function getStaticProps({
                             altText: true,
                         },
                     },
-                    tags: true,
-
+                    productType: true,
                     variants: {
                         __args: {
                             first: 1,

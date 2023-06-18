@@ -27,7 +27,7 @@ function Page({ product }: InferGetStaticPropsType<typeof getStaticProps>) {
 
             <div className="flex flex-col gap-2 mt-4">
                 <legend className="text-[#6A6A6A] capitalize">
-                    {product?.tags[0]}
+                    {product?.productType}
                 </legend>
                 <h1 className="text-2xl text-primary-500">{product?.title}</h1>
                 <h2 className="text-2xl text-[#6A6A6A] my-2">
@@ -138,6 +138,7 @@ export async function getStaticProps({
             __args: {
                 id: `gid://shopify/Product/${params?.product}`,
             },
+            productType: true,
             availableForSale: true,
             images: {
                 __args: {
@@ -149,7 +150,6 @@ export async function getStaticProps({
                     altText: true,
                 },
             },
-            tags: true,
             title: true,
             description: true,
             variants: {

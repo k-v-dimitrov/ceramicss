@@ -24,9 +24,9 @@ const cartLineFragment = {
             quantityAvailable: true,
             product: {
                 id: true,
-                tags: true,
                 title: true,
                 description: true,
+                productType: true,
                 images: {
                     __args: {
                         first: 1,
@@ -80,7 +80,7 @@ function transformCartLine(
         product: {
             id: line.merchandise.product.id,
             title: line.merchandise.product.title,
-            type: line.merchandise.product.tags[0],
+            type: line.merchandise.product.productType,
             thumbnail: {
                 url: line.merchandise.product.images.nodes[0].url,
                 alt: line.merchandise.product.images.nodes[0].altText,
