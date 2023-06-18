@@ -11,7 +11,7 @@ const links = [
     { label: "Начало", pathname: "/", pattern: /^\/$/ },
     {
         label: "Магазин",
-        pathname: "/products",
+        pathname: "/store",
         pattern: /^\/(product|products|cart)(\/[0-9]+)?$/,
     },
     { label: "За Нас", pathname: "/about", pattern: /\/about/ },
