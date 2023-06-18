@@ -5,6 +5,7 @@ import { type Line } from "@/libs/genql/cart.model";
 import { Close as CloseIcon } from "@/components/vectors";
 import useUpdateCartLine from "@/hooks/useUpdateCartLine";
 import useRemoveLineFromCart from "@/hooks/useRemoveLineFromCart";
+import Link from "next/link";
 
 interface Props {
     line: Line;
@@ -57,16 +58,14 @@ function CartLine({ line }: Props) {
 
                 <div className="flex flex-col justify-between w-full">
                     <div className="flex justify-between">
-                        <div>
-                            {/* <Link href={`/product/${line.product.id}`}> */}
+                        <Link href={`/product/${line.product.id.split("/").at(-1)}`}>
                             <legend className="text-[#6A6A6A] text-sm capitalize">
                                 {line.product.type}
                             </legend>
                             <p className="text-primary-500 text-lg">
                                 {line.product.title}
                             </p>
-                            {/* </Link> */}
-                        </div>
+                        </Link>
                         <button
                             className="p-3 translate-x-2 -translate-y-2 self-start"
                             onClick={() => removeLine(line.id)}

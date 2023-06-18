@@ -16,9 +16,7 @@ function Page({ collection }: InferGetStaticPropsType<typeof getStaticProps>) {
                 {collection?.products.nodes.map((product) => (
                     <Fragment key={product.id}>
                         <Link
-                            href={`/store/${collection.id
-                                .split("/")
-                                .at(-1)}/${product.id.split("/").at(-1)}`}
+                            href={`/product/${product.id.split("/").at(-1)}`}
                             className="flex flex-col"
                         >
                             <Image

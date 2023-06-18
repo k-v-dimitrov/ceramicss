@@ -49,7 +49,7 @@ function Page() {
                     </p>
 
                     <Link
-                        href="/store"
+                        href="/shop"
                         className="bg-primary-500 text-white rounded-full py-4 px-6 mt-2"
                     >
                         Към магазина

@@ -96,36 +96,23 @@ function Page({ product }: InferGetStaticPropsType<typeof getStaticProps>) {
 }
 
 export async function getStaticPaths() {
-    const { collections } = await client.query({
-        collections: {
+    const { products } = await client.query({
+        products: {
             __args: {
-                first: 100,
+                first: 250,
             },
             nodes: {
                 id: true,
-                products: {
-                    __args: {
-                        first: 250,
-                    },
-                    nodes: {
-                        id: true,
-                    },
-                },
             },
         },
     });
 
     return {
-        paths: collections.nodes
-            .map((collection) =>
-                collection.products.nodes.map((product) => ({
-                    params: {
-                        collection: collection.id.split("/").at(-1),
-                        product: product.id.split("/").at(-1),
-                    },
-                }))
-            )
-            .flat(),
+        paths: products.nodes.map((product) => ({
+            params: {
+                product: product.id.split("/").at(-1),
+            },
+        })),
         fallback: false,
     };
 }

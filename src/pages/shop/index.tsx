@@ -14,7 +14,7 @@ function Page({ collections }: InferGetStaticPropsType<typeof getStaticProps>) {
 
             {collections.map((collection, collectionIndex) => (
                 <Fragment key={collection.id}>
-                    <Link href={`/store/${collection.id}`}>
+                    <Link href={`/shop/${collection.id}`}>
                         <Image
                             src={collection.image?.url}
                             alt={collection.image?.altText || ""}
