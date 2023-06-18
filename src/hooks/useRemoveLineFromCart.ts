@@ -26,7 +26,7 @@ function useRemoveLineFromCart() {
             }
 
             queryClient.setQueryData(["cart-query"], cart);
-            toast.success("Продуктът беше премахнат успешно!");
+            toast.success("Продуктът е премахнат успешно!");
         },
     });
 }
