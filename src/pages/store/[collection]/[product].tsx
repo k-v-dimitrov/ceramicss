@@ -31,7 +31,9 @@ function Page({ product }: InferGetStaticPropsType<typeof getStaticProps>) {
                 </legend>
                 <h1 className="text-2xl text-primary-500">{product?.title}</h1>
                 <h2 className="text-2xl text-[#6A6A6A] my-2">
-                    {product?.variants.nodes[0].priceV2.amount}{" "}
+                    {Number.parseFloat(
+                        product?.variants.nodes[0].priceV2.amount
+                    ).toFixed(2)}{" "}
                     {product?.variants.nodes[0].priceV2.currencyCode}
                 </h2>
                 <p className="text-[#6A6A6A] line-clamp-3">

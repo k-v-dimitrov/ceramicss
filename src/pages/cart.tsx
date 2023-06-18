@@ -68,7 +68,9 @@ function Page() {
             <div className="bg-gray-200 rounded-md flex justify-between items-center py-4 px-4 mb-3">
                 <div className="font-bold">
                     <p>Общо:</p>
-                    <p>{`${data.cost.amount} ${data.cost.currencyCode}`}</p>
+                    <p>{`${Number.parseFloat(data.cost.amount).toFixed(2)} ${
+                        data.cost.currencyCode
+                    }`}</p>
                 </div>
 
                 <Link

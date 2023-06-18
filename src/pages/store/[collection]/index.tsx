@@ -38,11 +38,13 @@ function Page({ collection }: InferGetStaticPropsType<typeof getStaticProps>) {
                                     {product.title}
                                 </p>
                                 <p className="text-primary-500 text-xl">
-                                    {product.variants.nodes[0].priceV2?.amount}{" "}
-                                    {
+                                    {`${Number.parseFloat(
+                                        product.variants.nodes[0].priceV2
+                                            ?.amount
+                                    ).toFixed(2)} ${
                                         product.variants.nodes[0].priceV2
                                             ?.currencyCode
-                                    }
+                                    }`}
                                 </p>
                             </div>
                         </Link>
