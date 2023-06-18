@@ -2,6 +2,7 @@ import Cookies from "js-cookie";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { removeLine } from "@/libs/genql/cart.model";
+import { toast } from "react-hot-toast";
 
 function useRemoveLineFromCart() {
     const queryClient = useQueryClient();
@@ -20,9 +21,12 @@ function useRemoveLineFromCart() {
             return cart;
         },
         onSuccess(cart) {
-            if (cart) {
-                queryClient.setQueryData(["cart-query"], cart);
+            if (!cart) {
+                return;
             }
+
+            queryClient.setQueryData(["cart-query"], cart);
+            toast.success("Продуктът беше премахнат успешно!");
         },
     });
 }

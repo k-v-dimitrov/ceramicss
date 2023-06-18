@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { addLine, createCartWithLine } from "../libs/genql/cart.model";
 import { CartLineInput } from "../libs/genql/generated";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
 
 function useAddLineToCart() {
     const queryClient = useQueryClient();
@@ -26,6 +27,7 @@ function useAddLineToCart() {
         },
         onSuccess(cart) {
             queryClient.setQueryData(["cart-query"], cart);
+            toast.success("Продуктът беше добавен успешно!")
         },
     });
 }

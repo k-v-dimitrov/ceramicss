@@ -14,7 +14,7 @@ const queryClient = new QueryClient({
             refetchOnWindowFocus: false,
             refetchOnReconnect: false,
             retry: false,
-            staleTime: Infinity
+            staleTime: Infinity,
         },
     },
 });
@@ -22,7 +22,10 @@ const queryClient = new QueryClient({
 function MyApp({ pageProps, Component }: AppProps) {
     return (
         <>
-            <Toaster position="bottom-center" />
+            <Toaster
+                position="bottom-center"
+                toastOptions={{ duration: 3000 }}
+            />
 
             <QueryClientProvider client={queryClient}>
                 <Header />
