@@ -1,18 +1,22 @@
-import { Fragment, useState } from "react";
+import clsx from "clsx";
 import Image from "next/image";
 
-import { Close as CloseIcon } from "@/components/vectors";
 import { type Line } from "@/libs/genql/cart.model";
-import useRemoveLineFromCart from "@/hooks/useRemoveLineFromCart";
+import { Close as CloseIcon } from "@/components/vectors";
 import useUpdateCartLine from "@/hooks/useUpdateCartLine";
+import useRemoveLineFromCart from "@/hooks/useRemoveLineFromCart";
 
 interface Props {
     line: Line;
 }
 
 function CartLine({ line }: Props) {
-    const { mutate: updateLine } = useUpdateCartLine();
-    const { mutate: removeLine } = useRemoveLineFromCart();
+    const { mutate: updateLine, isLoading: isUpdateLoading } =
+        useUpdateCartLine();
+    const { mutate: removeLine, isLoading: isRemoveLoading } =
+        useRemoveLineFromCart();
+
+    const isLoading = isUpdateLoading || isRemoveLoading;
 
     const handleQuantityIncrement = () => {
         if (line.quantity < line.quantityAvailable!) {
@@ -33,8 +37,15 @@ function CartLine({ line }: Props) {
     };
 
     return (
-        <Fragment key={line.id}>
-            <div className="flex gap-2" key={Math.random()}>
+        <>
+            <div
+                className={clsx(
+                    "flex gap-2 relative",
+                    isLoading &&
+                        "after:absolute after:w-full after:h-full after:opacity-70 after:bg-white after:animate-pulse"
+                )}
+                key={Math.random()}
+            >
                 <Image
                     src={line.product.thumbnail.url}
                     alt={line.product.thumbnail.alt || ""}
@@ -66,7 +77,9 @@ function CartLine({ line }: Props) {
 
                     <div>
                         <p className="text-[#6A6A6A] leading-none inline">
-                            {`${line.cost.amount} ${line.cost.currencyCode}`}
+                            {`${line.cost.amount.toFixed(2)} ${
+                                line.cost.currencyCode
+                            }`}
                         </p>
                         <div className="self-end ml-8 inline">
                             <button
@@ -88,7 +101,7 @@ function CartLine({ line }: Props) {
             </div>
 
             <hr className="my-3 border-gray-200" />
-        </Fragment>
+        </>
     );
 }
 
