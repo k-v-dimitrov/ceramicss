@@ -4,12 +4,9 @@ import { useRef } from "react";
 import { usePathname } from "next/navigation";
 
 import { useToggle } from "@/hooks";
-import {
-    Logo as LogoIcon,
-    Burger as BurgerIcon,
-    Magnifier as MagnifierIcon,
-} from "@/components/vectors";
 import { CartButton } from "@/components/cart-button";
+import { SearchInput } from "@/components/search-input";
+import { Logo as LogoIcon, Burger as BurgerIcon } from "@/components/vectors";
 
 const links = [
     { label: "Начало", pathname: "/", pattern: /^\/$/ },
@@ -90,29 +87,14 @@ function Header() {
                 </div>
 
                 <div className="ml-auto lg:ml-0 flex items-center gap-4">
-                    <div className="bg-[#EAEAEA] rounded-full overflow-hidden hidden lg:flex h-12 items-center px-5 gap-4 text-sm">
-                        <input
-                            type="text"
-                            className="bg-unset w-full focus:outline-none placeholder:text-[#A0A0A0] bg-transparent"
-                            placeholder="Какво търсите?"
-                        />
-                        <MagnifierIcon className="h-6" />
-                    </div>
-
+                    <SearchInput />
                     <CartButton />
                 </div>
             </header>
 
             {isSidebarOpen && (
                 <div className="bg-white fixed top-[80px] w-full h-[calc(100%-80px)] p-3 z-10 lg:hidden">
-                    <div className="bg-[#EAEAEA] rounded-full overflow-hidden flex h-14 items-center px-5 gap-4">
-                        <input
-                            type="text"
-                            className="bg-unset w-full focus:outline-none placeholder:text-[#A0A0A0] bg-transparent"
-                            placeholder="Какво търсите?"
-                        />
-                        <MagnifierIcon className="h-6" />
-                    </div>
+                    <SearchInput />
 
                     <div className="flex flex-col mt-4">
                         {links.map((link) => (
