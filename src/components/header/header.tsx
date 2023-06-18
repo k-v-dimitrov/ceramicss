@@ -20,7 +20,7 @@ const links = [
 
 function Header() {
     return (
-        <header className="bg-white shadow flex p-4 items-center gap-4 z-20 fixed w-full lg:justify-between max-h-[80px]">
+        <header className="bg-white shadow flex p-4 items-center gap-4 z-20 fixed w-full lg:justify-between h-[var(--header-height)]">
             <button className="lg:hidden">
                 <BurgerIcon className="w-9 h-8" />
             </button>

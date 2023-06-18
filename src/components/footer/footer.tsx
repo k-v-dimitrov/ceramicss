@@ -4,7 +4,7 @@ import { Facebook, Instagram } from "@/components/vectors";
 
 function Footer() {
     return (
-        <footer className="bg-primary-500 flex flex-col justify-center items-center py-10 gap-4">
+        <footer className="bg-primary-500 flex flex-col justify-center items-center py-10 gap-4 h-[var(--footer-height)]">
             <div className="flex gap-4">
                 <a
                     href="https://facebook.com"
