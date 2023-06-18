@@ -8,7 +8,25 @@ function Page() {
     const { data, isLoading } = useCartQuery();
 
     if (isLoading) {
-        return <h1>loading...</h1>;
+        return (
+            <>
+                <div className="h-8 w-28 bg-gray-200 rounded-lg animate-pulse mb-4"></div>
+                <div className="h-[88px] w-full bg-gray-200 rounded-lg animate-pulse mb-4"></div>
+
+                <div className="flex flex-col gap-4">
+                    {[1, 2].map((line) => (
+                        <Fragment key={line}>
+                            <div className="flex gap-2">
+                                <div className="h-[88px] min-w-[88px] bg-gray-200 rounded-lg animate-pulse"></div>
+                                <div className="h-[88px] w-full bg-gray-200 rounded-lg animate-pulse"></div>
+                            </div>
+
+                            <div className="h-[1px] w-full bg-gray-200 my-3"></div>
+                        </Fragment>
+                    ))}
+                </div>
+            </>
+        );
     }
 
     if (!data?.lines.length) {

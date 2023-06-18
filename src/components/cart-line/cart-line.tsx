@@ -52,7 +52,7 @@ function CartLine({ line }: Props) {
                     height={480}
                     width={480}
                     quality={40}
-                    className="w-1/4 rounded-md brightness-95"
+                    className="w-[88px] h-[88px] rounded-md brightness-95"
                 />
 
                 <div className="flex flex-col justify-between w-full">
