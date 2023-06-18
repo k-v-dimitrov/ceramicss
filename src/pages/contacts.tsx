@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { Facebook, Instagram, Mail, Phone } from "@/components/vectors";
+import { NextSeo } from "next-seo";
 
 const contacts = [
     {
@@ -45,6 +46,8 @@ const contacts = [
 function Page() {
     return (
         <>
+            <NextSeo title="Контакти | CeramicsS" />
+
             <h1 className="text-2xl text-primary-500 font-bold mb-4">
                 Контакти
             </h1>

@@ -4,10 +4,13 @@ import Image from "next/image";
 import { type GetStaticPropsContext, type InferGetStaticPropsType } from "next";
 
 import { client } from "@/storefront";
+import { NextSeo } from "next-seo";
 
 function Page({ collection }: InferGetStaticPropsType<typeof getStaticProps>) {
     return (
         <>
+            <NextSeo title={`${collection?.title} | CeramicsS`} />
+
             <h1 className="mb-2 text-2xl text-primary-500 font-bold">
                 {collection?.title}
             </h1>

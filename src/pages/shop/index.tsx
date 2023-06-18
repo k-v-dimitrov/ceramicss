@@ -4,10 +4,13 @@ import { Fragment } from "react";
 import { type InferGetStaticPropsType } from "next";
 
 import { client } from "@/storefront";
+import { NextSeo } from "next-seo";
 
 function Page({ collections }: InferGetStaticPropsType<typeof getStaticProps>) {
     return (
         <>
+            <NextSeo title="Магазин | CeramicsS" />
+
             <h1 className="mb-2 text-2xl text-primary-500 font-bold">
                 Магазин
             </h1>

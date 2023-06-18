@@ -1,6 +1,10 @@
+import { NextSeo } from "next-seo";
+
 function Page() {
     return (
         <>
+            <NextSeo title="Общи Условия | CeramicsS" />
+
             <h1 className="mb-4 text-2xl text-primary-500 font-bold">
                 Общи Условия
             </h1>

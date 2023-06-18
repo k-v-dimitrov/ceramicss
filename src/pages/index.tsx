@@ -1,9 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
+import { NextSeo } from "next-seo";
 
 function Page() {
     return (
         <>
+            <NextSeo title="Начало | CeramicsS" />
+
             <section className="flex flex-col relative bg-center h-[80vh]">
                 <Image
                     src="/images/landing/cover-11.webp"

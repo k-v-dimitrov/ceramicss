@@ -3,6 +3,7 @@ import useAddLineToCart from "@/hooks/useAddLineToCart";
 import { client } from "@/storefront";
 import clsx from "clsx";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import { NextSeo } from "next-seo";
 import { useState } from "react";
 
 function Page({ product }: InferGetStaticPropsType<typeof getStaticProps>) {
@@ -23,6 +24,16 @@ function Page({ product }: InferGetStaticPropsType<typeof getStaticProps>) {
 
     return (
         <>
+            <NextSeo
+                title={`${
+                    // @ts-expect-error
+                    product?.productType[0].toUpperCase() +
+                    // @ts-expect-error
+                    product?.productType.slice(1).toLowerCase()
+                } "${product?.title}" | CeramicsS`}
+                description={product?.description}
+            />
+
             <ImageRotator images={product?.images.nodes} />
 
             <div className="flex flex-col gap-2 mt-4">
