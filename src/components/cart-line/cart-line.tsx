@@ -1,16 +1,36 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import Image from "next/image";
 
 import { Close as CloseIcon } from "@/components/vectors";
 import { type Line } from "@/libs/genql/cart.model";
 import useRemoveLineFromCart from "@/hooks/useRemoveLineFromCart";
+import useUpdateCartLine from "@/hooks/useUpdateCartLine";
 
 interface Props {
     line: Line;
 }
 
 function CartLine({ line }: Props) {
-    const { mutate } = useRemoveLineFromCart();
+    const { mutate: updateLine } = useUpdateCartLine();
+    const { mutate: removeLine } = useRemoveLineFromCart();
+
+    const handleQuantityIncrement = () => {
+        if (line.quantity < line.quantityAvailable!) {
+            updateLine({
+                id: line.id,
+                quantity: line.quantity + 1,
+            });
+        }
+    };
+
+    const handleQuantityDecrement = () => {
+        if (line.quantity > 1) {
+            updateLine({
+                id: line.id,
+                quantity: line.quantity - 1,
+            });
+        }
+    };
 
     return (
         <Fragment key={line.id}>
@@ -38,7 +58,7 @@ function CartLine({ line }: Props) {
                         </div>
                         <button
                             className="p-3 translate-x-2 -translate-y-2 self-start"
-                            onClick={() => mutate(line.id)}
+                            onClick={() => removeLine(line.id)}
                         >
                             <CloseIcon className="h-3" />
                         </button>
@@ -49,11 +69,17 @@ function CartLine({ line }: Props) {
                             {`${line.cost.amount} ${line.cost.currencyCode}`}
                         </p>
                         <div className="self-end ml-8 inline">
-                            <button className="text-sm text-white bg-primary-500 h-5 w-5 rounded-full leading-none">
+                            <button
+                                className="text-sm text-white bg-primary-500 h-5 w-5 rounded-full leading-none"
+                                onClick={handleQuantityDecrement}
+                            >
                                 -
                             </button>
                             <span className="mx-4">{line.quantity}</span>
-                            <button className="text-sm text-white bg-primary-500 h-5 w-5 rounded-full leading-none">
+                            <button
+                                className="text-sm text-white bg-primary-500 h-5 w-5 rounded-full leading-none"
+                                onClick={handleQuantityIncrement}
+                            >
                                 +
                             </button>
                         </div>
