@@ -6,7 +6,7 @@ function Page() {
         <>
             <section className="flex flex-col relative bg-center h-[80vh]">
                 <Image
-                    src="/imgs/landing/cover-11.webp"
+                    src="/images/landing/cover-11.webp"
                     height={1980}
                     width={940}
                     alt=""
@@ -51,7 +51,7 @@ function Page() {
                             <div className="flex flex-col gap-10 lg:flex-row">
                                 <Image
                                     priority
-                                    src="/imgs/front-team-1.webp"
+                                    src="/images/front-team-1.webp"
                                     height={391}
                                     width={638}
                                     alt="Team photo first"
@@ -59,7 +59,7 @@ function Page() {
                                 />
 
                                 <Image
-                                    src="/imgs/front-team-2.webp"
+                                    src="/images/front-team-2.webp"
                                     height={391}
                                     width={638}
                                     alt="Team photo first"

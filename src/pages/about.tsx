@@ -12,7 +12,7 @@ function Page() {
                     debitis exercitationem ipsa velit neque provident vero.
                 </p>
                 <Image
-                    src="/imgs/blank.png"
+                    src="/images/blank.png"
                     height={732 * 2}
                     width={732 * 2}
                     alt="test"
@@ -29,7 +29,7 @@ function Page() {
                     debitis exercitationem ipsa velit neque provident vero.
                 </p>
                 <Image
-                    src="/imgs/blank.png"
+                    src="/images/blank.png"
                     height={732 * 2}
                     width={732 * 2}
                     alt="test"
@@ -46,7 +46,7 @@ function Page() {
                     debitis exercitationem ipsa velit neque provident vero.
                 </p>
                 <Image
-                    src="/imgs/blank.png"
+                    src="/images/blank.png"
                     height={732 * 2}
                     width={732 * 2}
                     alt="test"

@@ -63,7 +63,7 @@ function Page() {
             </div>
 
             <Image
-                src="/imgs/simple-logo.svg"
+                src="/images/simple-logo.svg"
                 height={375}
                 width={316}
                 alt=""
