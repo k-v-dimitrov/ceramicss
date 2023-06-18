@@ -6,8 +6,9 @@ import {
     type CartLineInput,
     type CartLineGenqlSelection,
     type CartLine as GenqlCartLine,
-} from "../genql/generated";
-import client from "../genql/client";
+    type CartLineUpdateInput,
+} from "@/libs/genql/generated";
+import client from "@/libs/genql/client";
 
 const cartLineFragment = {
     id: true,
@@ -20,6 +21,7 @@ const cartLineFragment = {
     },
     merchandise: {
         on_ProductVariant: {
+            quantityAvailable: true,
             product: {
                 id: true,
                 tags: true,
@@ -74,6 +76,7 @@ function transformCartLine(
             amount: line.cost.amountPerQuantity.amount * line.quantity,
             currencyCode: line.cost.amountPerQuantity.currencyCode,
         },
+        quantityAvailable: line.merchandise.quantityAvailable,
         product: {
             id: line.merchandise.product.id,
             title: line.merchandise.product.title,
@@ -162,5 +165,23 @@ export async function createCartWithLine(line: CartLineInput) {
     return {
         cart: transformCart(cartCreate?.cart!),
         userErrors: cartCreate?.userErrors,
+    };
+}
+
+export async function updateLine(cartId: string, line: CartLineUpdateInput) {
+    const { cartLinesUpdate } = await client.mutation({
+        cartLinesUpdate: {
+            __args: {
+                cartId,
+                lines: [line],
+            },
+            cart: cartFragment,
+            userErrors: userErrorsFragment,
+        },
+    });
+
+    return {
+        cart: transformCart(cartLinesUpdate?.cart!),
+        userErrors: cartLinesUpdate?.userErrors,
     };
 }
