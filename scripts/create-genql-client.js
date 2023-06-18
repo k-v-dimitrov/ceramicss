@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const { generate } = require("@genql/cli");
 
-const outputPath = path.join(__dirname, "..", "src/libs/genql");
+const outputPath = path.join(__dirname, "..", "src/storefront");
 const generatedOutputPath = path.join(outputPath, "generated");
 const generatedClientPath = path.join(outputPath, "client.ts");
 

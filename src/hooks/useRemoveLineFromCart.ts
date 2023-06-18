@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { removeLine } from "@/libs/genql/cart.model";
+import { removeLine } from "@/storefront/cart.model";
 import { toast } from "react-hot-toast";
 
 function useRemoveLineFromCart() {

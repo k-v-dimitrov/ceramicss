@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { type GetStaticPropsContext, type InferGetStaticPropsType } from "next";
 
-import { client } from "@/libs/genql";
+import { client } from "@/storefront";
 
 function Page({ collection }: InferGetStaticPropsType<typeof getStaticProps>) {
     return (

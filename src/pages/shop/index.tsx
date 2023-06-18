@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Fragment } from "react";
 import { type InferGetStaticPropsType } from "next";
 
-import { client } from "@/libs/genql";
+import { client } from "@/storefront";
 
 function Page({ collections }: InferGetStaticPropsType<typeof getStaticProps>) {
     return (

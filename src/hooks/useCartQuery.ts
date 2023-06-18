@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import { useQuery } from "@tanstack/react-query";
 
-import { fetchCart } from "@/libs/genql/cart.model";
+import { fetchCart } from "@/storefront/cart.model";
 
 function useCartQuery() {
     return useQuery({

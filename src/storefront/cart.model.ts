@@ -7,8 +7,8 @@ import {
     type CartLineGenqlSelection,
     type CartLine as GenqlCartLine,
     type CartLineUpdateInput,
-} from "@/libs/genql/generated";
-import client from "@/libs/genql/client";
+} from "@/storefront/generated";
+import client from "@/storefront/client";
 
 const cartLineFragment = {
     id: true,

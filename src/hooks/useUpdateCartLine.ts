@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 
-import { updateLine } from "@/libs/genql/cart.model";
-import { CartLineUpdateInput } from "@/libs/genql/generated";
+import { updateLine } from "@/storefront/cart.model";
+import { CartLineUpdateInput } from "@/storefront/generated";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 function useUpdateCartLine() {

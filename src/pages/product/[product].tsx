@@ -1,6 +1,6 @@
 import { ImageRotator } from "@/components";
 import useAddLineToCart from "@/hooks/useAddLineToCart";
-import { client } from "@/libs/genql";
+import { client } from "@/storefront";
 import clsx from "clsx";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { useState } from "react";

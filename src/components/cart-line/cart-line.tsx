@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import Image from "next/image";
 
-import { type Line } from "@/libs/genql/cart.model";
+import { type Line } from "@/storefront/cart.model";
 import { Close as CloseIcon } from "@/components/vectors";
 import useUpdateCartLine from "@/hooks/useUpdateCartLine";
 import useRemoveLineFromCart from "@/hooks/useRemoveLineFromCart";

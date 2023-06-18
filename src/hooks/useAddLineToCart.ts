@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 
-import { addLine, createCartWithLine } from "../libs/genql/cart.model";
-import { CartLineInput } from "../libs/genql/generated";
+import { addLine, createCartWithLine } from "@/storefront/cart.model";
+import { CartLineInput } from "@/storefront/generated";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
