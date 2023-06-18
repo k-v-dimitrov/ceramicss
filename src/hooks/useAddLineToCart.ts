@@ -27,7 +27,7 @@ function useAddLineToCart() {
         },
         onSuccess(cart) {
             queryClient.setQueryData(["cart-query"], cart);
-            toast.success("Продуктът беше добавен успешно!")
+            toast.success("Продуктът е добавен успешно!")
         },
     });
 }
