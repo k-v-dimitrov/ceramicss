@@ -15,6 +15,11 @@ function useCartQuery() {
 
             const cart = await fetchCart(cartId);
 
+            if (!cart) {
+                Cookies.remove("cart-id");
+                return null;
+            }
+
             return cart;
         },
     });
