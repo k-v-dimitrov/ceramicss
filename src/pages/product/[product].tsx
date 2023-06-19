@@ -1,4 +1,5 @@
 import { ImageRotator } from "@/components";
+import { useToggle } from "@/hooks";
 import useAddLineToCart from "@/hooks/useAddLineToCart";
 import { client } from "@/storefront";
 import clsx from "clsx";
@@ -8,6 +9,8 @@ import { useState } from "react";
 
 function Page({ product }: InferGetStaticPropsType<typeof getStaticProps>) {
     const [quantity, setQuantity] = useState(1);
+    const [isDescriptionExpanded, toggleDescriptionExpansion] = useToggle();
+
     const { mutate, isLoading } = useAddLineToCart();
 
     function handleIncrement() {
@@ -47,11 +50,19 @@ function Page({ product }: InferGetStaticPropsType<typeof getStaticProps>) {
                     ).toFixed(2)}{" "}
                     {product?.variants.nodes[0].priceV2.currencyCode}
                 </h2>
-                <p className="text-[#6A6A6A] line-clamp-3">
+                <p
+                    className={clsx(
+                        "text-[#6A6A6A]",
+                        !isDescriptionExpanded && "line-clamp-3"
+                    )}
+                >
                     {product?.description}
                 </p>
-                <button className="text-primary-500 underline self-start">
-                    Прочети повече
+                <button
+                    className="text-primary-500 underline self-start"
+                    onClick={toggleDescriptionExpansion}
+                >
+                    {isDescriptionExpanded ? "Прочети по-малко" : "Прочети повече"}
                 </button>
             </div>
 
