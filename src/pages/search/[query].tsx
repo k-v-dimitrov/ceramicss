@@ -34,9 +34,7 @@ function Page() {
                                 <div className="h-7 w-1/4 bg-gray-300 rounded-lg animate-pulse" />
                             </div>
 
-                            {index < 3 - 1 && (
-                                <div className="h-[1px] w-full bg-gray-300 rounded-lg animate-pulse mt-4 mb-6" />
-                            )}
+                            <div className="h-[1px] w-full bg-gray-300 rounded-lg animate-pulse my-6" />
                         </Fragment>
                     ))}
                 </>
