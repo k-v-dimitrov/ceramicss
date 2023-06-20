@@ -87,7 +87,9 @@ function Header() {
                 </div>
 
                 <div className="ml-auto lg:ml-0 flex items-center gap-4">
-                    <SearchInput />
+                    <div className="hidden lg:block">
+                        <SearchInput variant="sm" />
+                    </div>
 
                     <div onClick={handleRouteChange}>
                         <CartButton />
@@ -97,7 +99,7 @@ function Header() {
 
             {isSidebarOpen && (
                 <div className="bg-white fixed top-[80px] w-full h-[calc(100%-80px)] p-3 z-10 lg:hidden">
-                    <SearchInput />
+                    <SearchInput onSubmit={handleRouteChange} />
 
                     <div className="flex flex-col mt-4">
                         {links.map((link) => (
