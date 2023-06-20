@@ -1,6 +1,6 @@
 import { ImageRotator } from "@/components";
 import { useToggle } from "@/hooks";
-import useAddLineToCart from "@/hooks/useAddLineToCart";
+import useAddLineToCart from "@/storefront/hooks/useAddLineToCart";
 import { client } from "@/storefront";
 import clsx from "clsx";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";

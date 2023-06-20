@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 
 import Link from "next/link";
-import { useCartQuery } from "@/hooks";
+import { useCartQuery } from "@/storefront/hooks";
 import { CartLine } from "@/components";
 import { NextSeo } from "next-seo";
 

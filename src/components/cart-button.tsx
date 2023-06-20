@@ -1,7 +1,7 @@
 import Link from "next/link";
 
-import { useCartQuery } from "@/hooks";
 import { Cart } from "@/components/vectors";
+import { useCartQuery } from "@/storefront/hooks";
 
 function CartButton() {
     const { data } = useCartQuery();

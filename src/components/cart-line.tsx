@@ -3,8 +3,8 @@ import Image from "next/image";
 
 import { type Line } from "@/storefront/cart.model";
 import { Close as CloseIcon } from "@/components/vectors";
-import useUpdateCartLine from "@/hooks/useUpdateCartLine";
-import useRemoveLineFromCart from "@/hooks/useRemoveLineFromCart";
+import useUpdateCartLine from "@/storefront/hooks/useUpdateCartLine";
+import useRemoveLineFromCart from "@/storefront/hooks/useRemoveLineFromCart";
 import Link from "next/link";
 
 interface Props {

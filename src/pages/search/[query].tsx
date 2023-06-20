@@ -1,7 +1,7 @@
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 
-import useSearchProducts from "@/hooks/useSearchProducts";
+import useSearchProducts from "@/storefront/hooks/useSearchProducts";
 import { Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
