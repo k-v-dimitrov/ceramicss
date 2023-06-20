@@ -88,7 +88,10 @@ function Header() {
 
                 <div className="ml-auto lg:ml-0 flex items-center gap-4">
                     <SearchInput />
-                    <CartButton />
+
+                    <div onClick={handleRouteChange}>
+                        <CartButton />
+                    </div>
                 </div>
             </header>
 
