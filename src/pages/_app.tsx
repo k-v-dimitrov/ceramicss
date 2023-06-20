@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { Header, Footer } from "@/components";
 import { DefaultSeo } from "next-seo";
+import { CookieConsent } from "@/components/cookie-consent";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -47,6 +48,8 @@ function MyApp({ pageProps, Component }: AppProps) {
                 position="bottom-center"
                 toastOptions={{ duration: 3000 }}
             />
+
+            <CookieConsent />
 
             <QueryClientProvider client={queryClient}>
                 <Header />
