@@ -4,8 +4,7 @@ import { useRef } from "react";
 import { usePathname } from "next/navigation";
 
 import { useToggle } from "@/hooks";
-import { CartButton } from "@/components/cart-button";
-import { SearchInput } from "@/components/search-input";
+import { CartButton, SearchInput } from "@/components";
 import { Logo as LogoIcon, Burger as BurgerIcon } from "@/components/vectors";
 
 const links = [

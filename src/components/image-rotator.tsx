@@ -1,9 +1,17 @@
 import { useState, type FC } from "react";
 import Image from "next/image";
 
-import ImageRotatorProps from "./image-rotator.props";
+interface Props {
+    images?: {
+        altText?: string | null | undefined;
+        height?: number | null | undefined;
+        width?: number | null | undefined;
+        id?: string | null | undefined;
+        url: any;
+    }[];
+}
 
-const ImageRotator: FC<ImageRotatorProps> = ({ images }) => {
+const ImageRotator: FC<Props> = ({ images }) => {
     const [currentImage, setCurrentImage] = useState(images?.[0]);
 
     return (

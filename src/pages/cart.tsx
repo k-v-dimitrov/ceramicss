@@ -2,7 +2,7 @@ import { Fragment } from "react";
 
 import Link from "next/link";
 import { useCartQuery } from "@/hooks";
-import { CartLine } from "@/components/cart-line";
+import { CartLine } from "@/components";
 import { NextSeo } from "next-seo";
 
 function Page() {

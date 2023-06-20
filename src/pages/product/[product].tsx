@@ -62,7 +62,9 @@ function Page({ product }: InferGetStaticPropsType<typeof getStaticProps>) {
                     className="text-primary-500 underline self-start"
                     onClick={toggleDescriptionExpansion}
                 >
-                    {isDescriptionExpanded ? "Прочети по-малко" : "Прочети повече"}
+                    {isDescriptionExpanded
+                        ? "Прочети по-малко"
+                        : "Прочети повече"}
                 </button>
             </div>
 

@@ -5,9 +5,8 @@ import { Toaster } from "react-hot-toast";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import { Header, Footer } from "@/components";
+import { Header, Footer, CookieConsent } from "@/components";
 import { DefaultSeo } from "next-seo";
-import { CookieConsent } from "@/components/cookie-consent";
 
 const queryClient = new QueryClient({
     defaultOptions: {
