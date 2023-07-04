@@ -1,4 +1,4 @@
-import { createClient } from "./generated";
+import { createClient } from ".";
 
 const client = createClient({
     url: process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ENDPOINT,

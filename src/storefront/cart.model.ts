@@ -1,70 +1,16 @@
 import {
     type FieldsSelection,
-    type CartGenqlSelection,
-    type Cart as GenqlCart,
-    type CartUserErrorGenqlSelection,
     type CartLineInput,
-    type CartLineGenqlSelection,
-    type CartLine as GenqlCartLine,
+    type Cart as GenqlCart,
     type CartLineUpdateInput,
+    type CartLine as GenqlCartLine,
 } from "@/storefront/generated";
-import client from "@/storefront/client";
-
-const cartLineFragment = {
-    id: true,
-    quantity: true,
-    cost: {
-        amountPerQuantity: {
-            amount: true,
-            currencyCode: true,
-        },
-    },
-    merchandise: {
-        on_ProductVariant: {
-            quantityAvailable: true,
-            product: {
-                id: true,
-                title: true,
-                description: true,
-                productType: true,
-                images: {
-                    __args: {
-                        first: 1,
-                    },
-                    nodes: {
-                        url: true,
-                        height: true,
-                        width: true,
-                        altText: true,
-                    },
-                },
-            },
-        },
-    },
-} satisfies CartLineGenqlSelection;
-
-const cartFragment = {
-    id: true,
-    checkoutUrl: true,
-    cost: {
-        subtotalAmount: {
-            amount: true,
-            currencyCode: true,
-        },
-    },
-    lines: {
-        __args: {
-            first: 100,
-        },
-        nodes: cartLineFragment,
-    },
-} satisfies CartGenqlSelection;
-
-const userErrorsFragment = {
-    message: true,
-    code: true,
-    field: true,
-} satisfies CartUserErrorGenqlSelection;
+import client from "@/storefront/generated/client";
+import {
+    cartFragment,
+    cartLineFragment,
+    userErrorsFragment,
+} from "./fragments";
 
 function transformCartLine(
     line: FieldsSelection<GenqlCartLine, typeof cartLineFragment>
@@ -101,6 +47,8 @@ function transformCart(cart: FieldsSelection<GenqlCart, typeof cartFragment>) {
 }
 
 export type Cart = ReturnType<typeof transformCart>;
+
+// actions
 
 export async function fetchCart(cartId: string) {
     const { cart } = await client.query({
