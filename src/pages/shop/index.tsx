@@ -15,7 +15,7 @@ function Page({ collections }: InferGetStaticPropsType<typeof getStaticProps>) {
                 Магазин
             </h1>
 
-            {collections.map((collection, collectionIndex) => (
+            {collections.filter((collection) => !["Препоръчани"].includes(collection.title)).map((collection, collectionIndex) => (
                 <Fragment key={collection.id}>
                     <Link href={`/shop/${collection.id}`}>
                         <Image
