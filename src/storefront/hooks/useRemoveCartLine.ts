@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { removeLine } from "@/storefront/cart.model";
 import { toast } from "react-hot-toast";
 
-function useRemoveLineFromCart() {
+function useRemoveCartLine() {
     const queryClient = useQueryClient();
 
     return useMutation({
@@ -31,4 +31,4 @@ function useRemoveLineFromCart() {
     });
 }
 
-export default useRemoveLineFromCart;
+export default useRemoveCartLine;

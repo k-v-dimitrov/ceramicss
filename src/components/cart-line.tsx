@@ -4,7 +4,7 @@ import Image from "next/image";
 import { type Line } from "@/storefront/cart.model";
 import { Close as CloseIcon } from "@/components/vectors";
 import useUpdateCartLine from "@/storefront/hooks/useUpdateCartLine";
-import useRemoveLineFromCart from "@/storefront/hooks/useRemoveLineFromCart";
+import useRemoveCartLine from "@/storefront/hooks/useRemoveCartLine";
 import Link from "next/link";
 
 interface Props {
@@ -15,7 +15,7 @@ function CartLine({ line }: Props) {
     const { mutate: updateLine, isLoading: isUpdateLoading } =
         useUpdateCartLine();
     const { mutate: removeLine, isLoading: isRemoveLoading } =
-        useRemoveLineFromCart();
+        useRemoveCartLine();
 
     const isLoading = isUpdateLoading || isRemoveLoading;
 

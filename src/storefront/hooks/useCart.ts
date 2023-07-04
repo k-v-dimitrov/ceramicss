@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { fetchCart } from "@/storefront/cart.model";
 
-function useCartQuery() {
+function useCart() {
     return useQuery({
         queryKey: ["cart-query"],
         async queryFn() {
@@ -25,4 +25,4 @@ function useCartQuery() {
     });
 }
 
-export default useCartQuery;
+export default useCart;

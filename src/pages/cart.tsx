@@ -1,12 +1,12 @@
 import { Fragment } from "react";
 
 import Link from "next/link";
-import { useCartQuery } from "@/storefront/hooks";
+import { useCart} from "@/storefront/hooks";
 import { CartLine } from "@/components";
 import { NextSeo } from "next-seo";
 
 function Page() {
-    const { data, isLoading } = useCartQuery();
+    const { data, isLoading } = useCart();
 
     const hasLines = data?.lines.length! > 0;
 

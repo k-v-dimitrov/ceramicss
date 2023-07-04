@@ -5,7 +5,7 @@ import { CartLineInput } from "@/storefront/generated";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
-function useAddLineToCart() {
+function useAddCartLine() {
     const queryClient = useQueryClient();
 
     return useMutation({
@@ -32,4 +32,4 @@ function useAddLineToCart() {
     });
 }
 
-export default useAddLineToCart;
+export default useAddCartLine;

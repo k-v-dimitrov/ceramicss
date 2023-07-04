@@ -1,6 +1,6 @@
 import { ImageRotator } from "@/components";
 import { useToggle } from "@/hooks";
-import useAddLineToCart from "@/storefront/hooks/useAddLineToCart";
+import useAddCartLine from "@/storefront/hooks/useAddCartLine";
 import { client } from "@/storefront";
 import clsx from "clsx";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
@@ -11,7 +11,7 @@ function Page({ product }: InferGetStaticPropsType<typeof getStaticProps>) {
     const [quantity, setQuantity] = useState(1);
     const [isDescriptionExpanded, toggleDescriptionExpansion] = useToggle();
 
-    const { mutate, isLoading } = useAddLineToCart();
+    const { mutate, isLoading } = useAddCartLine();
 
     function handleIncrement() {
         if (quantity < product?.variants.nodes[0].quantityAvailable!) {
