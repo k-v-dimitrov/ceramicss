@@ -1,8 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import { NextSeo } from "next-seo";
+import { client } from "@/storefront";
+import { InferGetStaticPropsType } from "next";
 
-function Page() {
+function Page({
+    recommendedProducts,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
     return (
         <>
             <NextSeo title="Начало | CeramicsS" />
@@ -24,21 +28,49 @@ function Page() {
                 </Link>
             </section>
 
-            <section className="">
-                <div className="p-6 lg:p-12 flex flex-col items-center">
-                    <div className="flex flex-col">
-                        <h1 className="text-primary-500 text-3xl self-start">
-                            Препоръчани
-                        </h1>
+            <section className="my-6">
+                <h1 className="text-primary-500 text-3xl self-start mb-4">
+                    Препоръчани
+                </h1>
 
-                        <div className="flex flex-col gap-5 lg:flex-row">
-                            {/* {recommendedProducts.map((product) => (
-                                <Product.GridItem
-                                    key={product?.id}
-                                    product={product}
+                <div className="h-[384px] overflow-hidden">
+                    <div className="pb-10 flex overflow-x-auto gap-4 snap-x snap-mandatory">
+                        {recommendedProducts?.nodes.map((product) => (
+                            <Link
+                                key={product.id}
+                                href={`/product/${product.id
+                                    .split("/")
+                                    .at(-1)}`}
+                                className="flex flex-col min-w-[90%] snap-start"
+                            >
+                                <Image
+                                    src={product.images.nodes[0].url}
+                                    alt={product.images.nodes[0].altText || ""}
+                                    height={600}
+                                    width={600}
+                                    className="brightness-95 rounded-lg w-full mb-3"
                                 />
-                            ))} */}
-                        </div>
+
+                                <legend className="capitalize text-[#626262] mb-1">
+                                    {product.productType}
+                                </legend>
+
+                                <div className="flex justify-between">
+                                    <p className="text-primary-500 text-xl font-bold">
+                                        {product.title}
+                                    </p>
+                                    <p className="text-primary-500 text-xl">
+                                        {`${Number.parseFloat(
+                                            product.variants.nodes[0].priceV2
+                                                ?.amount
+                                        ).toFixed(2)} ${
+                                            product.variants.nodes[0].priceV2
+                                                ?.currencyCode
+                                        }`}
+                                    </p>
+                                </div>
+                            </Link>
+                        ))}
                     </div>
                 </div>
             </section>
@@ -75,6 +107,51 @@ function Page() {
             </section>
         </>
     );
+}
+
+export async function getStaticProps() {
+    const { collection } = await client.query({
+        collection: {
+            __args: {
+                handle: "препоръчани",
+            },
+            products: {
+                __args: {
+                    first: 3,
+                },
+                nodes: {
+                    id: true,
+                    title: true,
+                    images: {
+                        __args: {
+                            first: 1,
+                        },
+                        nodes: {
+                            id: true,
+                            url: true,
+                            altText: true,
+                        },
+                    },
+                    productType: true,
+                    variants: {
+                        __args: {
+                            first: 1,
+                        },
+                        nodes: {
+                            priceV2: {
+                                amount: true,
+                                currencyCode: true,
+                            },
+                        },
+                    },
+                },
+            },
+        },
+    });
+
+    return {
+        props: { recommendedProducts: collection?.products },
+    };
 }
 
 export default Page;
