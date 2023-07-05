@@ -87,7 +87,7 @@ function Header() {
 
                 <div className="ml-auto lg:ml-0 flex items-center gap-4">
                     <div className="hidden lg:block">
-                        <SearchInput variant="sm" />
+                        <SearchInput variant="sm" onSubmit={handleRouteChange} />
                     </div>
 
                     <div onClick={handleRouteChange}>

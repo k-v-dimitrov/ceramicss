@@ -15,7 +15,7 @@ function Page({ collection }: InferGetStaticPropsType<typeof getStaticProps>) {
                 {collection?.title}
             </h1>
 
-            <div className="flex flex-col">
+            <div className="grid grid-cols-1 sm:gap-6 sm:grid-cols-2 md:grid-cols-3">
                 {collection?.products.nodes.map((product) => (
                     <Fragment key={product.id}>
                         <Link
@@ -50,7 +50,7 @@ function Page({ collection }: InferGetStaticPropsType<typeof getStaticProps>) {
                             </div>
                         </Link>
 
-                        <hr className="mt-4 mb-6 border-gray-200" />
+                        <hr className="mt-4 mb-6 border-gray-200 sm:hidden" />
                     </Fragment>
                 ))}
             </div>
