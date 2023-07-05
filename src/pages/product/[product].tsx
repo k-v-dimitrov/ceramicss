@@ -37,83 +37,94 @@ function Page({ product }: InferGetStaticPropsType<typeof getStaticProps>) {
                 description={product?.description}
             />
 
-            <ImageRotator images={product?.images.nodes} />
-
-            <div className="flex flex-col gap-2 mt-4">
-                <legend className="text-[#6A6A6A] capitalize">
-                    {product?.productType}
-                </legend>
-                <h1 className="text-2xl text-primary-500">{product?.title}</h1>
-                <h2 className="text-2xl text-[#6A6A6A] my-2">
-                    {Number.parseFloat(
-                        product?.variants.nodes[0].priceV2.amount
-                    ).toFixed(2)}{" "}
-                    {product?.variants.nodes[0].priceV2.currencyCode}
-                </h2>
-                <p
-                    className={clsx(
-                        "text-[#6A6A6A]",
-                        !isDescriptionExpanded && "line-clamp-3"
-                    )}
-                >
-                    {product?.description}
-                </p>
-                <button
-                    className="text-primary-500 underline self-start"
-                    onClick={toggleDescriptionExpansion}
-                >
-                    {isDescriptionExpanded
-                        ? "Прочети по-малко"
-                        : "Прочети повече"}
-                </button>
-            </div>
-
-            <div className="mt-4">
-                {!product?.availableForSale && (
-                    <div className="bg-gray-400 font-bold text-gray-700 w-full text-center h-14 leading-[56px] rounded-lg">
-                        Изчерпано Количество
-                    </div>
-                )}
-
-                {product?.availableForSale && (
-                    <fieldset
-                        className={clsx("flex flex-col gap-2 relative", {
-                            "after:absolute after:w-full after:h-full after:opacity-70 after:bg-white after:animate-pulse":
-                                isLoading,
-                        })}
-                        disabled={isLoading}
-                    >
-                        <div className="flex justify-between border-primary-500 text-primary-500 rounded-lg h-14 items-center border-2">
-                            <button
-                                className="h-full w-14 flex justify-center items-center text-xl"
-                                onClick={handleDecrement}
-                            >
-                                -
-                            </button>
-
-                            <div>{quantity}</div>
-
-                            <button
-                                className="h-full w-14 flex justify-center items-center text-xl"
-                                onClick={handleIncrement}
-                            >
-                                +
-                            </button>
-                        </div>
-
-                        <button
-                            className="bg-primary-500 text-white w-full text-center h-14 rounded-lg"
-                            onClick={() =>
-                                mutate({
-                                    quantity,
-                                    merchandiseId: product.variants.nodes[0].id,
-                                })
-                            }
+            <div className="flex flex-col md:flex-row md:gap-8 md:mx-auto md:max-w-4xl">
+                <div className="md:max-w-[50%]">
+                    <ImageRotator images={product?.images.nodes} />
+                </div>
+                <div>
+                    <div className="flex flex-col gap-2 mt-4">
+                        <legend className="text-[#6A6A6A] capitalize">
+                            {product?.productType}
+                        </legend>
+                        <h1 className="text-2xl text-primary-500">
+                            {product?.title}
+                        </h1>
+                        <h2 className="text-2xl text-[#6A6A6A] my-2">
+                            {Number.parseFloat(
+                                product?.variants.nodes[0].priceV2.amount
+                            ).toFixed(2)}{" "}
+                            {product?.variants.nodes[0].priceV2.currencyCode}
+                        </h2>
+                        <p
+                            className={clsx(
+                                "text-[#6A6A6A]",
+                                !isDescriptionExpanded && "line-clamp-3"
+                            )}
                         >
-                            Добави в Количката
+                            {product?.description}
+                        </p>
+                        <button
+                            className="text-primary-500 underline self-start"
+                            onClick={toggleDescriptionExpansion}
+                        >
+                            {isDescriptionExpanded
+                                ? "Прочети по-малко"
+                                : "Прочети повече"}
                         </button>
-                    </fieldset>
-                )}
+                    </div>
+
+                    <div className="mt-4">
+                        {!product?.availableForSale && (
+                            <div className="bg-gray-400 font-bold text-gray-700 w-full text-center h-14 leading-[56px] rounded-lg">
+                                Изчерпано Количество
+                            </div>
+                        )}
+
+                        {product?.availableForSale && (
+                            <fieldset
+                                className={clsx(
+                                    "flex flex-col gap-2 relative",
+                                    {
+                                        "after:absolute after:w-full after:h-full after:opacity-70 after:bg-white after:animate-pulse":
+                                            isLoading,
+                                    }
+                                )}
+                                disabled={isLoading}
+                            >
+                                <div className="flex justify-between border-primary-500 text-primary-500 rounded-lg h-14 items-center border-2">
+                                    <button
+                                        className="h-full w-14 flex justify-center items-center text-xl"
+                                        onClick={handleDecrement}
+                                    >
+                                        -
+                                    </button>
+
+                                    <div>{quantity}</div>
+
+                                    <button
+                                        className="h-full w-14 flex justify-center items-center text-xl"
+                                        onClick={handleIncrement}
+                                    >
+                                        +
+                                    </button>
+                                </div>
+
+                                <button
+                                    className="bg-primary-500 text-white w-full text-center h-14 rounded-lg"
+                                    onClick={() =>
+                                        mutate({
+                                            quantity,
+                                            merchandiseId:
+                                                product.variants.nodes[0].id,
+                                        })
+                                    }
+                                >
+                                    Добави в Количката
+                                </button>
+                            </fieldset>
+                        )}
+                    </div>
+                </div>
             </div>
         </>
     );
