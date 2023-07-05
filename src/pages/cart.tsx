@@ -1,7 +1,5 @@
-import { Fragment } from "react";
-
 import Link from "next/link";
-import { useCart} from "@/storefront/hooks";
+import { useCart } from "@/storefront/hooks";
 import { CartLine } from "@/components";
 import { NextSeo } from "next-seo";
 
@@ -14,25 +12,7 @@ function Page() {
         <>
             <NextSeo title="Количка | CeramicsS" noindex />
 
-            {isLoading && (
-                <>
-                    <div className="h-8 w-28 bg-gray-200 rounded-lg animate-pulse mb-4"></div>
-                    <div className="h-[88px] w-full bg-gray-200 rounded-lg animate-pulse mb-4"></div>
-
-                    <div className="flex flex-col gap-4">
-                        {[1, 2].map((line) => (
-                            <Fragment key={line}>
-                                <div className="flex gap-2">
-                                    <div className="h-[88px] min-w-[88px] bg-gray-200 rounded-lg animate-pulse"></div>
-                                    <div className="h-[88px] w-full bg-gray-200 rounded-lg animate-pulse"></div>
-                                </div>
-
-                                <div className="h-[1px] w-full bg-gray-200 my-3"></div>
-                            </Fragment>
-                        ))}
-                    </div>
-                </>
-            )}
+            {isLoading && <span className="my-10">Зареждане...</span>}
 
             {!hasLines && !isLoading && (
                 <div className="pb-10 pt-9">
@@ -69,26 +49,28 @@ function Page() {
                         Количка
                     </h1>
 
-                    <div className="bg-gray-200 rounded-md flex justify-between items-center py-4 px-4 mb-3">
-                        <div className="font-bold">
-                            <p>Общо:</p>
-                            <p>{`${Number.parseFloat(data?.cost.amount).toFixed(
-                                2
-                            )} ${data?.cost.currencyCode}`}</p>
+                    <div className="flex flex-col md:flex-row-reverse md:gap-6">
+                        <div className="bg-gray-200 rounded-md flex justify-between items-center py-4 px-4 mb-3 md:w-full md:self-start">
+                            <div className="font-bold">
+                                <p>Общо:</p>
+                                <p>{`${Number.parseFloat(
+                                    data?.cost.amount
+                                ).toFixed(2)} ${data?.cost.currencyCode}`}</p>
+                            </div>
+
+                            <Link
+                                href={data?.url}
+                                className="bg-primary-500 rounded-md text-white px-6 py-4"
+                            >
+                                Продължи
+                            </Link>
                         </div>
 
-                        <Link
-                            href={data?.url}
-                            className="bg-primary-500 rounded-md text-white px-6 py-4"
-                        >
-                            Продължи
-                        </Link>
-                    </div>
-
-                    <div className="flex flex-col gap-3">
-                        {data?.lines.map((line) => (
-                            <CartLine key={line.id} line={line} />
-                        ))}
+                        <div className="flex flex-col gap-3 w-full">
+                            {data?.lines.map((line) => (
+                                <CartLine key={line.id} line={line} />
+                            ))}
+                        </div>
                     </div>
                 </>
             )}
