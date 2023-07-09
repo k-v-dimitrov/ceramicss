@@ -70,7 +70,7 @@ function CartLine({ line }: Props) {
                             className="p-3 translate-x-2 -translate-y-2 self-start"
                             onClick={() => removeLine(line.id)}
                         >
-                            <CloseIcon className="h-3" />
+                            <CloseIcon className="h-3 fill-[#6A6A6A]" />
                         </button>
                     </div>
 
