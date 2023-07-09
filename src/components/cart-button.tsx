@@ -30,7 +30,7 @@ function CartButton() {
                 <CartIcon className="h-6 fill-primary" />
             </button>
 
-            <Transition appear show={isCartOpen}>
+            <Transition show={isCartOpen}>
                 <Dialog onClose={toggleCart}>
                     <Transition.Child
                         as={Fragment}
@@ -46,27 +46,30 @@ function CartButton() {
 
                     <Transition.Child
                         as={Fragment}
-                        enter="transition ease-out duration-200"
-                        enterFrom="opacity-0 translate-x-2"
-                        enterTo="opacity-100 translate-x-0"
-                        leave="transition ease-in duration-150"
-                        leaveFrom="opacity-100 translate-x-0"
-                        leaveTo="opacity-0 translate-x-2"
+                        enter="transition-all ease-in-out duration-400"
+                        enterFrom="translate-x-full"
+                        enterTo="translate-x-0"
+                        leave="transition-all ease-in-out duration-200"
+                        leaveFrom="translate-x-0"
+                        leaveTo="translate-x-full"
                     >
-                        <Dialog.Panel className="fixed shadow overflow-y-auto bg-white top-0 right-0 left-8 bottom-0 z-20 p-3">
-                            <button
-                                className="absolute top-5 right-4"
-                                onClick={toggleCart}
-                            >
-                                <CloseIcon className="fill-primary-500 h-4" />
-                            </button>
+                        <Dialog.Panel className="fixed bg-white top-0 left-0 right-0 bottom-0 w-full h-full flex flex-col z-20 p-4 md:w-[480px] md:left-auto">
+                            <div className="flex justify-between items-center mb-4">
+                                <h1 className="text-2xl text-primary-500 font-bold">
+                                    Количка
+                                </h1>
 
-                            {/* {!hasLines && !isLoading && (
-                                <>
+                                <button onClick={toggleCart}>
+                                    <CloseIcon className="fill-primary-500 h-4" />
+                                </button>
+                            </div>
+
+                            {!hasLines && !isLoading && (
+                                <div className="h-full flex flex-col justify-center">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 581 390"
-                                        className="h-56 w-2/3 mx-auto mb-4 fill-primary-500"
+                                        className="w-[40%] mb-6 mx-auto fill-primary-500"
                                     >
                                         <path d="M542 1H39C18 1 1 18 1 39v48c0 20 17 37 37 38l31 220c3 25 24 43 49 43h345c25 0 46-18 49-43l19-136c1-7-4-13-11-14v-1c-8-1-16 5-17 13l-19 134c-1 11-10 19-21 19H118c-11 0-20-8-21-19L67 125h475c21 0 38-17 38-38V39c0-21-17-38-38-38zm10 86c0 5-5 10-10 10H39c-5 0-10-5-10-10V39c0-6 5-10 10-10h503c5 0 10 4 10 10v48z" />
                                         <path d="M280 188v101a14 14 0 0 0 28 0V188a14 14 0 0 0-28 0zm-110 0v101a14 14 0 0 0 28 0V188a14 14 0 0 0-28 0zm214 0v101a14 14 0 0 0 28 0V188a14 14 0 0 0-28 0z" />
@@ -88,44 +91,44 @@ function CartButton() {
                                             Към магазина
                                         </Link>
                                     </div>
-                                </>
-                            )} */}
+                                </div>
+                            )}
 
                             {hasLines && !isLoading && (
-                                <>
-                                    <h1 className="mb-2 text-2xl text-primary-500 font-bold">
-                                        Количка
-                                    </h1>
-
-                                    <div className="flex flex-col">
-                                        <div className="bg-gray-200 rounded-md flex justify-between items-center py-4 px-4 mb-3">
-                                            <div className="font-bold">
-                                                <p>Общо:</p>
-                                                <p>{`${Number.parseFloat(
-                                                    data?.cost.amount
-                                                ).toFixed(2)} ${
-                                                    data?.cost.currencyCode
-                                                }`}</p>
-                                            </div>
-
-                                            <Link
-                                                href={data?.url}
-                                                className="bg-primary-500 rounded-md text-white px-6 py-4"
-                                            >
-                                                Продължи
-                                            </Link>
-                                        </div>
-
-                                        <div className="flex flex-col gap-3 w-full">
+                                <div className="flex flex-col h-full justify-between gap-4 overflow-hidden">
+                                    <div className="flex-grow overflow-auto">
+                                        <div className="flex flex-col gap-6">
                                             {data?.lines.map((line) => (
-                                                <CartLine
-                                                    key={line.id}
-                                                    line={line}
-                                                />
+                                                <>
+                                                    <CartLine
+                                                        key={line.id}
+                                                        line={line}
+                                                    />
+
+                                                    <hr />
+                                                </>
                                             ))}
                                         </div>
                                     </div>
-                                </>
+
+                                    <div className="bg-gray-200 rounded-md flex justify-between items-center py-4 px-4">
+                                        <div className="font-bold">
+                                            <p>Общо:</p>
+                                            <p>{`${Number.parseFloat(
+                                                data?.cost.amount
+                                            ).toFixed(2)} ${
+                                                data?.cost.currencyCode
+                                            }`}</p>
+                                        </div>
+
+                                        <Link
+                                            href={data?.url}
+                                            className="bg-primary-500 rounded-md text-white px-6 py-4"
+                                        >
+                                            Продължи
+                                        </Link>
+                                    </div>
+                                </div>
                             )}
                         </Dialog.Panel>
                     </Transition.Child>
