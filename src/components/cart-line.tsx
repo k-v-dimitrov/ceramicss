@@ -38,15 +38,14 @@ function CartLine({ line }: Props) {
     };
 
     return (
-        <>
-            <div
-                className={clsx(
-                    "flex gap-2 relative",
-                    isLoading &&
-                        "after:absolute after:w-full after:h-full after:opacity-70 after:bg-white after:animate-pulse"
-                )}
-                key={Math.random()}
-            >
+        <div
+            className={clsx(
+                "flex flex-col gap-4 relative",
+                isLoading &&
+                    "after:absolute after:w-full after:h-full after:opacity-70 after:bg-white after:animate-pulse"
+            )}
+        >
+            <div className="flex gap-2 relative" key={Math.random()}>
                 <Image
                     src={line.product.thumbnail.url}
                     alt={line.product.thumbnail.alt || ""}
@@ -58,7 +57,11 @@ function CartLine({ line }: Props) {
 
                 <div className="flex flex-col justify-between w-full">
                     <div className="flex justify-between">
-                        <Link href={`/product/${line.product.id.split("/").at(-1)}`}>
+                        <Link
+                            href={`/product/${line.product.id
+                                .split("/")
+                                .at(-1)}`}
+                        >
                             <legend className="text-[#6A6A6A] text-sm capitalize">
                                 {line.product.type}
                             </legend>
@@ -66,12 +69,6 @@ function CartLine({ line }: Props) {
                                 {line.product.title}
                             </p>
                         </Link>
-                        <button
-                            className="p-3 translate-x-2 -translate-y-2 self-start"
-                            onClick={() => removeLine(line.id)}
-                        >
-                            <CloseIcon className="h-3 fill-[#6A6A6A]" />
-                        </button>
                     </div>
 
                     <div>
@@ -80,27 +77,39 @@ function CartLine({ line }: Props) {
                                 line.cost.currencyCode
                             }`}
                         </p>
-                        <div className="self-end ml-8 inline">
-                            <button
-                                className="text-sm text-white bg-primary-500 h-5 w-5 rounded-full leading-none"
-                                onClick={handleQuantityDecrement}
-                            >
-                                -
-                            </button>
-                            <span className="mx-4">{line.quantity}</span>
-                            <button
-                                className="text-sm text-white bg-primary-500 h-5 w-5 rounded-full leading-none"
-                                onClick={handleQuantityIncrement}
-                            >
-                                +
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>
 
-            <hr className="my-3 border-gray-200" />
-        </>
+            <div className="flex w-full gap-2">
+                <button
+                    className="border-2 border-primary-500 rounded-lg h-10 w-10 flex justify-center items-center"
+                    onClick={() => removeLine(line.id)}
+                >
+                    <CloseIcon className="h-2 fill-primary-500" />
+                </button>
+
+                <div className="flex border-2 h-10 border-primary-500 rounded-lg">
+                    <button
+                        className="text-primary-500 h-full w-10 flex justify-center items-center text-lg"
+                        onClick={handleQuantityDecrement}
+                    >
+                        -
+                    </button>
+
+                    <div className="h-full w-10 flex justify-center items-center text-sm text-primary-500">
+                        {line.quantity}
+                    </div>
+
+                    <button
+                        className="text-primary-500 h-full w-10 flex justify-center items-center text-lg"
+                        onClick={handleQuantityIncrement}
+                    >
+                        +
+                    </button>
+                </div>
+            </div>
+        </div>
     );
 }
 
