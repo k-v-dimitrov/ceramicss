@@ -60,7 +60,7 @@ function CartButton() {
                                 </h1>
 
                                 <button onClick={toggleCart}>
-                                    <CloseIcon className="fill-primary-500 h-4" />
+                                    <CloseIcon className="fill-primary-500 h-5" />
                                 </button>
                             </div>
 
