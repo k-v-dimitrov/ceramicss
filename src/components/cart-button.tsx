@@ -46,7 +46,7 @@ function CartButton() {
 
                     <Transition.Child
                         as={Fragment}
-                        enter="transition-all ease-in-out duration-400"
+                        enter="transition-all ease-in-out duration-300"
                         enterFrom="translate-x-full"
                         enterTo="translate-x-0"
                         leave="transition-all ease-in-out duration-200"
