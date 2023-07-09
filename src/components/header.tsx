@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { usePathname } from "next/navigation";
 
 import { useToggle } from "@/hooks";
-import { CartButton, SearchInput } from "@/components";
+import { CartButton, Portal, SearchInput } from "@/components";
 import { Logo as LogoIcon, Burger as BurgerIcon } from "@/components/vectors";
 
 const links = [
@@ -65,7 +65,7 @@ function Header() {
     return (
         <>
             <header className="bg-white shadow flex items-center gap-4 h-[var(--header-height)] w-full p-4 z-20 sticky top-0 lg:justify-between">
-                <button onClick={toggleSidebar} className="lg:hidden">
+                <button onClick={handleToggle} className="lg:hidden">
                     <BurgerIcon className="w-9 h-8" />
                 </button>
 
@@ -100,29 +100,31 @@ function Header() {
             </header>
 
             {isSidebarOpen && (
-                <div className="bg-white fixed top-[80px] w-full h-[calc(100%-80px)] p-3 z-10 lg:hidden">
-                    <SearchInput onSubmit={handleRouteChange} />
+                <Portal>
+                    <div className="bg-white fixed top-[80px] w-full h-[calc(100%-80px)] z-10 p-3 lg:hidden">
+                        <SearchInput onSubmit={handleRouteChange} />
 
-                    <div className="flex flex-col mt-4">
-                        {links.map((link) => (
-                            <Link
-                                key={link.label}
-                                href={link.pathname}
-                                onClick={handleRouteChange}
-                                className={clsx(
-                                    "text-lg text-primary-500 py-4 rounded-xl pl-4 font-bold",
-                                    {
-                                        "bg-[#EAEAEA]": link.pattern.test(
-                                            pathname!
-                                        ),
-                                    }
-                                )}
-                            >
-                                {link.label}
-                            </Link>
-                        ))}
+                        <div className="flex flex-col mt-4">
+                            {links.map((link) => (
+                                <Link
+                                    key={link.label}
+                                    href={link.pathname}
+                                    onClick={handleRouteChange}
+                                    className={clsx(
+                                        "text-lg text-primary-500 py-4 rounded-xl pl-4 font-bold",
+                                        {
+                                            "bg-[#EAEAEA]": link.pattern.test(
+                                                pathname!
+                                            ),
+                                        }
+                                    )}
+                                >
+                                    {link.label}
+                                </Link>
+                            ))}
+                        </div>
                     </div>
-                </div>
+                </Portal>
             )}
         </>
     );
