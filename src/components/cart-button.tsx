@@ -34,17 +34,29 @@ function CartButton() {
                 <Dialog onClose={toggleCart}>
                     <Transition.Child
                         as={Fragment}
-                        enter="ease-out duration-200"
-                        enterFrom="opacity-0 scale-95"
-                        enterTo="opacity-100 scale-100"
+                        enter="ease-out duration-300"
+                        enterFrom="opacity-0"
+                        enterTo="opacity-100"
                         leave="ease-in duration-200"
-                        leaveFrom="opacity-100 scale-100"
-                        leaveTo="opacity-0 scale-95"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 overflow-y-auto top-[var(--header-height)] bg-white p-3">
+                        <div className="fixed inset-0 bg-black bg-opacity-25" />
+                    </Transition.Child>
+
+                    <Transition.Child
+                        as={Fragment}
+                        enter="transition ease-out duration-200"
+                        enterFrom="opacity-0 translate-x-2"
+                        enterTo="opacity-100 translate-x-0"
+                        leave="transition ease-in duration-150"
+                        leaveFrom="opacity-100 translate-x-0"
+                        leaveTo="opacity-0 translate-x-2"
+                    >
+                        <div className="fixed overflow-y-auto top-[var(--header-height)] right-0 bottom-0 bg-white p-3 w-[95%] md:w-[480px]">
                             <Dialog.Panel>
                                 {!hasLines && !isLoading && (
-                                    <div className="pb-10 pt-9">
+                                    <>
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 581 390"
@@ -70,7 +82,7 @@ function CartButton() {
                                                 Към магазина
                                             </Link>
                                         </div>
-                                    </div>
+                                    </>
                                 )}
 
                                 {hasLines && !isLoading && (
@@ -79,8 +91,8 @@ function CartButton() {
                                             Количка
                                         </h1>
 
-                                        <div className="flex flex-col md:flex-row-reverse md:gap-6">
-                                            <div className="bg-gray-200 rounded-md flex justify-between items-center py-4 px-4 mb-3 md:w-full md:self-start">
+                                        <div className="flex flex-col">
+                                            <div className="bg-gray-200 rounded-md flex justify-between items-center py-4 px-4 mb-3">
                                                 <div className="font-bold">
                                                     <p>Общо:</p>
                                                     <p>{`${Number.parseFloat(
