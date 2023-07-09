@@ -19,7 +19,9 @@ function SearchInput({ variant = "lg", onSubmit }: Props) {
     function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
-        onSubmit();
+        if (onSubmit) {
+            onSubmit();
+        }
 
         // @ts-expect-error
         const query = e?.target.query.value;
