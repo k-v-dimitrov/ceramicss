@@ -99,14 +99,11 @@ function CartButton() {
                                     <div className="flex-grow overflow-auto">
                                         <div className="flex flex-col gap-6">
                                             {data?.lines.map((line) => (
-                                                <>
-                                                    <CartLine
-                                                        key={line.id}
-                                                        line={line}
-                                                    />
+                                                <Fragment key={line.id}>
+                                                    <CartLine line={line} />
 
                                                     <hr />
-                                                </>
+                                                </Fragment>
                                             ))}
                                         </div>
                                     </div>
