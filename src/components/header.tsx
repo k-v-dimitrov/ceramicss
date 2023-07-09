@@ -64,8 +64,8 @@ function Header() {
 
     return (
         <>
-            <header className="bg-white shadow flex p-4 items-center gap-4 z-20 fixed w-full lg:justify-between max-h-[80px]">
-                <button onClick={handleToggle} className="lg:hidden">
+            <header className="bg-white shadow flex items-center gap-4 h-[var(--header-height)] w-full p-4 z-20 sticky top-0 lg:justify-between">
+                <button onClick={toggleSidebar} className="lg:hidden">
                     <BurgerIcon className="w-9 h-8" />
                 </button>
 
@@ -87,7 +87,10 @@ function Header() {
 
                 <div className="ml-auto lg:ml-0 flex items-center gap-4">
                     <div className="hidden lg:block">
-                        <SearchInput variant="sm" onSubmit={handleRouteChange} />
+                        <SearchInput
+                            variant="sm"
+                            onSubmit={handleRouteChange}
+                        />
                     </div>
 
                     <div onClick={handleRouteChange}>

@@ -52,7 +52,7 @@ function MyApp({ pageProps, Component }: AppProps) {
 
             <QueryClientProvider client={queryClient}>
                 <Header />
-                <main className="p-3 pb-4 pt-[calc(var(--header-height)+16px)] min-h-[calc(100vh-var(--footer-height))]">
+                <main className="p-3">
                     <Component {...pageProps} />
                 </main>
                 <Footer />
