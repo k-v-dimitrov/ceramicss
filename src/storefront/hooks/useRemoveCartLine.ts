@@ -2,7 +2,6 @@ import Cookies from "js-cookie";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { removeLine } from "@/storefront/cart.model";
-import { toast } from "react-hot-toast";
 
 function useRemoveCartLine() {
     const queryClient = useQueryClient();
@@ -26,7 +25,6 @@ function useRemoveCartLine() {
             }
 
             queryClient.setQueryData(["cart-query"], cart);
-            toast.success("Продуктът е премахнат успешно!");
         },
     });
 }
