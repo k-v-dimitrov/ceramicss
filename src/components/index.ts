@@ -4,4 +4,5 @@ export { default as CookieConsent } from "./cookie-consent";
 export { default as Footer } from "./footer";
 export { default as Header } from "./header";
 export { default as ImageRotator } from "./image-rotator";
+export { default as Portal } from "./portal";
 export { default as SearchInput } from "./search-input";

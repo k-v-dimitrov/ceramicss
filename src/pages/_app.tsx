@@ -52,6 +52,7 @@ function MyApp({ pageProps, Component }: AppProps) {
 
             <QueryClientProvider client={queryClient}>
                 <Header />
+                <div id="portal"></div>
                 <main className="p-3">
                     <Component {...pageProps} />
                 </main>
