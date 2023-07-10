@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import Link from "next/link";
 
 import { useToggle } from "@/hooks";
@@ -7,12 +7,20 @@ import { useCart } from "@/storefront/hooks";
 
 import CartLine from "./cart-line";
 import { Dialog, Transition } from "@headlessui/react";
+import { useRouter } from "next/router";
 
 function CartButton() {
     const { data, isLoading } = useCart();
     const [isCartOpen, toggleCart] = useToggle();
+    const { asPath } = useRouter();
 
     const hasLines = data?.lines.length! > 0;
+
+    useEffect(() => {
+        if (isCartOpen) {
+            toggleCart();
+        }
+    }, [asPath]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <>

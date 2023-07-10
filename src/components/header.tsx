@@ -10,7 +10,8 @@ import {
     Close as CloseIcon,
 } from "@/components/vectors";
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
+import { useRouter } from "next/router";
 
 const links = [
     { label: "Начало", pathname: "/", pattern: /^\/$/ },
@@ -26,6 +27,13 @@ const links = [
 function Header() {
     const pathname = usePathname();
     const [isSidebarOpen, toggleSidebar] = useToggle();
+    const { asPath } = useRouter();
+
+    useEffect(() => {
+        if (isSidebarOpen) {
+            toggleSidebar();
+        }
+    }, [asPath]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <>
