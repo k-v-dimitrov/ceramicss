@@ -1,8 +1,0 @@
-mutation AddLine($cartId: ID!, $lines: [CartLineInput!]!) {
-    cartLinesAdd(cartId: $cartId, lines: $lines) {
-        userErrors {
-            code
-            message
-        }
-    }
-}

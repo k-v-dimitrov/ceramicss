@@ -1,7 +1,0 @@
-query GetCollections {
-    collections(first: 50) {
-        nodes {
-            ...coreCollection
-        }
-    }
-}

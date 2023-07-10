@@ -1,186 +1,149 @@
-import { GetStaticPropsContext, type NextPage } from "next";
-import { NextSeo } from "next-seo";
 import Link from "next/link";
 import Image from "next/image";
+import { NextSeo } from "next-seo";
+import { client } from "@/storefront";
+import { InferGetStaticPropsType } from "next";
 
-import Modal from "react-modal";
-
-import { Storefront, type ProductType } from "@/services";
-
-import { Header, Footer, Product, Button } from "@/components";
-import { COVER_IMAGE, rebuildShopifyProductId } from "@/utils";
-
-import { getRecommendedProductIds } from "@/constants/recommended-products.constants";
-import { useEffect, useState } from "react";
-
-// ~~~~ DELETE
-const password = "YE48ce2c9MNDLMD";
-const PassProtect = ({ onUnlock }: { onUnlock: () => void }) => {
-    const [input, setInput] = useState("");
-
-    const handlePasswordSubmit = () => {
-        if (input === password) {
-            onUnlock();
-        }
-    };
-
+function Page({
+    recommendedProducts,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
     return (
-        <Modal
-            isOpen
-            className="bg-black bg-opacity-50 h-full outline-none flex flex-col justify-center items-center gap-3"
-            ariaHideApp={false}
-        >
-            <h1 className="text-white">CeramicsS е заключен!</h1>
-
-            <input
-                type="password"
-                onChange={(e) => {
-                    setInput(e.target.value);
-                }}
-            />
-
-            <Button onClick={handlePasswordSubmit}>Влез</Button>
-        </Modal>
-    );
-};
-
-const lockedOn = "ceramicss";
-
-// ~~~~ /DELETE
-
-interface HomeProps {
-    recommendedProducts: ProductType[];
-}
-
-const Home: NextPage<HomeProps> = ({ recommendedProducts }) => {
-    // ~~~~ DELETE
-    const [isLocked, setLocked] = useState(true);
-
-    useEffect(() => {
-        setLocked(document.location.href.includes(lockedOn));
-    }, []);
-
-    if (isLocked) {
-        return <PassProtect onUnlock={() => setLocked(false)} />;
-    }
-    // ~~~~ /DELETE
-
-    return (
-        <div className="container m-auto">
-            <NextSeo
-                title="CeramicsS"
-                description="
-                    CeramicsS е вашият магазин за красиви ръчно изработени керамични изделия. Нашите продукти се изработват с любов и грижа, гарантирайки уникалността и високото качество на всеки един артикул. CeramicsS се фокусира върху устойчивото и етично производство. Разгледайте нашата колекция днес и си донесете допълнително изкуство и елегантност. Не просто магазин за красиви керамични изделия!
-                "
-                openGraph={{
-                    url: "https://ceramicss.eu",
-                    title: "CeramicsS - Онлайн магазин за керамични изделия",
-                    description:
-                        "CeramicsS е вашият магазин за красиви ръчно изработени керамични изделия. Нашите продукти се изработват с любов и грижа, гарантирайки уникалността и високото качество на всеки един артикул. CeramicsS се фокусира върху устойчивото и етично производство. Разгледайте нашата колекция днес и си донесете допълнително изкуство и елегантност. Не просто магазин за красиви керамични изделия!",
-                    images: [
-                        {
-                            url: COVER_IMAGE,
-                            width: 1200,
-                            height: 630,
-                            alt: "CeramicsS landing",
-                            type: "image/webp",
-                        },
-                    ],
-                    siteName: "CeramicsS",
-                }}
-            />
-
-            <Header />
+        <>
+            <NextSeo title="Начало | CeramicsS" />
 
             <section className="flex flex-col relative bg-center h-[80vh]">
                 <Image
-                    src={COVER_IMAGE}
+                    src="/images/landing/cover-11.webp"
                     height={1980}
                     width={940}
                     alt=""
                     className="w-full h-full object-cover rounded-lg"
+                    priority
                 />
                 <Link
                     className="py-4 px-6 bg-[#FFF] text-primary-500 font-semibold rounded-3xl hover:cursor-pointer absolute top-3/4 left-1/2 -translate-x-2/4"
-                    href="/collections"
+                    href="/shop"
                 >
                     Виж повече
                 </Link>
             </section>
 
-            <section className="">
-                <div className="p-6 lg:p-12 flex flex-col items-center">
-                    <div className="flex flex-col">
-                        <h1 className="text-primary-500 text-3xl self-start">
-                            Препоръчани
-                        </h1>
+            <section className="my-8 md:my-10">
+                <h1 className="text-primary-500 text-3xl self-start mb-4">
+                    Препоръчани
+                </h1>
 
-                        <div className="flex flex-col gap-5 lg:flex-row">
-                            {recommendedProducts.map((product) => (
-                                <Product.GridItem
-                                    key={product?.id}
-                                    product={product}
-                                />
-                            ))}
-                        </div>
-                    </div>
+                <div className="flex overflow-x-auto gap-4 snap-x snap-mandatory">
+                    {recommendedProducts?.nodes.map((product) => (
+                        <Link
+                            key={product.id}
+                            href={`/product/${product.id.split("/").at(-1)}`}
+                            className="flex flex-col min-w-[90%] sm:min-w-[60%] md:min-w-[40%] snap-start"
+                        >
+                            <Image
+                                src={product.images.nodes[0].url}
+                                alt={product.images.nodes[0].altText || ""}
+                                height={600}
+                                width={600}
+                                className="brightness-95 rounded-lg w-full mb-3"
+                            />
+
+                            <legend className="capitalize text-[#626262] md:text-sm mb-1">
+                                {product.productType}
+                            </legend>
+
+                            <div className="flex justify-between">
+                                <p className="text-primary-500 text-xl md:text-lg font-bold">
+                                    {product.title}
+                                </p>
+                                <p className="text-primary-500 text-xl md:text-lg">
+                                    {`${Number.parseFloat(
+                                        product.variants.nodes[0].priceV2
+                                            ?.amount
+                                    ).toFixed(2)} ${
+                                        product.variants.nodes[0].priceV2
+                                            ?.currencyCode
+                                    }`}
+                                </p>
+                            </div>
+                        </Link>
+                    ))}
                 </div>
             </section>
 
-            <section className="flex justify-center bg-[#EAEAEA]">
+            <section>
                 <Link href="/about">
-                    <div className="p-12 flex flex-col items-center">
-                        <div className="flex flex-col gap-5">
-                            <h1 className="text-primary-500 text-3xl self-start">
-                                Екип
-                            </h1>
+                    <h1 className="text-primary-500 text-3xl self-start mb-4">
+                        Екип
+                    </h1>
 
-                            <div className="flex flex-col gap-10 lg:flex-row">
-                                <Image
-                                    priority
-                                    src="/imgs/front-team-1.webp"
-                                    height={391}
-                                    width={638}
-                                    alt="Team photo first"
-                                    className="object-scale-down rounded-lg"
-                                />
+                    <div className="flex flex-col gap-4 md:flex-row">
+                        <Image
+                            priority
+                            src="/images/front-team-1.webp"
+                            height={391}
+                            width={638}
+                            alt="Team photo first"
+                            className="rounded-lg w-full"
+                        />
 
-                                <Image
-                                    src="/imgs/front-team-2.webp"
-                                    height={391}
-                                    width={638}
-                                    alt="Team photo first"
-                                    className="object-scale-down rounded-lg"
-                                />
-                            </div>
-                        </div>
+                        <Image
+                            src="/images/front-team-2.webp"
+                            height={391}
+                            width={638}
+                            alt="Team photo first"
+                            className="rounded-lg w-full"
+                        />
                     </div>
                 </Link>
             </section>
-
-            <Footer />
-        </div>
+        </>
     );
-};
-
-export default Home;
-
-export async function getStaticProps(context: GetStaticPropsContext) {
-    try {
-        const recommendedProductIds = getRecommendedProductIds();
-
-        const recommendedProducts = await Promise.all(
-            recommendedProductIds.map((id) => {
-                return Storefront.products.get(rebuildShopifyProductId(id));
-            })
-        );
-
-        return {
-            props: {
-                recommendedProducts,
-            },
-        };
-    } catch (err) {
-        console.error(err);
-    }
 }
+
+export async function getStaticProps() {
+    const { collection } = await client.query({
+        collection: {
+            __args: {
+                handle: "препоръчани",
+            },
+            products: {
+                __args: {
+                    first: 3,
+                },
+                nodes: {
+                    id: true,
+                    title: true,
+                    images: {
+                        __args: {
+                            first: 1,
+                        },
+                        nodes: {
+                            id: true,
+                            url: true,
+                            altText: true,
+                        },
+                    },
+                    productType: true,
+                    variants: {
+                        __args: {
+                            first: 1,
+                        },
+                        nodes: {
+                            priceV2: {
+                                amount: true,
+                                currencyCode: true,
+                            },
+                        },
+                    },
+                },
+            },
+        },
+    });
+
+    return {
+        props: { recommendedProducts: collection?.products },
+    };
+}
+
+export default Page;

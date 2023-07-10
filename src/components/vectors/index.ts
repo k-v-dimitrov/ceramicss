@@ -1,0 +1,9 @@
+export { default as Logo } from "./logo";
+export { default as Burger } from "./burger";
+export { default as Cart } from "./cart";
+export { default as Magnifier } from "./magnifier";
+export { default as Facebook } from "./facebook";
+export { default as Instagram } from "./instagram";
+export { default as Close } from "./close";
+export { default as Phone } from "./phone";
+export { default as Mail } from "./mail";

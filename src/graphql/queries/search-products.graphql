@@ -1,7 +1,0 @@
-query SearchProducts($query: String!) {
-    products(first: 20, query: $query) {
-        nodes {
-            ...coreProduct
-        }
-    }
-}
