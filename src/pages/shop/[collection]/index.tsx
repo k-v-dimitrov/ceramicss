@@ -11,48 +11,52 @@ function Page({ collection }: InferGetStaticPropsType<typeof getStaticProps>) {
         <>
             <NextSeo title={`${collection?.title} | CeramicsS`} />
 
-            <h1 className="mb-2 text-2xl text-primary-500 font-bold">
-                {collection?.title}
-            </h1>
+            <div className="py-3">
+                <h1 className="mb-4 text-2xl text-primary-500 font-bold">
+                    {collection?.title}
+                </h1>
 
-            <div className="grid grid-cols-1 sm:gap-6 sm:grid-cols-2 md:grid-cols-3">
-                {collection?.products.nodes.map((product) => (
-                    <Fragment key={product.id}>
-                        <Link
-                            href={`/product/${product.id.split("/").at(-1)}`}
-                            className="flex flex-col"
-                        >
-                            <Image
-                                src={product.images.nodes[0].url}
-                                alt={product.images.nodes[0].altText || ""}
-                                height={600}
-                                width={600}
-                                className="brightness-95 rounded-lg w-full mb-3"
-                            />
+                <div className="grid grid-cols-1 sm:gap-6 sm:grid-cols-2 md:grid-cols-3">
+                    {collection?.products.nodes.map((product) => (
+                        <Fragment key={product.id}>
+                            <Link
+                                href={`/product/${product.id
+                                    .split("/")
+                                    .at(-1)}`}
+                                className="flex flex-col"
+                            >
+                                <Image
+                                    src={product.images.nodes[0].url}
+                                    alt={product.images.nodes[0].altText || ""}
+                                    height={600}
+                                    width={600}
+                                    className="brightness-95 rounded-lg w-full mb-3"
+                                />
 
-                            <legend className="capitalize text-[#626262] mb-1">
-                                {product.productType}
-                            </legend>
+                                <legend className="capitalize text-[#626262] text-sm mb-1">
+                                    {product.productType}
+                                </legend>
 
-                            <div className="flex justify-between">
-                                <p className="text-primary-500 text-xl font-bold">
-                                    {product.title}
-                                </p>
-                                <p className="text-primary-500 text-xl">
-                                    {`${Number.parseFloat(
-                                        product.variants.nodes[0].priceV2
-                                            ?.amount
-                                    ).toFixed(2)} ${
-                                        product.variants.nodes[0].priceV2
-                                            ?.currencyCode
-                                    }`}
-                                </p>
-                            </div>
-                        </Link>
+                                <div className="flex justify-between">
+                                    <p className="text-primary-500 text-xl md:text-lg font-bold">
+                                        {product.title}
+                                    </p>
+                                    <p className="text-primary-500 text-xl md:text-lg">
+                                        {`${Number.parseFloat(
+                                            product.variants.nodes[0].priceV2
+                                                ?.amount
+                                        ).toFixed(2)} ${
+                                            product.variants.nodes[0].priceV2
+                                                ?.currencyCode
+                                        }`}
+                                    </p>
+                                </div>
+                            </Link>
 
-                        <hr className="mt-4 mb-6 border-gray-200 sm:hidden" />
-                    </Fragment>
-                ))}
+                            <hr className="mt-4 mb-6 border-gray-200 sm:hidden" />
+                        </Fragment>
+                    ))}
+                </div>
             </div>
         </>
     );

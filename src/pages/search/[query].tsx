@@ -49,8 +49,8 @@ function Page() {
             )}
 
             {hasProducts && !isLoading && (
-                <>
-                    <h1 className="mb-2 text-2xl text-primary-500 font-bold">
+                <div className="py-3">
+                    <h1 className="mb-4 text-2xl text-primary-500 font-bold">
                         Резултати за &quot;{router.query.query}&quot;
                     </h1>
 
@@ -74,15 +74,15 @@ function Page() {
                                         className="brightness-95 rounded-lg w-full mb-3"
                                     />
 
-                                    <legend className="capitalize text-[#626262] mb-1">
+                                    <legend className="capitalize text-[#626262] md:text-sm mb-1">
                                         {product.productType}
                                     </legend>
 
                                     <div className="flex justify-between">
-                                        <p className="text-primary-500 text-xl font-bold">
+                                        <p className="text-primary-500 text-xl md:text-lg font-bold">
                                             {product.title}
                                         </p>
-                                        <p className="text-primary-500 text-xl">
+                                        <p className="text-primary-500 text-xl md:text-lg">
                                             {`${Number.parseFloat(
                                                 product.variants.nodes[0]
                                                     .priceV2?.amount
@@ -98,7 +98,7 @@ function Page() {
                             </Fragment>
                         ))}
                     </div>
-                </>
+                </div>
             )}
         </>
     );
