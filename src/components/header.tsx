@@ -14,7 +14,6 @@ import { Fragment, useEffect } from "react";
 import { useRouter } from "next/router";
 
 const links = [
-    { label: "Начало", pathname: "/", pattern: /^\/$/ },
     {
         label: "Магазин",
         pathname: "/shop",
@@ -37,34 +36,36 @@ function Header() {
 
     return (
         <>
-            <header className="bg-white shadow flex items-center gap-4 z-20 h-[var(--header-height)] w-full p-4 sticky top-0 lg:justify-between">
-                <button onClick={toggleSidebar} className="lg:hidden">
-                    <BurgerIcon className="w-9 h-8" />
-                </button>
+            <header className="bg-white shadow">
+                <div className=" flex items-center gap-4 z-20 h-[var(--header-height)] w-full p-4 sticky top-0 lg:p-0 lg:justify-between max-w-4xl mx-auto">
+                    <button onClick={toggleSidebar} className="lg:hidden">
+                        <BurgerIcon className="w-9 h-8" />
+                    </button>
 
-                <Link href="/">
-                    <LogoIcon className="h-9" />
-                </Link>
+                    <Link href="/">
+                        <LogoIcon className="h-9" />
+                    </Link>
 
-                <div className="hidden lg:flex gap-16">
-                    {links.map((link) => (
-                        <Link
-                            key={link.label}
-                            href={link.pathname}
-                            className="text-primary-500 rounded-xl font-bold"
-                        >
-                            {link.label}
-                        </Link>
-                    ))}
-                </div>
-
-                <div className="ml-auto lg:ml-0 flex items-center gap-4">
-                    <div className="hidden lg:block">
-                        <SearchInput variant="sm" />
+                    <div className="hidden lg:flex gap-16">
+                        {links.map((link) => (
+                            <Link
+                                key={link.label}
+                                href={link.pathname}
+                                className="text-primary-500 font-bold"
+                            >
+                                {link.label}
+                            </Link>
+                        ))}
                     </div>
 
-                    <div>
-                        <CartButton />
+                    <div className="ml-auto lg:ml-0 flex items-center gap-4">
+                        <div className="hidden lg:block">
+                            <SearchInput variant="sm" />
+                        </div>
+
+                        <div>
+                            <CartButton />
+                        </div>
                     </div>
                 </div>
             </header>
@@ -97,10 +98,12 @@ function Header() {
                     >
                         <Dialog.Panel className="bg-white fixed inset-0 z-50 p-3 lg:hidden">
                             <div className="flex justify-between items-center mb-6 mt-4 mx-3">
-                                <LogoIcon className="h-9" />
+                                <Link href="/">
+                                    <LogoIcon className="h-9" />
+                                </Link>
 
                                 <button onClick={toggleSidebar}>
-                                    <CloseIcon className="h-6 fill-primary-500" />
+                                    <CloseIcon className="h-5 fill-primary-500" />
                                 </button>
                             </div>
 
