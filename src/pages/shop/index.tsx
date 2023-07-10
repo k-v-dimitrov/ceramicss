@@ -11,39 +11,37 @@ function Page({ collections }: InferGetStaticPropsType<typeof getStaticProps>) {
         <>
             <NextSeo title="Магазин | CeramicsS" />
 
-            <div className="py-3">
-                <h1 className="mb-4 text-2xl text-primary-500 font-bold">
-                    Магазин
-                </h1>
+            <h1 className="mb-4 text-2xl text-primary-500 font-bold">
+                Магазин
+            </h1>
 
-                <div className="grid grid-cols-1 sm:gap-6 sm:grid-cols-2 md:grid-cols-3">
-                    {collections
-                        .filter(
-                            (collection) =>
-                                !["Препоръчани"].includes(collection.title)
-                        )
-                        .map((collection, idx) => (
-                            <Fragment key={collection.id}>
-                                <Link href={`/shop/${collection.id}`}>
-                                    <Image
-                                        src={collection.image?.url}
-                                        alt={collection.image?.altText || ""}
-                                        height={600}
-                                        width={600}
-                                        className="brightness-95 rounded-lg w-full mb-4"
-                                    />
+            <div className="grid grid-cols-1 sm:gap-6 sm:grid-cols-2 md:grid-cols-3">
+                {collections
+                    .filter(
+                        (collection) =>
+                            !["Препоръчани"].includes(collection.title)
+                    )
+                    .map((collection, idx) => (
+                        <Fragment key={collection.id}>
+                            <Link href={`/shop/${collection.id}`}>
+                                <Image
+                                    src={collection.image?.url}
+                                    alt={collection.image?.altText || ""}
+                                    height={600}
+                                    width={600}
+                                    className="brightness-95 rounded-lg w-full mb-4"
+                                />
 
-                                    <p className="text-2xl sm:text-lg text-primary-500 text-center">
-                                        {collection.title}
-                                    </p>
-                                </Link>
+                                <p className="text-2xl sm:text-lg text-primary-500 text-center">
+                                    {collection.title}
+                                </p>
+                            </Link>
 
-                                {idx < collections.length - 1 && (
-                                    <hr className="mt-4 mb-7 border-gray-200 sm:hidden" />
-                                )}
-                            </Fragment>
-                        ))}
-                </div>
+                            {idx < collections.length - 1 && (
+                                <hr className="mt-4 mb-7 border-gray-200 sm:hidden" />
+                            )}
+                        </Fragment>
+                    ))}
             </div>
         </>
     );

@@ -49,7 +49,7 @@ function Page() {
             )}
 
             {hasProducts && !isLoading && (
-                <div className="py-3">
+                <>
                     <h1 className="mb-4 text-2xl text-primary-500 font-bold">
                         Резултати за &quot;{router.query.query}&quot;
                     </h1>
@@ -98,7 +98,7 @@ function Page() {
                             </Fragment>
                         ))}
                     </div>
-                </div>
+                </>
             )}
         </>
     );

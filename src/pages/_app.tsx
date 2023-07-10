@@ -52,7 +52,7 @@ function MyApp({ pageProps, Component }: AppProps) {
 
             <QueryClientProvider client={queryClient}>
                 <Header />
-                <main className="p-3 lg:px-0 max-w-4xl mx-auto">
+                <main className="p-3 md:py-5 lg:px-0 max-w-4xl mx-auto">
                     <Component {...pageProps} />
                 </main>
                 <Footer />
