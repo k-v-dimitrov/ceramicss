@@ -22,7 +22,7 @@ function Page({
                 />
                 <Link
                     className="py-4 px-6 bg-[#FFF] text-primary-500 font-semibold rounded-3xl hover:cursor-pointer absolute top-3/4 left-1/2 -translate-x-2/4"
-                    href="/collections"
+                    href="/shop"
                 >
                     Виж повече
                 </Link>
