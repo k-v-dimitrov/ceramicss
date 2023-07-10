@@ -37,11 +37,11 @@ function Page({ product }: InferGetStaticPropsType<typeof getStaticProps>) {
                 description={product?.description}
             />
 
-            <div className="flex flex-col md:flex-row md:gap-8 md:mx-auto md:max-w-4xl">
-                <div className="md:max-w-[50%]">
+            <div className="flex flex-col md:flex-row md:gap-8">
+                <div className="md:w-[324px] md:min-w-[324px]">
                     <ImageRotator images={product?.images.nodes} />
                 </div>
-                <div>
+                <div className="md:flex-grow">
                     <div className="flex flex-col gap-2 mt-4">
                         <legend className="text-[#6A6A6A] capitalize">
                             {product?.productType}
@@ -83,7 +83,7 @@ function Page({ product }: InferGetStaticPropsType<typeof getStaticProps>) {
                         {product?.availableForSale && (
                             <fieldset
                                 className={clsx(
-                                    "flex flex-col gap-2 relative",
+                                    "flex flex-col gap-2 relative md:max-w-[384px]",
                                     {
                                         "after:absolute after:w-full after:h-full after:opacity-70 after:bg-white after:animate-pulse":
                                             isLoading,
