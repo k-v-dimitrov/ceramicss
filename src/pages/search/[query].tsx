@@ -22,7 +22,7 @@ function Page() {
 
             {isLoading && (
                 <>
-                    <div className="h-8 w-1/2 bg-gray-300 rounded-lg animate-pulse mb-3" />
+                    <div className="h-8 w-1/2 bg-gray-300 rounded-lg animate-pulse mb-4" />
 
                     <div className="grid grid-cols-1 sm:gap-6 sm:grid-cols-2 md:grid-cols-3">
                         {[...Array(3)].map((_, index) => (
